@@ -1,12 +1,11 @@
 .img-thumbnail {
     margin: 25px;
-    width: 85%;
-    height: 85%;
+    width: 50%;
+    height: 50%;
 }
 
 .card-info-user {
     width: 500px;
-    height: 15px;
 }
 .card-label-info-user {
     width: 200px;

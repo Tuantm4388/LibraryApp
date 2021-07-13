@@ -1,81 +1,81 @@
 <div class="row">
     <div class="col-8">
-        <div class="row">
-            <tabset class="member-tabset">
-                <tr>
-                    <th style="width: 40%"></th>
-                    <th style="width: 20%"></th>
-                    <th style="width: 40%"></th>
-                </tr>
-                <tr>
-                    <td><p>User Name</p></td>
-                    <td><p></p></td>
-                    <td>
-                        <div class="card">
-                            <p class="card-info-user ">{{member.knownAs}}</p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>Email</p></td>
-                    <td><p></p></td>
-                    <td>
-                        <div class="card">
-                            <p class="card-info-user">librarymanagementsystem@gmail.com</p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p class="card-label-info-user">Identity Number</p></td>
-                    <td><p></p></td>
-                    <td>
-                        <div class="card">
-                            <p class="card-info-user">{{member.id}}</p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>Phone Number</p></td>
-                    <td><p></p></td>
-                    <td> <div class="card">
-                        <p class="card-info-user"></p>
-                    </div></td>
-                </tr>
-                <tr>
-                    <td><p>Address</p></td>
-                    <td><p></p></td>
-                    <td>
-                        <div class="card">
-                            <p class="card-info-user">{{member.city}}</p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>Create Time</p></td>
-                    <td><p></p></td>
-                    <td>
-                        <div class="card">
-                            <p class="card-info-user">{{member.created|date: 'dd MMM yyyy'}}</p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>Charge Fine</p></td>
-                    <td><p></p></td>
-                    <td>
-                        <div class="card">
-                            <p class="card-info-user">0</p>
-                        </div>
-                    </td>
-                </tr>
-                
-
-            </tabset>
-        </div>
+        <fieldset>
+            <h1 class="form-label mt-4" for="readOnlyInput">Personal Profile</h1>
+            <button type="button" class="btn btn-outline-primary btn-lg btn-block">View borrow history</button>
+            <p></p>
+        </fieldset>
     </div>
-    <div class="col">
-        <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}"
-                class="card-img-top img-thumbnail">
-        
+</div>
+<div class="row">
+    <div class="col-8">
+        <tabset class="member-tabset">
+            <tr>
+                <th style="width: 40%"></th>
+                <th style="width: 20%"></th>
+                <th style="width: 40%"></th>
+            </tr>
+            <tr>
+                <td><p>User Name</p></td>
+                <td><p></p></td>
+                <td>
+                    <input class="form-control" id="readOnlyInput" type="text" placeholder="{{member.knownAs}}" readonly="">
+                </td>
+            </tr>
+            <tr>
+                <td><p>Email</p></td>
+                <td><p></p></td>
+                <td>
+                    <input class="form-control card-info-user" id="readOnlyInput" type="text" placeholder="librarymanagementsystem@gmail.com" readonly="">
+                </td>
+            </tr>
+            <tr>
+                <td><p class="card-label-info-user">Identity Number</p></td>
+                <td><p></p></td>
+                <td>
+                    <input class="form-control" id="readOnlyInput" type="text" placeholder="{{member.id}}" readonly="">
+                </td>
+            </tr>
+            <tr>
+                <td><p>Phone Number</p></td>
+                <td><p></p></td>
+                <td> <div class="card">
+                    <input class="form-control" id="readOnlyInput" type="text" placeholder="{{member.city}}" readonly="">
+                </div></td>
+            </tr>
+            <tr>
+                <td><p>Address</p></td>
+                <td><p></p></td>
+                <td>
+                    <input class="form-control" id="readOnlyInput" type="text" placeholder="{{member.city}}" readonly="">
+                </td>
+            </tr>
+            <tr>
+                <td><p>Create Time</p></td>
+                <td><p></p></td>
+                <td>
+                    <input class="form-control" id="readOnlyInput" type="text" placeholder="{{member.created|date: 'dd MMM yyyy'}}" readonly="">
+                </td>
+            </tr>
+            <tr>
+                <td><p>Charge Fine</p></td>
+                <td><p></p></td>
+                <td>
+                    <input class="form-control" id="readOnlyInput" type="text" placeholder="0" readonly="">
+                </td>
+            </tr>
+            <tr>
+                <td><p></p></td>
+                <td><p></p></td>
+                <td>
+                    <button class="btn btn-info btn-lg mr-5">Back to Main menu</button>
+                    <button class="btn btn-danger btn-lg">Change Password</button>
+                </td>
+            </tr>
+        </tabset>
+    </div>
+    <div class="form-group text-center">
+        <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}" class="card-img-top img-thumbnail">
+        <button type="button" class="btn btn-outline-secondary">Change Photo</button>
     </div>
 </div>
