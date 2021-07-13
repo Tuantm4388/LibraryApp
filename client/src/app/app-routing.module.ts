@@ -16,6 +16,7 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { AdminGuard } from './_guards/admin.guard';
 // library management system
 import { LibMemberDetailComponent } from './libsystem/lib-members/lib-member-detail/lib-member-detail.component';
+import { LibMemberPhotoEditComponent } from './libsystem/lib-members/lib-member-photo-edit/lib-member-photo-edit.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path: 'errors', component: TestErrorsComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},
+  {path: 'photo-user-edit', component: LibMemberPhotoEditComponent},
   {path: '**', component: NotFoundComponent, pathMatch: 'full'},
 ];
 
