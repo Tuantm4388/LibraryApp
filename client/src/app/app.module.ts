@@ -32,6 +32,8 @@ import { HasRoleDirective } from './_directives/has-role.directive';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
+// library management system
+import { LibNavComponent } from './libsystem/lib-nav/lib-nav.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
     HasRoleDirective,
     UserManagementComponent,
     PhotoManagementComponent,
-    RolesModalComponent
+    RolesModalComponent,
+    LibNavComponent
   ],
   imports: [
     BrowserModule,
