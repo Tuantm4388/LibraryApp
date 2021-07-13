@@ -1,0 +1,13 @@
+.img-thumbnail {
+    margin: 25px;
+    width: 85%;
+    height: 85%;
+}
+
+.card-info-user {
+    width: 500px;
+    height: 15px;
+}
+.card-label-info-user {
+    width: 200px;
+}

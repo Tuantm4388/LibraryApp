@@ -14,6 +14,8 @@ import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.gu
 import { MemberDetailedResolver } from './_resolvers/member-detailed.resolver';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { AdminGuard } from './_guards/admin.guard';
+// library management system
+import { LibMemberDetailComponent } from './libsystem/lib-members/lib-member-detail/lib-member-detail.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -23,7 +25,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {path: 'members', component: MemberListComponent},
-      {path: 'members/:username', component: MemberDetailComponent, resolve: {member: MemberDetailedResolver}},
+      //{path: 'members/:username', component: MemberDetailComponent, resolve: {member: MemberDetailedResolver}},
+      {path: 'members/:username', component: LibMemberDetailComponent, resolve: {member: MemberDetailedResolver}},
       {path: 'member/edit', component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard]},
       {path: 'lists', component: ListsComponent},
       {path: 'messages', component: MessagesComponent},

@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col-8">
+        <div class="row">
+            <tabset class="member-tabset">
+                <tr>
+                    <th style="width: 40%"></th>
+                    <th style="width: 20%"></th>
+                    <th style="width: 40%"></th>
+                </tr>
+                <tr>
+                    <td><p>User Name</p></td>
+                    <td><p></p></td>
+                    <td>
+                        <div class="card">
+                            <p class="card-info-user ">{{member.knownAs}}</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><p>Email</p></td>
+                    <td><p></p></td>
+                    <td>
+                        <div class="card">
+                            <p class="card-info-user">librarymanagementsystem@gmail.com</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><p class="card-label-info-user">Identity Number</p></td>
+                    <td><p></p></td>
+                    <td>
+                        <div class="card">
+                            <p class="card-info-user">{{member.id}}</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><p>Phone Number</p></td>
+                    <td><p></p></td>
+                    <td> <div class="card">
+                        <p class="card-info-user"></p>
+                    </div></td>
+                </tr>
+                <tr>
+                    <td><p>Address</p></td>
+                    <td><p></p></td>
+                    <td>
+                        <div class="card">
+                            <p class="card-info-user">{{member.city}}</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><p>Create Time</p></td>
+                    <td><p></p></td>
+                    <td>
+                        <div class="card">
+                            <p class="card-info-user">{{member.created|date: 'dd MMM yyyy'}}</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><p>Charge Fine</p></td>
+                    <td><p></p></td>
+                    <td>
+                        <div class="card">
+                            <p class="card-info-user">0</p>
+                        </div>
+                    </td>
+                </tr>
+                
+
+            </tabset>
+        </div>
+    </div>
+    <div class="col">
+        <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}"
+                class="card-img-top img-thumbnail">
+        
+    </div>
+</div>

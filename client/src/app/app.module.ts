@@ -34,6 +34,7 @@ import { PhotoManagementComponent } from './admin/photo-management/photo-managem
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 // library management system
 import { LibNavComponent } from './libsystem/lib-nav/lib-nav.component';
+import { LibMemberDetailComponent } from './libsystem/lib-members/lib-member-detail/lib-member-detail.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { LibNavComponent } from './libsystem/lib-nav/lib-nav.component';
     UserManagementComponent,
     PhotoManagementComponent,
     RolesModalComponent,
-    LibNavComponent
+    LibNavComponent,
+    LibMemberDetailComponent
   ],
   imports: [
     BrowserModule,
