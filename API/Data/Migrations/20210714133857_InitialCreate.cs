@@ -51,7 +51,11 @@ namespace API.Data.Migrations
                     LookingFor = table.Column<string>(type: "TEXT", nullable: true),
                     Interests = table.Column<string>(type: "TEXT", nullable: true),
                     City = table.Column<string>(type: "TEXT", nullable: true),
-                    Country = table.Column<string>(type: "TEXT", nullable: true)
+                    Country = table.Column<string>(type: "TEXT", nullable: true),
+                    Emailuser = table.Column<string>(type: "TEXT", nullable: true),
+                    Idcard = table.Column<string>(type: "TEXT", nullable: true),
+                    Phone = table.Column<string>(type: "TEXT", nullable: true),
+                    Address = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

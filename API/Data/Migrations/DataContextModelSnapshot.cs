@@ -52,6 +52,9 @@ namespace API.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Address")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("City")
                         .HasColumnType("TEXT");
 
@@ -75,7 +78,13 @@ namespace API.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Emailuser")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Gender")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Idcard")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Interests")
@@ -108,6 +117,9 @@ namespace API.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")

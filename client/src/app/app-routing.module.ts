@@ -17,6 +17,7 @@ import { AdminGuard } from './_guards/admin.guard';
 // library management system
 import { LibMemberDetailComponent } from './libsystem/lib-members/lib-member-detail/lib-member-detail.component';
 import { LibMemberPhotoEditComponent } from './libsystem/lib-members/lib-member-photo-edit/lib-member-photo-edit.component';
+import { LibUserRegisterComponent } from './libsystem/lib-members/lib-user-register/lib-user-register.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -34,6 +35,7 @@ const routes: Routes = [
       {path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard]},
     ]
   },
+  {path: 'member/register', component: LibUserRegisterComponent},
   {path: 'errors', component: TestErrorsComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},

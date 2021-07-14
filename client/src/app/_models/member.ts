@@ -14,6 +14,10 @@ export interface Member {
     interests: string;
     city: string;
     country: string;
+    emailuser: string;
+    idcard: string;
+    phone: string;
+    address: string;
     photos: Photo[];
   }
   
