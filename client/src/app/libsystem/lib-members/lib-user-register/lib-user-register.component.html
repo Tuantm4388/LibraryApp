@@ -61,7 +61,7 @@
                 Create Time
             </label>
             <label class="control-label reg-input">
-                <input class="form-control" id="readOnlyInput" type="text" placeholder="{{createDate|date:'MM/dd/yyyy'}}" readonly="">
+                <input class="form-control" id="readOnlyInput" type="text" placeholder="{{createDate|date:'dd/MM/yyyy'}}" readonly="">
             </label>
         </div>
 
@@ -74,8 +74,8 @@
         </div>
 
         <div class="form-group text-center">
-            <button [disabled]='!registerForm.valid' class="btn btn-primary mr-2" type="submit">Register</button>
-            <button class="btn btn-secondary mr-2" routerLink="/" type="button">Cancel</button>
+            <button [disabled]='!registerForm.valid' class="btn btn-primary mr-5" type="submit">Save</button>
+            <button class="btn btn-secondary mr" routerLink="/" type="button">Cancel</button>
         </div>
     </form>
 </div>

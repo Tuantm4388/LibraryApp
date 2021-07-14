@@ -37,6 +37,7 @@ import { LibNavComponent } from './libsystem/lib-nav/lib-nav.component';
 import { LibMemberDetailComponent } from './libsystem/lib-members/lib-member-detail/lib-member-detail.component';
 import { LibMemberPhotoEditComponent } from './libsystem/lib-members/lib-member-photo-edit/lib-member-photo-edit.component';
 import { LibUserRegisterComponent } from './libsystem/lib-members/lib-user-register/lib-user-register.component';
+import { LibUserEditComponent } from './libsystem/lib-members/lib-user-edit/lib-user-edit.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { LibUserRegisterComponent } from './libsystem/lib-members/lib-user-regis
     LibNavComponent,
     LibMemberDetailComponent,
     LibMemberPhotoEditComponent,
-    LibUserRegisterComponent
+    LibUserRegisterComponent,
+    LibUserEditComponent
   ],
   imports: [
     BrowserModule,

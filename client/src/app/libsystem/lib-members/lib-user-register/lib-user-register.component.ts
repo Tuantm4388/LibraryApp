@@ -40,25 +40,13 @@ export class LibUserRegisterComponent implements OnInit {
     })
   }
 
-  matchValues(matchTo: string): ValidatorFn {
-    return (control: AbstractControl) => {
-      return control?.value === control?.parent?.controls[matchTo].value
-        ? null : { isMatching: true }
-    }
-  }
-
   register() {
-    
     this.accountService.register(this.registerForm.value).subscribe(response => {
       this.toastr.success('Add user successfully');
       this.router.navigateByUrl('/');
     }, error => {
       this.validationErrors = error;
     })
-  }
-
-  cancel() {
-    this.cancelRegister.emit(false);
   }
 
 }

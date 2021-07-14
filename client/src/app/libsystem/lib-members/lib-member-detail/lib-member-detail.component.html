@@ -54,7 +54,7 @@
                 <td><p>Create Time</p></td>
                 <td><p></p></td>
                 <td>
-                    <input class="form-control" id="readOnlyInput" type="text" placeholder="{{member.created|date:'MM/dd/yyyy'}}" readonly="">
+                    <input class="form-control" id="readOnlyInput" type="text" placeholder="{{member.created|date:'dd/MM/yyyy'}}" readonly="">
                 </td>
             </tr>
             <tr>
@@ -77,6 +77,5 @@
     <div class="col text-center">
         <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}" class="card-img-top img-thumbnail">
         <button type="button" class="btn btn-outline-secondary" routerLink='/photo-user-edit'>Change Photo</button>
-        
     </div>
 </div>
