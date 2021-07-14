@@ -50,7 +50,8 @@ export class LibUserRegisterComponent implements OnInit {
   register() {
     
     this.accountService.register(this.registerForm.value).subscribe(response => {
-      this.router.navigateByUrl('/members');
+      this.toastr.success('Add user successfully');
+      this.router.navigateByUrl('/');
     }, error => {
       this.validationErrors = error;
     })
