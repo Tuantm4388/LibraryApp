@@ -16,6 +16,7 @@ export class LibUserRegisterComponent implements OnInit {
   registerForm: FormGroup;
   maxDate: Date;
   validationErrors: string[] = [];
+  createDate:Date;
 
   constructor(private accountService: AccountService, private toastr: ToastrService,
     private fb: FormBuilder, private router: Router) { }
@@ -24,19 +25,18 @@ export class LibUserRegisterComponent implements OnInit {
     this.intitializeForm();
     this.maxDate = new Date();
     this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
+    this.createDate = new Date();
   }
 
   intitializeForm() {
     this.registerForm = this.fb.group({
-      gender: ['male'],
       username: ['', Validators.required],
-      knownAs: ['', Validators.required],
-      dateOfBirth: ['', Validators.required],
-      city: ['', Validators.required],
-      country: ['', Validators.required],
+      emailuser: ['', Validators.required],
+      idcard: ['', Validators.required],
+      phone: ['', Validators.required],
+      address: ['', Validators.required],
       password: ['', [Validators.required,
-      Validators.minLength(4), Validators.maxLength(8)]],
-      confirmPassword: ['']
+      Validators.minLength(4), Validators.maxLength(8)]]
     })
   }
 

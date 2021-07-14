@@ -1,84 +1,69 @@
 <div class="row justify-content-center">
     <form [formGroup]='registerForm' (ngSubmit)="registerForm.valid && register()" autocomplete="off">
-        <h2 class="text-center text-primary">Sign up</h2>
-        <hr>
-
-        <div class="form-group">
-            <label class="control-label" style="margin-right: 10px;">I am a: </label>
-            <label class="radio-inline">
-                <input type="radio" value='male' formControlName='gender'> Male
-            </label>
-            <label class="radio-inline">
-                <input type="radio" value='female' formControlName='gender' class="ml-3"> Female
-            </label>
-        </div>
-
+        <h2 >Create New User</h2>
         <div class="form-group">
             <label class="control-label reg-label" style="margin-right: 10px;">
                 <label>User Name</label>
                 <label class="text-danger">*</label>
             </label>
             <label class="control-label reg-input">
-                <app-text-input [formControl]='registerForm.controls["username"]' [label]='"Username"'></app-text-input>
+                <app-text-input [formControl]='registerForm.controls["username"]'></app-text-input>
             </label>
         </div>
         <div class="form-group">
             <label class="control-label reg-label" style="margin-right: 10px;">
-                <label>Known As</label>
+                <label>Password</label>
                 <label class="text-danger">*</label>
             </label>
             <label class="control-label reg-input">
-                <app-text-input [formControl]='registerForm.controls["knownAs"]' [label]='"Known As"'></app-text-input>
-            </label>
-        </div>
-        <div class="form-group">
-            <label class="control-label reg-label" style="margin-right: 10px;">
-                <label>Date</label>
-                <label class="text-danger">*</label>
-            </label>
-            <label class="control-label reg-input">
-                <app-date-input [formControl]='registerForm.controls["dateOfBirth"]' [label]='"Date Of Birth"'
-                [maxDate]='maxDate'></app-date-input>
-            </label>
-        </div>
-        <div class="form-group">
-            <label class="control-label reg-label" style="margin-right: 10px;">
-                <label>City</label>
-                <label class="text-danger">*</label>
-            </label>
-            <label class="control-label reg-input">
-                <app-text-input [formControl]='registerForm.controls["city"]' [label]='"City"'></app-text-input>
-            </label>
-        </div>
-        <div class="form-group">
-            <label class="control-label reg-label" style="margin-right: 10px;">
-                <label>Country</label>
-                <label class="text-danger">*</label>
-            </label>
-            <label class="control-label reg-input">
-                <app-text-input [formControl]='registerForm.controls["country"]' [label]='"Country"'></app-text-input>
-            </label>
-        </div>
-        <div class="form-group">
-            <label class="control-label reg-label" style="margin-right: 10px;">
-                <label>Pass</label>
-                <label class="text-danger">*</label>
-            </label>
-            <label class="control-label reg-input">
-                <app-text-input [formControl]='registerForm.controls["password"]' [label]='"Password"' [type]='"password"'>
+                <app-text-input [formControl]='registerForm.controls["password"]' [type]='"password"'>
                 </app-text-input>
             </label>
         </div>
-       <!-- <div class="form-group">
+        <div class="form-group">
             <label class="control-label reg-label" style="margin-right: 10px;">
-                <label>Confirm</label>
+                <label>Email</label>
                 <label class="text-danger">*</label>
             </label>
             <label class="control-label reg-input">
-                <app-text-input [formControl]='registerForm.controls["confirmPassword"]' [label]='"Confirm Password"'
-                [type]='"password"'></app-text-input>
+                <app-text-input [formControl]='registerForm.controls["emailuser"]'></app-text-input>
             </label>
-        </div> -->
+        </div>
+        <div class="form-group">
+            <label class="control-label reg-label" style="margin-right: 10px;">
+                <label>Identity Number</label>
+                <label class="text-danger">*</label>
+            </label>
+            <label class="control-label reg-input">
+                <app-text-input [formControl]='registerForm.controls["idcard"]'></app-text-input>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="control-label reg-label" style="margin-right: 10px;">
+                <label>Phone Number</label>
+                <label class="text-danger">*</label>
+            </label>
+            <label class="control-label reg-input">
+                <app-text-input [formControl]='registerForm.controls["phone"]'></app-text-input>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="control-label reg-label" style="margin-right: 10px;">
+                <label>Address</label>
+                <label class="text-danger">*</label>
+            </label>
+            <label class="control-label reg-input">
+                <app-text-input [formControl]='registerForm.controls["address"]'></app-text-input>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="control-label reg-label" style="margin-right: 10px;">
+                Create Time
+            </label>
+            <label class="control-label reg-input">
+                <input class="form-control" id="readOnlyInput" type="text" placeholder="{{createDate|date:'MM/dd/yyyy'}}" readonly="">
+            </label>
+        </div>
 
         <div class="row" *ngIf="validationErrors.length > 0">
             <ul class="text-danger">
@@ -89,8 +74,8 @@
         </div>
 
         <div class="form-group text-center">
-            <button [disabled]='!registerForm.valid' class="btn btn-success mr-2" type="submit">Register</button>
-            <button class="btn btn-default mr-2" (click)="cancel()" type="button">Cancel</button>
+            <button [disabled]='!registerForm.valid' class="btn btn-primary mr-2" type="submit">Register</button>
+            <button class="btn btn-secondary mr-2" routerLink="/" type="button">Cancel</button>
         </div>
     </form>
 </div>
