@@ -31,6 +31,7 @@ const routes: Routes = [
       {path: 'members', component: MemberListComponent},
       //{path: 'members/:username', component: MemberDetailComponent, resolve: {member: MemberDetailedResolver}},
       {path: 'members/:username', component: LibMemberDetailComponent, resolve: {member: MemberDetailedResolver}},
+      {path: 'edituser/:username', component: LibUserEditComponent, resolve: {member: MemberDetailedResolver}},
       {path: 'member/edit', component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard]},
       {path: 'lists', component: ListsComponent},
       {path: 'messages', component: MessagesComponent},

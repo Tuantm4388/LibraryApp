@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AccountService } from '../../../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MembersService } from 'src/app/_services/members.service';
 import { Member } from 'src/app/_models/member';
 import { User } from 'src/app/_models/user';
@@ -27,7 +27,8 @@ export class LibUserEditComponent implements OnInit {
   user: User;
 
   constructor(private accountService: AccountService, private toastr: ToastrService,
-    private fb: FormBuilder, private router: Router, private memberService: MembersService) {
+    private fb: FormBuilder, private router: Router, private memberService: MembersService,
+    private route: ActivatedRoute) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
@@ -38,6 +39,15 @@ export class LibUserEditComponent implements OnInit {
     this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
     this.createDate = new Date();
 
+  }
+
+  loadMember() {
+    //this.memberService.getMember(this.user.username).subscribe(member => {
+    this.route.data.subscribe(data => {
+      //this.member = member;
+      this.member = data.member;
+      this.intitializeForm();
+    })
   }
 
   intitializeForm() {
@@ -59,12 +69,7 @@ export class LibUserEditComponent implements OnInit {
     })
   }*/
 
-  loadMember() {
-    this.memberService.getMember(this.user.username).subscribe(member => {
-      this.member = member;
-      this.intitializeForm();
-    })
-  }
+
 
   updateMember() {
     this.memberService.updateMember(this.registerForm.value).subscribe(() => {
