@@ -15,6 +15,7 @@
         "Idcard": "01234567890",
         "Phone": "12-34-56",
         "Address": "ha long street",
+        "Chargefine": "0",
         "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/women/54.jpg",
@@ -38,6 +39,7 @@
         "Idcard": "01234567891",
         "Phone": "12-34-56",
         "Address": "ha long street",
+        "Chargefine": "0",
         "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/women/50.jpg",
@@ -61,6 +63,7 @@
         "Idcard": "01234567892",
         "Phone": "12-34-56",
         "Address": "ha long street",
+        "Chargefine": "0",
         "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/women/14.jpg",
@@ -84,6 +87,7 @@
         "Idcard": "01234567893",
         "Phone": "12-34-56",
         "Address": "ha long street",
+        "Chargefine": "0",
         "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/women/11.jpg",
@@ -107,6 +111,7 @@
         "Idcard": "01234567894",
         "Phone": "12-34-56",
         "Address": "ha long street",
+        "Chargefine": "0",
         "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/women/84.jpg",
@@ -130,6 +135,7 @@
         "Idcard": "01234567895",
         "Phone": "12-34-56",
         "Address": "ha long street",
+        "Chargefine": "0",
         "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/men/90.jpg",
@@ -153,6 +159,7 @@
         "Idcard": "01234567896",
         "Phone": "12-34-56",
         "Address": "ha long street",
+        "Chargefine": "0",
         "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/men/87.jpg",
@@ -176,6 +183,7 @@
         "Idcard": "01234567897",
         "Phone": "12-34-56",
         "Address": "ha long street",
+        "Chargefine": "0",
         "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/men/57.jpg",
@@ -199,6 +207,7 @@
         "Idcard": "01234567898",
         "Phone": "12-34-56",
         "Address": "ha long street",
+        "Chargefine": "0",
         "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/men/11.jpg",
@@ -222,6 +231,7 @@
         "Idcard": "01234567899",
         "Phone": "12-34-56",
         "Address": "ha long street",
+        "Chargefine": "0",
         "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/men/93.jpg",

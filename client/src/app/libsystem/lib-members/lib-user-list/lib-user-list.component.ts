@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { RolesModalComponent } from 'src/app/modals/roles-modal/roles-modal.component';
+import { LibUser } from 'src/app/_models/libUser';
 import { User } from 'src/app/_models/user';
 import { AdminService } from 'src/app/_services/admin.service';
 
@@ -11,7 +12,7 @@ import { AdminService } from 'src/app/_services/admin.service';
 })
 export class LibUserListComponent implements OnInit {
 
-  users: Partial<User[]>;
+  users: Partial<LibUser[]>;
   bsModalRef: BsModalRef;
 
   constructor(private adminService: AdminService, private modalService: BsModalService) { }
@@ -21,7 +22,7 @@ export class LibUserListComponent implements OnInit {
   }
 
   getUsersWithRoles() {
-    this.adminService.getUsersWithRoles().subscribe(users => {
+    this.adminService.getLibUserList().subscribe(users => {
       this.users = users;
     })
   }

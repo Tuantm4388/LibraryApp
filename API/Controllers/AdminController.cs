@@ -16,7 +16,7 @@ namespace API.Controllers
             _userManager = userManager;
         }
 
-        [Authorize(Policy = "RequireAdminRole")]
+        [Authorize(Policy = "ModeratePhotoRole")]
         [HttpGet("users-with-roles")]
         public async Task<ActionResult> GetUsersWithRoles()
         {
@@ -28,7 +28,12 @@ namespace API.Controllers
                 {
                     u.Id,
                     Username = u.UserName,
-                    Roles = u.UserRoles.Select(r => r.Role.Name).ToList()
+                    Roles = u.UserRoles.Select(r => r.Role.Name).ToList(),
+                    Emailuser=u.Emailuser,
+                    Idcard=u.Idcard,
+                    Phone=u.Phone,
+                    Address=u.Address,
+                    Chargefile=u.Chargefine
                 })
                 .ToListAsync();
 

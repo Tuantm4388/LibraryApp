@@ -20,6 +20,7 @@ namespace API.Entities
         public string Idcard { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
+        public string Chargefine { get; set; }
         public ICollection<Photo> Photos { get; set; }
 
         public ICollection<UserLike> LikedByUsers { get; set; }

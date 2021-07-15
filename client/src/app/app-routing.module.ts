@@ -35,7 +35,7 @@ const routes: Routes = [
       {path: 'lists', component: ListsComponent},
       {path: 'messages', component: MessagesComponent},
       //{path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard]},
-      {path: 'admin', component: LibUserListComponent, canActivate: [AdminGuard]},
+      {path: 'lib-users', component: LibUserListComponent, canActivate: [AdminGuard]},
     ]
   },
   {path: 'member/register', component: LibUserRegisterComponent},

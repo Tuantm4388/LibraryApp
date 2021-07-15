@@ -1,23 +1,20 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { LibUser } from '../_models/libUser';
 import { User } from '../_models/user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdminService {
+export class LibUserService {
+
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
   getUsersWithRoles() {
     return this.http.get<Partial<User[]>>(this.baseUrl + 'admin/users-with-roles');
-  }
-
-  getLibUserList() {
-    return this.http.get<Partial<LibUser[]>>(this.baseUrl + 'admin/users-with-roles');
   }
 
   updateUserRoles(username: string, roles: string[]) {

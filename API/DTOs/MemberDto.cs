@@ -22,6 +22,7 @@ namespace API.DTOs
         public string Idcard { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
+        public string Chargefine { get; set; }
         public ICollection<PhotoDto> Photos { get; set; }
     }
 }

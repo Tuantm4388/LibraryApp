@@ -70,7 +70,7 @@
                 <td><p></p></td>
                 <td><p></p></td>
                 <td>
-                    <button class="btn btn-secondary btn-lg mr-5" routerLink='/'>{{labelBackBtn}}</button>
+                    <button class="btn btn-secondary btn-lg mr-5" (click)="backFunc()">{{labelBackBtn}}</button>
                     <button *ngIf="modeCurrentUser" class="btn btn-danger btn-lg">Change Password</button>
                 </td>
             </tr>
