@@ -16,8 +16,8 @@
                 <li *appHasRole='["Admin", "Librarian"]' class="nav-item">
                     <a class="nav-link" routerLink='/lib-users' routerLinkActive='active'>Admin</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink='/member/edit' routerLinkActive='active'>Users</a>
+                <li class="nav-item" *appHasRole='["Admin", "Librarian"]' >
+                    <a class="nav-link" routerLink='/lib-users' routerLinkActive='active'>Users</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink='/member/register' routerLinkActive='active'>Register</a>
