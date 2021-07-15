@@ -1,0 +1,38 @@
+<div class="row">
+    <table class="table">
+        <tr class="table-secondary">
+            <th style="width: 2%;">User Id</th>
+            <th style="width: 10%;">User Name</th>
+            <th style="width: 15%;">Email</th>
+            <th style="width: 8%;">Identity No</th>
+            <th style="width: 10%;">Address</th>
+            <th style="width: 5%;">Phone</th>
+            <th style="width: 5%;">Type</th>
+            <th style="width: 5%;">Charge Fine</th>
+            <th style="width: 40%;">
+                <button  class="btn btn-info mr-2">View</button>
+                <button  class="btn btn-info">Edit</button>
+                <button  class="btn btn-info ml-2">Delete</button></th>
+        </tr>
+        <tr class="table-info">
+            <td >1</td>
+            <td >Davisjkkljlkjl</td>
+            <td >davis@gmail.com</td>
+            <td >123456789</td>
+            <td >ha long street</td>
+            <td >1234567890</td>
+            <td >member</td>
+            <td >12000</td>
+            <td >
+                <button  class="btn btn-info mr-2">View</button>
+                <button  class="btn btn-info">Edit</button>
+                <button  class="btn btn-info ml-2">Delete</button>
+            </td>
+        </tr>
+        <tr *ngFor="let user of users">
+            <td>{{user.username}}</td>
+            <td>{{user.roles}}</td>
+            <td><button (click)="openRolesModal(user)" class="btn btn-info">Edit Roles</button></td>
+        </tr>
+    </table>
+</div>

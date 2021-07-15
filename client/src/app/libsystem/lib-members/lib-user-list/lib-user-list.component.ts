@@ -5,11 +5,12 @@ import { User } from 'src/app/_models/user';
 import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
-  selector: 'app-user-management',
-  templateUrl: './user-management.component.html',
-  styleUrls: ['./user-management.component.css']
+  selector: 'app-lib-user-list',
+  templateUrl: './lib-user-list.component.html',
+  styleUrls: ['./lib-user-list.component.css']
 })
-export class UserManagementComponent implements OnInit {
+export class LibUserListComponent implements OnInit {
+
   users: Partial<User[]>;
   bsModalRef: BsModalRef;
 
@@ -50,9 +51,9 @@ export class UserManagementComponent implements OnInit {
     const roles = [];
     const userRoles = user.roles;
     const availableRoles: any[] = [
-      {name: 'Admin', value: 'Admin'},
-      {name: 'Librarian', value: 'Librarian'},
-      {name: 'Member', value: 'Member'}
+      { name: 'Admin', value: 'Admin' },
+      { name: 'Librarian', value: 'Librarian' },
+      { name: 'Member', value: 'Member' }
     ];
 
     availableRoles.forEach(role => {

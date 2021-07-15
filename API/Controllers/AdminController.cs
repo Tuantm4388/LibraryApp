@@ -62,7 +62,7 @@ namespace API.Controllers
         [HttpGet("photos-to-moderate")]
         public ActionResult GetPhotosForModeration()
         {
-            return Ok("Admins or moderators can see this");
+            return Ok("Admins or librarians can see this");
         }
     }
 }
