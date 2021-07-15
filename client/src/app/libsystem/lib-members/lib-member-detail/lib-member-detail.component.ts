@@ -6,6 +6,9 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { Message } from 'src/app/_models/message';
 import { MessageService } from 'src/app/_services/message.service';
+import { AccountService } from 'src/app/_services/account.service';
+import { User } from 'src/app/_models/user';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-lib-member-detail',
@@ -16,43 +19,31 @@ export class LibMemberDetailComponent implements OnInit {
 
   @ViewChild('memberTabs', {static: true}) memberTabs: TabsetComponent;
   member: Member;
-  galleryOptions: NgxGalleryOptions[];
-  galleryImages: NgxGalleryImage[];
   activeTab: TabDirective;
   messages: Message[] = [];
+  modeCurrentUser:boolean = false;
+  user:User;
+  labelBackBtn:string = "Back";
 
-  constructor(private memberService: MembersService, private route: ActivatedRoute, 
-    private messageService: MessageService) { }
+  constructor( private route: ActivatedRoute, 
+    public accountService: AccountService) { 
+      this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
+    }
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
       this.member = data.member;
+      
+      if(this.member.username == this.user.username){
+        this.modeCurrentUser = true;
+        this.labelBackBtn= "Back to Main Menu";
+      }
+      else{
+        this.modeCurrentUser = false;
+        this.labelBackBtn= "Back";
+      }
     })
 
-    this.galleryOptions = [
-      {
-        width: '500px',
-        height: '500px',
-        imagePercent: 100,
-        thumbnailsColumns: 4,
-        imageAnimation: NgxGalleryAnimation.Slide,
-        preview: false
-      }
-    ]
-
-    this.galleryImages = this.getImages();
-  }
-
-  getImages(): NgxGalleryImage[] {
-    const imageUrls = [];
-    for (const photo of this.member.photos) {
-      imageUrls.push({
-        small: photo?.url,
-        medium: photo?.url,
-        big: photo?.url
-      })
-    }
-    return imageUrls;
   }
 
 }

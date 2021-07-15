@@ -2,12 +2,14 @@
     <div class="col-8">
         <fieldset>
             <h1 class="form-label mt-4" for="readOnlyInput">Personal Profile</h1>
-            <button type="button" class="btn btn-outline-primary btn-lg btn-block">View borrow history</button>
+            <button type="button" class="btn btn-outline-primary btn-lg btn-block" style="width: 1100px;">
+                View borrow history
+            </button>
             <p></p>
         </fieldset>
     </div>
 </div>
-<div class="row">
+<div class="row ml-2">
     <div class="col-8">
         <tabset class="member-tabset">
             <tr>
@@ -19,7 +21,7 @@
                 <td><p>User Name</p></td>
                 <td><p></p></td>
                 <td>
-                    <input class="form-control" id="readOnlyInput" type="text" placeholder="{{member.username}}" readonly="">
+                    <input class="form-control" id="readOnlyInput" type="text" placeholder="{{member.username|titlecase}}" readonly="">
                 </td>
             </tr>
             <tr>
@@ -68,14 +70,14 @@
                 <td><p></p></td>
                 <td><p></p></td>
                 <td>
-                    <button class="btn btn-info btn-lg mr-5" routerLink='/'>Back to Main menu</button>
-                    <button class="btn btn-danger btn-lg">Change Password</button>
+                    <button class="btn btn-secondary btn-lg mr-5" routerLink='/'>{{labelBackBtn}}</button>
+                    <button *ngIf="modeCurrentUser" class="btn btn-danger btn-lg">Change Password</button>
                 </td>
             </tr>
         </tabset>
     </div>
     <div class="col text-center">
         <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}" class="card-img-top img-thumbnail">
-        <button type="button" class="btn btn-outline-secondary" routerLink='/photo-user-edit'>Change Photo</button>
+        <button *ngIf="modeCurrentUser" type="button" class="btn btn-outline-secondary" routerLink='/photo-user-edit'>Change Photo</button>
     </div>
 </div>

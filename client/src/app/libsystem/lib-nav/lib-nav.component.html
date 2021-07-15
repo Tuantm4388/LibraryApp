@@ -26,11 +26,6 @@
                     <a class="nav-link" routerLink='/member/edituser' routerLinkActive='active'>edit</a>
                 </li>
             </ng-container>
-            <!--
-            <li class="nav-item">
-                <a class="nav-link" routerLink='/errors' routerLinkActive='active'>Errors</a>
-            </li>
-            -->
         </ul>
 
         <form *ngIf="(accountService.currentUser$ | async) === null" #loginForm="ngForm"
@@ -45,7 +40,7 @@
         <ul class="navbar-nav ml-2" *ngIf="(accountService.currentUser$ | async) as user">
             <img src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.username}}">
             <a class="nav-link" routerLink='/members/{{user.username}}' routerLinkActive='active'>
-                Welcome {{user.knownAs || user.username | titlecase}}
+                Welcome {{user.username | titlecase}}
             </a>
             <li class="nav-item">
                 <a class="nav-link " routerLink='/' routerLinkActive='active' (click)="logout()">Logout</a>
