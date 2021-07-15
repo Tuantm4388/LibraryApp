@@ -11,7 +11,7 @@
             <th style="width: 5%;">Charge Fine</th>
             <th style="width: 40%;">Actions</th>
         </tr>
-        <tr *ngFor="let user of users">
+        <tr *ngFor="let user of users| paginate: { itemsPerPage: count, currentPage: p }">
             <td>{{user.id}}</td>
             <td>{{user.username}}</td>
             <td>{{user.emailuser}}</td>
@@ -27,4 +27,9 @@
             </td>
         </tr>
     </table>
+    <!--Including the pagination control.-->
+  <div class="text-right">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
 </div>
+

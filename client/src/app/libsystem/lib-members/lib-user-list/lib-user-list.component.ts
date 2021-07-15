@@ -14,6 +14,9 @@ export class LibUserListComponent implements OnInit {
 
   users: Partial<LibUser[]>;
   bsModalRef: BsModalRef;
+  
+  p: Number = 1;
+  count: Number = 3;
 
   constructor(private adminService: AdminService, private modalService: BsModalService) { }
 

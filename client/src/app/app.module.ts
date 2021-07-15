@@ -39,6 +39,7 @@ import { LibMemberPhotoEditComponent } from './libsystem/lib-members/lib-member-
 import { LibUserRegisterComponent } from './libsystem/lib-members/lib-user-register/lib-user-register.component';
 import { LibUserEditComponent } from './libsystem/lib-members/lib-user-edit/lib-user-edit.component';
 import { LibUserListComponent } from './libsystem/lib-members/lib-user-list/lib-user-list.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { LibUserListComponent } from './libsystem/lib-members/lib-user-list/lib-
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgxPaginationModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
