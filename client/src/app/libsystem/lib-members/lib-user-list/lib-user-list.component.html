@@ -1,3 +1,12 @@
+<h1>User List</h1>
+<div class="row">
+        <input name="searchuser" [(ngModel)]="keyWord" class="form-control mr-sm-2" style="width: 300px;" type="text" placeholder="Search user name ...">
+        <button class="btn btn-primary my-2 my-sm-0" type="submit" (click)="searchFunction()">Search</button>
+        <button class="btn btn-primary " style="margin-left: auto;" routerLink="/member/register">Add new User</button>
+</div>
+<div>
+    <p></p>
+</div>
 <div class="row">
     <table class="table">
         <tr class="table-secondary">

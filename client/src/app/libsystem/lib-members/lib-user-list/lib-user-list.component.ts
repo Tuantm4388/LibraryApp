@@ -13,10 +13,13 @@ import { AdminService } from 'src/app/_services/admin.service';
 export class LibUserListComponent implements OnInit {
 
   users: Partial<LibUser[]>;
+  usersBackup = [];
   bsModalRef: BsModalRef;
-  
+
   p: Number = 1;
   count: Number = 3;
+
+  keyWord: string;
 
   constructor(private adminService: AdminService, private modalService: BsModalService) { }
 
@@ -26,7 +29,8 @@ export class LibUserListComponent implements OnInit {
 
   getUsersWithRoles() {
     this.adminService.getLibUserList().subscribe(users => {
-      this.users = users;
+      this.users = users.sort((a, b) => a.id - b.id);
+      this.usersBackup = this.users;
     })
   }
 
@@ -76,6 +80,21 @@ export class LibUserListComponent implements OnInit {
       }
     })
     return roles;
+  }
+
+  searchFunction() {
+    if (this.keyWord &&this.keyWord.length > 0) {
+      let resulf = this.usersBackup.find(a => a.username.toUpperCase() == this.keyWord.toUpperCase());
+      console.log(resulf);
+      this.users = [];
+      if (resulf) {
+        console.log("searchFunction added");
+        this.users.push(resulf);
+      }
+    }
+    else {
+      this.users = this.usersBackup;
+    }
   }
 
 }
