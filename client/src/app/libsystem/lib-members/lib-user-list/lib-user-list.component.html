@@ -10,8 +10,12 @@
 <div class="row">
     <table class="table">
         <tr class="table-secondary">
-            <th style="width: 2%;">User Id</th>
-            <th style="width: 10%;">User Name</th>
+            <th style="width: 2%;">
+                <a class="nav-link disabled" routerLink='/lib-users' (click)="sort_Id()">User Id</a>
+            </th>
+            <th style="width: 10%;">
+                <a class="nav-link disabled" routerLink='/lib-users' (click)="sort_Name()">User Name</a>
+            </th>
             <th style="width: 15%;">Email</th>
             <th style="width: 8%;">Identity No</th>
             <th style="width: 10%;">Address</th>
@@ -37,8 +41,8 @@
         </tr>
     </table>
     <!--Including the pagination control.-->
-  <div class="text-right">
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-  </div>
+    <div class="text-right">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
 </div>
 

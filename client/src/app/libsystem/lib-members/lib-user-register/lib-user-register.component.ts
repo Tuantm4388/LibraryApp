@@ -16,7 +16,7 @@ export class LibUserRegisterComponent implements OnInit {
   registerForm: FormGroup;
   maxDate: Date;
   validationErrors: string[] = [];
-  createDate:Date;
+  createDate: Date;
 
   constructor(private accountService: AccountService, private toastr: ToastrService,
     private fb: FormBuilder, private router: Router) { }
@@ -30,11 +30,11 @@ export class LibUserRegisterComponent implements OnInit {
 
   intitializeForm() {
     this.registerForm = this.fb.group({
-      username: ['', Validators.required],
-      emailuser: ['', Validators.required],
-      idcard: ['', Validators.required],
-      phone: ['', Validators.required],
-      address: ['', Validators.required],
+      username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(16)]],
+      emailuser: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+      idcard: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
+      phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      address: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       password: ['', [Validators.required,
       Validators.minLength(4), Validators.maxLength(8)]]
     })
@@ -43,7 +43,7 @@ export class LibUserRegisterComponent implements OnInit {
   register() {
     this.accountService.register(this.registerForm.value).subscribe(response => {
       this.toastr.success('Add user successfully');
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/lib-users');
     }, error => {
       this.validationErrors = error;
     })

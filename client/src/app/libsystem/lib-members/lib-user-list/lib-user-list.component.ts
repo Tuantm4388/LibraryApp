@@ -83,7 +83,7 @@ export class LibUserListComponent implements OnInit {
   }
 
   searchFunction() {
-    if (this.keyWord &&this.keyWord.length > 0) {
+    if (this.keyWord && this.keyWord.length > 0) {
       let resulf = this.usersBackup.find(a => a.username.toUpperCase() == this.keyWord.toUpperCase());
       console.log(resulf);
       this.users = [];
@@ -95,6 +95,59 @@ export class LibUserListComponent implements OnInit {
     else {
       this.users = this.usersBackup;
     }
+  }
+
+  /// tablesorter
+  sorterId: boolean = true;
+  sort_Id() {
+    this.sorterId = !this.sorterId;
+    if (this.sorterId) {
+      this.users = this.usersBackup.sort((a, b) => a.id - b.id);
+    }
+    else {
+      this.users = this.usersBackup.sort((a, b) => b.id - a.id);
+    }
+  }
+
+  sorterName: boolean = true;
+  sort_Name() {
+    this.sorterName = !this.sorterName;
+    if (this.sorterName) {
+      this.sortToLow_Name();
+    }
+    else{
+      this.sortToUp_Name();
+    }
+  }
+
+  sortToLow_Name() {
+    this.users = this.usersBackup.sort(function (a, b) {
+      var nameA = a.username.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.username.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  sortToUp_Name() {
+    this.users = this.usersBackup.sort(function (a, b) {
+      var nameA = a.username.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.username.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      // must be equal
+      return 0;
+    });
   }
 
 }
