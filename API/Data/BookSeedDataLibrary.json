@@ -1,0 +1,5 @@
+[
+    {"Id" : 1,"Isbn" : "123-321-1-00001-1", "Title" : "C Plus Plus", "Author" : "Bjarne Stroustrup", "Origin" : "USA", "Language" : "English", "Catalogue" : "Education", "Summary" : "About program development", "Addtime" : "2014-01-01", "Publishtime" : "2014-01-01", "Condition" : "New", "Url":""},
+    {"Id" : 2,"Isbn" : "123-321-1-00001-2", "Title" : "Homes", "Author" : "Conan", "Origin" : "English", "Language" : "Vietnamese", "Catalogue" : "Novel", "Summary" : "About Sherlock Homes", "Addtime" : "2014-01-01", "Publishtime" : "2014-01-01", "Condition" : "Old", "Url":""},
+    {"Id" : 3,"Isbn" : "123-321-1-00001-3", "Title" : "Cỏ xanh", "Author" : "Nam", "Origin" : "Vietnamese", "Language" : "Vietnamese", "Catalogue" : "Education", "Summary" : "Hướng dẫn nhà nông", "Addtime" : "2014-01-01", "Publishtime" : "2014-01-01", "Condition" : "Broken", "Url":""}
+]

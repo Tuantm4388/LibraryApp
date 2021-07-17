@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -52,6 +53,25 @@ namespace API.Data
 
             await userManager.CreateAsync(librarian, "Pa$$w0rd");
             await userManager.AddToRoleAsync(librarian, "Librarian");
+        }
+
+
+        public static async Task SeedBooks(DataContext context)
+        {
+            if (await context.Books.AnyAsync()) return;
+
+            var itemData = await System.IO.File.ReadAllTextAsync("Data/BookSeedDataLibrary.json");
+            Console.WriteLine("\n >>>>>>  data" + itemData);
+            var items = JsonSerializer.Deserialize<List<AppBook>>(itemData);
+            //Console.WriteLine("\n >>>>>> users : "+ items);
+            if (items == null) return;
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                AppBook book = items[i];
+                context.Books.Add(book);
+            }
+            await context.SaveChangesAsync();
         }
     }
 }
