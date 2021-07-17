@@ -40,6 +40,8 @@ import { LibUserRegisterComponent } from './libsystem/lib-members/lib-user-regis
 import { LibUserEditComponent } from './libsystem/lib-members/lib-user-edit/lib-user-edit.component';
 import { LibUserListComponent } from './libsystem/lib-members/lib-user-list/lib-user-list.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { LibHomeComponent } from './libsystem/lib-home/lib-home.component';
+import { LibCardBookComponent } from './libsystem/lib-books/lib-card-book/lib-card-book.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     LibMemberPhotoEditComponent,
     LibUserRegisterComponent,
     LibUserEditComponent,
-    LibUserListComponent
+    LibUserListComponent,
+    LibHomeComponent,
+    LibCardBookComponent
   ],
   imports: [
     BrowserModule,

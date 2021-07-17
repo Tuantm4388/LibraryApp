@@ -20,9 +20,10 @@ import { LibMemberPhotoEditComponent } from './libsystem/lib-members/lib-member-
 import { LibUserRegisterComponent } from './libsystem/lib-members/lib-user-register/lib-user-register.component';
 import { LibUserEditComponent } from './libsystem/lib-members/lib-user-edit/lib-user-edit.component';
 import { LibUserListComponent } from './libsystem/lib-members/lib-user-list/lib-user-list.component';
+import { LibHomeComponent } from './libsystem/lib-home/lib-home.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', component: LibHomeComponent},
   {
     path: '',
     runGuardsAndResolvers: 'always',
