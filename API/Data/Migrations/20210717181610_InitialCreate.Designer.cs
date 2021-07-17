@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210717152325_InitialCreate")]
+    [Migration("20210717181610_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,9 @@ namespace API.Data.Migrations
                     b.Property<string>("Origin")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Photourl")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Publishtime")
                         .HasColumnType("TEXT");
 
@@ -52,9 +55,6 @@ namespace API.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Url")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

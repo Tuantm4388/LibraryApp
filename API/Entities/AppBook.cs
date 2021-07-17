@@ -13,6 +13,6 @@ namespace API.Entities
         public string Addtime { get; set; }
         public string Publishtime { get; set; }
         public string Condition { get; set; }
-        public string Url { get; set; }
+        public string Photourl { get; set; }
     }
 }

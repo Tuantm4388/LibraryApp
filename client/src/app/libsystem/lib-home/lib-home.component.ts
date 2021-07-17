@@ -1,8 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { LibBook } from 'src/app/_models/libBook';
 import { Member } from 'src/app/_models/member';
 import { User } from 'src/app/_models/user';
 import { UserParams } from 'src/app/_models/userParams';
+import { BookService } from 'src/app/_services/book.service';
 import { MembersService } from 'src/app/_services/members.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-lib-home',
@@ -18,7 +22,9 @@ export class LibHomeComponent implements OnInit {
 
   employees=[];
 
-  constructor(private memberService: MembersService) {
+  baseUrl = environment.apiUrl;
+  
+  constructor(private memberService: MembersService, private http: HttpClient, private bookService:BookService) {
     this.userParams = this.memberService.getUserParams();
     this.employees = [
       { 'username': 3, 'knownAs': 'Clare Cornau', 'phoneno': '(815) 6180492', 'email': 'ccornau0@bigcartel.com', 'age': 9, 'city': 'Somalia' },
@@ -46,6 +52,7 @@ export class LibHomeComponent implements OnInit {
   
   ngOnInit(): void {
     this.loadMembers();
+    this.getBookList();
   }
 
   loadMembers() {
@@ -55,6 +62,13 @@ export class LibHomeComponent implements OnInit {
       
       console.log(this.members.length);
     })
+  }
+
+  books: Partial<LibBook[]>;
+  getBookList() {
+    this.bookService.getBookList().subscribe(books => {
+      this.books = books;
+    });
   }
 
 }

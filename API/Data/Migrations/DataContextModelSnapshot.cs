@@ -43,6 +43,9 @@ namespace API.Data.Migrations
                     b.Property<string>("Origin")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Photourl")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Publishtime")
                         .HasColumnType("TEXT");
 
@@ -50,9 +53,6 @@ namespace API.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Url")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
