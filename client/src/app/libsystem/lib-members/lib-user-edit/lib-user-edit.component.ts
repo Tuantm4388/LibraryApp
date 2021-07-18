@@ -8,6 +8,8 @@ import { Member } from 'src/app/_models/member';
 import { User } from 'src/app/_models/user';
 
 import { take } from 'rxjs/operators';
+import { LibUser } from 'src/app/_models/libUser';
+import { LibUserService } from 'src/app/_services/lib-user.service';
 
 
 @Component({
@@ -25,11 +27,15 @@ export class LibUserEditComponent implements OnInit {
 
   member: Member;
   user: User;
+  userInfo:LibUser;
+
+  usernameBackup:string="";
 
   constructor(private accountService: AccountService, private toastr: ToastrService,
     private fb: FormBuilder, private router: Router, private memberService: MembersService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,private libUserService: LibUserService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
+    this.libUserService.selectedUser$.pipe(take(1)).subscribe(user => this.userInfo = user);
   }
 
   ngOnInit(): void {
@@ -46,6 +52,7 @@ export class LibUserEditComponent implements OnInit {
     this.route.data.subscribe(data => {
       //this.member = member;
       this.member = data.member;
+      this.usernameBackup = this.member.username;
       this.intitializeForm();
     })
   }
@@ -72,7 +79,7 @@ export class LibUserEditComponent implements OnInit {
 
 
   updateMember() {
-    this.memberService.updateMember(this.registerForm.value).subscribe(() => {
+    this.memberService.updateMemberInfo(this.registerForm.value,this.usernameBackup).subscribe(() => {
       this.toastr.success('Profile updated successfully');
       //this.editForm.reset(this.member);
     }, error => {

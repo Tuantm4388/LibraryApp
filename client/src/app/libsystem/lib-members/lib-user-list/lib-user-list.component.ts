@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { throwError } from 'rxjs';
 import { RolesModalComponent } from 'src/app/modals/roles-modal/roles-modal.component';
 import { LibUser } from 'src/app/_models/libUser';
 import { User } from 'src/app/_models/user';
 import { AdminService } from 'src/app/_services/admin.service';
+import { LibUserService } from 'src/app/_services/lib-user.service';
 
 @Component({
   selector: 'app-lib-user-list',
@@ -21,7 +24,8 @@ export class LibUserListComponent implements OnInit {
 
   keyWord: string;
 
-  constructor(private adminService: AdminService, private modalService: BsModalService) { }
+  constructor(private adminService: AdminService, private modalService: BsModalService,
+     private libUserService: LibUserService, private router: Router) { }
 
   ngOnInit(): void {
     this.getUsersWithRoles();
@@ -80,6 +84,12 @@ export class LibUserListComponent implements OnInit {
       }
     })
     return roles;
+  }
+
+  routToEditPage(user:LibUser)
+  {
+    this.libUserService.setSelectedUserInfo(user);
+    this.router.navigateByUrl('/edituser/'+user.username);
   }
 
   searchFunction() {
