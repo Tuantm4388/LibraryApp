@@ -42,7 +42,7 @@ namespace API.Controllers
             if (!result.Succeeded) return BadRequest(result.Errors);
 
             var roleResult = await _userManager.AddToRoleAsync(user, "Member");
-           
+
 
             if (!roleResult.Succeeded) return BadRequest(result.Errors);
 
@@ -79,13 +79,13 @@ namespace API.Controllers
             };
         }
 
-        [HttpPost("delete/{username}")]
-        public async Task<ActionResult> DeleteAccount(string username)
+        [HttpPost("delete/{userID}")]
+        public async Task<ActionResult> DeleteAccount(int userID)
         {
-            Console.WriteLine(">>>> run DeleteAccount "+username+".");
+            Console.WriteLine(">>>> run DeleteAccount " + userID + ".");
             var user = await _userManager.Users
                 .Include(p => p.Photos)
-                .SingleOrDefaultAsync(x => x.UserName == username.ToLower());
+                .SingleOrDefaultAsync(x => x.Id == userID);
 
             if (user == null) return BadRequest("Invalid username");
 

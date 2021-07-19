@@ -36,7 +36,7 @@
             <td>
                 <button  class="btn btn-primary mr-2" routerLink='/members/{{user.username}}'>View</button>
                 <button  class="btn btn-warning" (click)="routToEditPage(user)">Edit</button>
-                <button  class="btn btn-danger ml-2">Delete</button>
+                <button  class="btn btn-danger ml-2" (click)="openDeleteModal(user)">Delete</button>
             </td>
         </tr>
     </table>

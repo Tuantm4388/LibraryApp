@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { throwError } from 'rxjs';
 import { RolesModalComponent } from 'src/app/modals/roles-modal/roles-modal.component';
+import { LibBook } from 'src/app/_models/libBook';
 import { LibUser } from 'src/app/_models/libUser';
 import { User } from 'src/app/_models/user';
 import { AdminService } from 'src/app/_services/admin.service';
 import { LibUserService } from 'src/app/_services/lib-user.service';
+import { LibDeleteUserComponent } from '../../lib-dialog/lib-delete-user/lib-delete-user.component';
 
 @Component({
   selector: 'app-lib-user-list',
@@ -38,52 +40,22 @@ export class LibUserListComponent implements OnInit {
     })
   }
 
-  openRolesModal(user: User) {
+  openDeleteModal(user: LibUser) {
     const config = {
       class: 'modal-dialog-centered',
       initialState: {
         user,
-        roles: this.getRolesArray(user)
+        success:false
       }
     }
-    this.bsModalRef = this.modalService.show(RolesModalComponent, config);
-    this.bsModalRef.content.updateSelectedRoles.subscribe(values => {
-      const rolesToUpdate = {
-        roles: [...values.filter(el => el.checked === true).map(el => el.name)]
-      };
-      if (rolesToUpdate) {
-        this.adminService.updateUserRoles(user.username, rolesToUpdate.roles).subscribe(() => {
-          user.roles = [...rolesToUpdate.roles]
-        })
+    this.bsModalRef = this.modalService.show(LibDeleteUserComponent, config);
+    this.bsModalRef.content.updateAction.subscribe(values => {
+      if(values){
+        let idx = this.users.indexOf(user);
+        this.users.splice(idx,1);
+        this.usersBackup.splice(idx,1);
       }
-    })
-  }
-
-  private getRolesArray(user) {
-    const roles = [];
-    const userRoles = user.roles;
-    const availableRoles: any[] = [
-      { name: 'Admin', value: 'Admin' },
-      { name: 'Librarian', value: 'Librarian' },
-      { name: 'Member', value: 'Member' }
-    ];
-
-    availableRoles.forEach(role => {
-      let isMatch = false;
-      for (const userRole of userRoles) {
-        if (role.name === userRole) {
-          isMatch = true;
-          role.checked = true;
-          roles.push(role);
-          break;
-        }
-      }
-      if (!isMatch) {
-        role.checked = false;
-        roles.push(role);
-      }
-    })
-    return roles;
+    });
   }
 
   routToEditPage(user:LibUser)
@@ -159,5 +131,8 @@ export class LibUserListComponent implements OnInit {
       return 0;
     });
   }
+
+  ///////
+  
 
 }

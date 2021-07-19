@@ -43,6 +43,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { LibHomeComponent } from './libsystem/lib-home/lib-home.component';
 import { LibCardBookComponent } from './libsystem/lib-books/lib-card-book/lib-card-book.component';
 import { LibTextInputComponent } from './_forms/lib-text-input/lib-text-input.component';
+import { LibDeleteUserComponent } from './libsystem/lib-dialog/lib-delete-user/lib-delete-user.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { LibTextInputComponent } from './_forms/lib-text-input/lib-text-input.co
     LibUserListComponent,
     LibHomeComponent,
     LibCardBookComponent,
-    LibTextInputComponent
+    LibTextInputComponent,
+    LibDeleteUserComponent
   ],
   imports: [
     BrowserModule,

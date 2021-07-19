@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { User } from '../_models/user';
 import { ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -30,7 +30,7 @@ export class AccountService {
     return this.http.post(this.baseUrl + 'account/register', model).pipe(
       map((user: User) => {
         if (user) {
-         //this.setCurrentUser(user);
+          //this.setCurrentUser(user);
         }
       })
     )
@@ -52,4 +52,9 @@ export class AccountService {
   getDecodedToken(token) {
     return JSON.parse(atob(token.split('.')[1]));
   }
+
+  deleteUser(userId: number) {
+    return this.http.post(this.baseUrl + 'account/delete/' + userId, userId);
+  }
+
 }
