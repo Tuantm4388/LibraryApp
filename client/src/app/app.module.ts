@@ -44,6 +44,7 @@ import { LibHomeComponent } from './libsystem/lib-home/lib-home.component';
 import { LibCardBookComponent } from './libsystem/lib-books/lib-card-book/lib-card-book.component';
 import { LibTextInputComponent } from './_forms/lib-text-input/lib-text-input.component';
 import { LibDeleteUserComponent } from './libsystem/lib-dialog/lib-delete-user/lib-delete-user.component';
+import { LibUserRolesComponent } from './libsystem/lib-dialog/lib-user-roles/lib-user-roles.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { LibDeleteUserComponent } from './libsystem/lib-dialog/lib-delete-user/l
     LibHomeComponent,
     LibCardBookComponent,
     LibTextInputComponent,
-    LibDeleteUserComponent
+    LibDeleteUserComponent,
+    LibUserRolesComponent
   ],
   imports: [
     BrowserModule,

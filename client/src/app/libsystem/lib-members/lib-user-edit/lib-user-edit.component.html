@@ -35,7 +35,7 @@
             <div class="form-group">
                 <label class="control-label reg-label" style="margin-right: 10px;">User type</label>
                 <label class="control-label reg-input">
-                    <input class="form-control" id="readOnlyInput" type="text" placeholder="{{userInfo.roles}}" readonly="">
+                    <input class="form-control" id="readOnlyInput" type="text" placeholder="{{rolesChange}}" readonly="">
                 </label>
             </div>
             <div class="form-group">
@@ -60,6 +60,7 @@
             </div>
 
             <div class="form-group text-center">
+                <button *ngIf="isAdmin" class="btn btn-danger mr-5" (click)="openRolesModal()" type="button">Edit Member Type</button>
                 <button [disabled]='!registerForm.valid' class="btn btn-primary mr-5" type="submit">Save</button>
                 <button class="btn btn-secondary mr-2" routerLink="/lib-users" type="button">Back</button>
             </div>
