@@ -45,6 +45,7 @@ import { LibCardBookComponent } from './libsystem/lib-books/lib-card-book/lib-ca
 import { LibTextInputComponent } from './_forms/lib-text-input/lib-text-input.component';
 import { LibDeleteUserComponent } from './libsystem/lib-dialog/lib-delete-user/lib-delete-user.component';
 import { LibUserRolesComponent } from './libsystem/lib-dialog/lib-user-roles/lib-user-roles.component';
+import { LibChagnePassComponent } from './libsystem/lib-members/lib-chagne-pass/lib-chagne-pass.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { LibUserRolesComponent } from './libsystem/lib-dialog/lib-user-roles/lib
     LibCardBookComponent,
     LibTextInputComponent,
     LibDeleteUserComponent,
-    LibUserRolesComponent
+    LibUserRolesComponent,
+    LibChagnePassComponent
   ],
   imports: [
     BrowserModule,

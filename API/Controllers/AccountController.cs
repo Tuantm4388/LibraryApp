@@ -94,6 +94,46 @@ namespace API.Controllers
             return Accepted();
         }
 
+        [HttpPost("change-password/{username}")]
+        public async Task<ActionResult> ChangePassword(string username, string oldPass, string newPass)
+        {
+            Console.WriteLine(">>>> run ChangePassword " + username + ".");
+            var user = await _userManager.Users
+                .Include(p => p.Photos)
+                .SingleOrDefaultAsync(x => x.UserName == username);
+
+            if (user == null) return BadRequest("Invalid username");
+            var roleResult = await _userManager.ChangePasswordAsync(user, oldPass, newPass);
+            Console.WriteLine(">>>>>>" + roleResult.ToString());
+            if (!roleResult.Succeeded)
+            {
+                Console.WriteLine(">>>>>> change pass fail");
+                return BadRequest(roleResult.Errors);
+            }
+            Console.WriteLine(">>>>>> change pass ok");
+
+            return Accepted();
+        }
+
+        [HttpPost("reset-password/{username}")]
+        public async Task<ActionResult> ResetPassword(string username, string newPass)
+        {
+            Console.WriteLine(">>>> run ResetPassword " + username + ".");
+            var user = await _userManager.Users
+                .Include(p => p.Photos)
+                .SingleOrDefaultAsync(x => x.UserName == username);
+
+            if (user == null) return BadRequest("Invalid username");
+
+            if (_userManager.PasswordHasher != null)
+            {
+                await _userManager.RemovePasswordAsync(user);
+            }
+            await _userManager.AddPasswordAsync(user, newPass);
+
+            return Accepted();
+        }
+
         private async Task<bool> UserExists(string username)
         {
             return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());

@@ -17,7 +17,7 @@ namespace API.DTOs
         public string Address { get; set; }
 
         [Required]
-        [StringLength(8, MinimumLength = 4)]
+        [StringLength(16, MinimumLength = 8)]
         public string Password { get; set; }
     }
 }

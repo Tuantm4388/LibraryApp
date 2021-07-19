@@ -21,6 +21,7 @@ import { LibUserRegisterComponent } from './libsystem/lib-members/lib-user-regis
 import { LibUserEditComponent } from './libsystem/lib-members/lib-user-edit/lib-user-edit.component';
 import { LibUserListComponent } from './libsystem/lib-members/lib-user-list/lib-user-list.component';
 import { LibHomeComponent } from './libsystem/lib-home/lib-home.component';
+import { LibChagnePassComponent } from './libsystem/lib-members/lib-chagne-pass/lib-chagne-pass.component';
 
 const routes: Routes = [
   {path: '', component: LibHomeComponent},
@@ -33,6 +34,7 @@ const routes: Routes = [
       //{path: 'members/:username', component: MemberDetailComponent, resolve: {member: MemberDetailedResolver}},
       {path: 'members/:username', component: LibMemberDetailComponent, resolve: {member: MemberDetailedResolver}},
       {path: 'edituser/:username', component: LibUserEditComponent, resolve: {member: MemberDetailedResolver}},
+      {path: 'change-pass', component: LibChagnePassComponent, resolve: {member: MemberDetailedResolver}},
       {path: 'member/edit', component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard]},
       {path: 'lists', component: ListsComponent},
       {path: 'messages', component: MessagesComponent},

@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { User } from '../_models/user';
 import { ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { LibPass } from '../_models/libPassword';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,10 @@ export class AccountService {
 
   deleteUser(userId: number) {
     return this.http.post(this.baseUrl + 'account/delete/' + userId, userId);
+  }
+
+  changePassword(username: string, passInfo: LibPass) {
+    return this.http.post(this.baseUrl + 'account/change-password/'+username+'?oldPass='+passInfo.oldpass+'&newPass=' + passInfo.newpass,username);
   }
 
 }

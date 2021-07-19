@@ -71,7 +71,7 @@
                 <td><p></p></td>
                 <td>
                     <button class="btn btn-secondary btn-lg mr-5" (click)="backFunc()">{{labelBackBtn}}</button>
-                    <button *ngIf="modeCurrentUser" class="btn btn-danger btn-lg">Change Password</button>
+                    <button *ngIf="modeCurrentUser" class="btn btn-danger btn-lg" routerLink='/change-pass'>Change Password</button>
                 </td>
             </tr>
         </tabset>
