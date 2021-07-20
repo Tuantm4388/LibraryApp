@@ -26,7 +26,7 @@
     <form >
         <h1>Summary</h1>
         <label class="row">{{bookInfo.summary}}</label>
-        <div class="row"><button type="button" class="btn btn-success" routerLink='/borrow/register'>Borrow</button></div>
+        <div class="row"><button type="button" class="btn btn-success" (click)="goToRequestBorrow(bookInfo)">Borrow</button></div>
         <hr>
     </form>
 </div>

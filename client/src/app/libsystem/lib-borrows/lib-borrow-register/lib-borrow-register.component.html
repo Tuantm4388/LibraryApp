@@ -1,37 +1,70 @@
 <div class="card">
-    <form  class="form"  autocomplete="off" style="background-color:whitesmoke;">
+    <form class="form" autocomplete="off" style="background-color:whitesmoke;">
         <div class="row">
             <div class="col-2">
-                <div >
+                <div>
                     <label class="label">isbn</label>
-                    <input class="form-control input-b-info" name="isbn" [(ngModel)]="bookInfo.isbn" type="text">
+                    <input class="input input-b-info" name="isbn" [(ngModel)]="bookInfo.isbn" readonly="">
                 </div>
             </div>
             <div class="col-2">
                 <div class="input-group">
-                    <label class="label">lastname</label>
-                    <input class="input input-b-info" type="text" >
+                    <label class="label">Book name</label>
+                    <input class="input input-b-info" name="bookname" [(ngModel)]="bookInfo.title" type="text" readonly="">
                 </div>
             </div>
         </div>
-        <div class="row row-space">
+        <div class="row">
             <div class="col-2">
-                <div class="input-group">
-                    <label class="label">first name</label>
-                    <input class="input--style-4" type="text" name="first_name">
+                <div>
+                    <label class="label">Author</label>
+                    <input class="input input-b-info" name="author" [(ngModel)]="bookInfo.author" type="text" readonly="">
                 </div>
             </div>
             <div class="col-2">
                 <div class="input-group">
-                    <label class="label">last name</label>
-                    <input class="input--style-4" type="text" name="last_name">
+                    <label class="label">Origin</label>
+                    <input class="input input-b-info" name="origin" [(ngModel)]="bookInfo.origin" readonly="">
                 </div>
             </div>
         </div>
-       
+        <div class="row">
+            <div class="col-2">
+                <div>
+                    <label class="label">Borrow date</label>
+                    <input type="text" 
+                        class="input" 
+                        placeholder="date" 
+                        bsDatepicker 
+                        value="{{ borrowDate| date:'MM/dd/yyyy' }}" 
+                        [(ngModel)]="borrowDate"
+                        name="borrowdate"
+                        [minDate]='minDate'
+                        (bsValueChange)="resetLimitReturnDate()"
+                    />
+                </div>
+            </div>
+            <div class="col-2">
+                <div>
+                    <label class="label">Return date</label>
+                    <input type="text" 
+                        class="input" 
+                        placeholder="date" 
+                        bsDatepicker 
+                        value="{{ returnDate| date:'MM/dd/yyyy' }}" 
+                        [(ngModel)]="returnDate"
+                        name="returndate"
+                        [minDate]='minReDate'
+                        [maxDate]='maxDate'
+                    />
+                </div>
+            </div>
+        </div>
+
     </form>
 </div>
 
 <div>
-    <label >Test : {{bookInfo.isbn}}</label>
+    <label>Test borrow :  {{borrowDate|date:'yyyy-MM-dd' }}</label>
+    <label>Test return: {{returnDate|date:'yyyy-MM-dd' }}</label>
 </div>

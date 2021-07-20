@@ -13,27 +13,17 @@ export class BookService {
   baseUrl = environment.apiUrl;
   emptyInfo: LibBook;
   constructor(private http: HttpClient) { }
-  private currentBookSource = new ReplaySubject<LibUser>(1);
-  currentBook$ = this.currentBookSource.asObservable();
+  private currentBookSource = new ReplaySubject<LibBook>(1);
+  selectedBook$ = this.currentBookSource.asObservable();
 
   getBookList() {
     return this.http.get<Partial<LibBook[]>>(this.baseUrl + 'book');
   }
 
-  emptyBook() {
-    
-    this.emptyInfo.id = 0;
-    this.emptyInfo.isbn = "";
-    this.emptyInfo.title = "";
-    this.emptyInfo.author = "";
-    this.emptyInfo.origin = "";
-    this.emptyInfo.language = "";
-    this.emptyInfo.catalogue = "";
-    this.emptyInfo.summary = "";
-    this.emptyInfo.addtime = new Date();
-    this.emptyInfo.publishtime = new Date();
-    this.emptyInfo.condition = "";
-    this.emptyInfo.photourl = "";
-    return this.emptyInfo;
+  setSelectedBook(_book: LibBook) {
+    localStorage.setItem('book', JSON.stringify(_book));
+    this.currentBookSource.next(_book);
   }
+
+  
 }
