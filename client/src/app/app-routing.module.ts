@@ -22,6 +22,8 @@ import { LibUserEditComponent } from './libsystem/lib-members/lib-user-edit/lib-
 import { LibUserListComponent } from './libsystem/lib-members/lib-user-list/lib-user-list.component';
 import { LibHomeComponent } from './libsystem/lib-home/lib-home.component';
 import { LibChagnePassComponent } from './libsystem/lib-members/lib-chagne-pass/lib-chagne-pass.component';
+import { LibBookListComponent } from './libsystem/lib-books/lib-book-list/lib-book-list.component';
+import { LibBorrowRegisterComponent } from './libsystem/lib-borrows/lib-borrow-register/lib-borrow-register.component';
 
 const routes: Routes = [
   {path: '', component: LibHomeComponent},
@@ -40,8 +42,10 @@ const routes: Routes = [
       {path: 'messages', component: MessagesComponent},
       //{path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard]},
       {path: 'lib-users', component: LibUserListComponent, canActivate: [AdminGuard]},
+      {path: 'borrow/register', component: LibBorrowRegisterComponent},
     ]
   },
+  {path: 'book-list', component: LibBookListComponent},
   {path: 'member/register', component: LibUserRegisterComponent},
   {path: 'member/edituser', component: LibUserEditComponent},
   {path: 'errors', component: TestErrorsComponent},

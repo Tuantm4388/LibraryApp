@@ -7,8 +7,8 @@ export interface LibBook {
     language: string;
     catalogue: string;
     summary: string;
-    addtime: string;
-    publishtime: string;
+    addtime: Date;
+    publishtime: Date;
     condition: string;
     photourl: string;
 }

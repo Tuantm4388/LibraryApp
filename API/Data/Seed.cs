@@ -69,6 +69,9 @@ namespace API.Data
             for (int i = 0; i < items.Count; i++)
             {
                 AppBook book = items[i];
+                book.Isbn = book.Isbn.ToUpper();
+                book.Addtime = DateTime.Now;
+                book.Publishtime = DateTime.Now;
                 context.Books.Add(book);
             }
             await context.SaveChangesAsync();

@@ -46,6 +46,9 @@ import { LibTextInputComponent } from './_forms/lib-text-input/lib-text-input.co
 import { LibDeleteUserComponent } from './libsystem/lib-dialog/lib-delete-user/lib-delete-user.component';
 import { LibUserRolesComponent } from './libsystem/lib-dialog/lib-user-roles/lib-user-roles.component';
 import { LibChagnePassComponent } from './libsystem/lib-members/lib-chagne-pass/lib-chagne-pass.component';
+import { LibBookListComponent } from './libsystem/lib-books/lib-book-list/lib-book-list.component';
+import { LibBookInfoComponent } from './libsystem/lib-books/lib-book-info/lib-book-info.component';
+import { LibBorrowRegisterComponent } from './libsystem/lib-borrows/lib-borrow-register/lib-borrow-register.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +85,10 @@ import { LibChagnePassComponent } from './libsystem/lib-members/lib-chagne-pass/
     LibTextInputComponent,
     LibDeleteUserComponent,
     LibUserRolesComponent,
-    LibChagnePassComponent
+    LibChagnePassComponent,
+    LibBookListComponent,
+    LibBookInfoComponent,
+    LibBorrowRegisterComponent
   ],
   imports: [
     BrowserModule,

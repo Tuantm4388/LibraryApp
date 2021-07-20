@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LibBook } from 'src/app/_models/libBook';
 import { Member } from 'src/app/_models/member';
@@ -13,6 +13,8 @@ export class LibCardBookComponent implements OnInit {
 
   //@Input() member: Member;
   @Input() book: LibBook;
+  //@Output() book: LibBook;
+  @Output() submitBookInfo = new EventEmitter<LibBook>();
 
 
   constructor(private toastr: ToastrService) {
@@ -22,6 +24,7 @@ export class LibCardBookComponent implements OnInit {
 
   }
   clickFunction() {
-    this.toastr.info("clicked");
+    //this.toastr.info("clicked");
+    this.submitBookInfo.emit(this.book);
   }
 }

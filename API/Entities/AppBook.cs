@@ -1,3 +1,5 @@
+using System;
+
 namespace API.Entities
 {
     public class AppBook
@@ -10,8 +12,8 @@ namespace API.Entities
         public string Language { get; set; }
         public string Catalogue { get; set; }
         public string Summary { get; set; }
-        public string Addtime { get; set; }
-        public string Publishtime { get; set; }
+        public DateTime Addtime { get; set; } = DateTime.Now;
+        public DateTime Publishtime { get; set; } = DateTime.Now;
         public string Condition { get; set; }
         public string Photourl { get; set; }
     }

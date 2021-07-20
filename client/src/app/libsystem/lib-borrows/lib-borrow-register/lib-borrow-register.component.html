@@ -1,0 +1,37 @@
+<div class="card">
+    <form  class="form"  autocomplete="off" style="background-color:whitesmoke;">
+        <div class="row">
+            <div class="col-2">
+                <div >
+                    <label class="label">isbn</label>
+                    <input class="form-control input-b-info" name="isbn" [(ngModel)]="bookInfo.isbn" type="text">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="input-group">
+                    <label class="label">lastname</label>
+                    <input class="input input-b-info" type="text" >
+                </div>
+            </div>
+        </div>
+        <div class="row row-space">
+            <div class="col-2">
+                <div class="input-group">
+                    <label class="label">first name</label>
+                    <input class="input--style-4" type="text" name="first_name">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="input-group">
+                    <label class="label">last name</label>
+                    <input class="input--style-4" type="text" name="last_name">
+                </div>
+            </div>
+        </div>
+       
+    </form>
+</div>
+
+<div>
+    <label >Test : {{bookInfo.isbn}}</label>
+</div>

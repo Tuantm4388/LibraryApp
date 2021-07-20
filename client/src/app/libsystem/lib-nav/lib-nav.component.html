@@ -1,8 +1,11 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top bg-primary">
     <div class="container">
-        <a class="navbar-brand" routerLink='/' routerLinkActive='active'>Library</a>
+        <a class="navbar-brand" routerLink='' routerLinkActive='active'>LMT</a>
 
         <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" routerLink='/book-list' routerLinkActive='active'>Book list</a>
+            </li>
             <ng-container *ngIf="accountService.currentUser$ | async">
                 <li class="nav-item">
                     <a class="nav-link" routerLink='/members' routerLinkActive='active'>Matches</a>

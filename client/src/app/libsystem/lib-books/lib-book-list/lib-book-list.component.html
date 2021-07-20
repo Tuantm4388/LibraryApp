@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-3">
+        <ul class="list-group">
+            <li class="list-group-item">ca1</li>
+            <li class="list-group-item">ca2</li>
+            <li class="list-group-item">ca3</li>
+            <li class="list-group-item">ca4</li>
+        </ul>
+    </div>
+    <div class="col">
+        <div class="row">
+            <ng-container *ngFor="let book of books| paginate: { itemsPerPage: countPage, currentPage: pageCur };
+                                    let i = index">
+                <div class="col">
+                    <app-lib-card-book [book]="book" (submitBookInfo)="getSelectedtBook($event)"></app-lib-card-book>
+                </div>
+                <div *ngIf="(i + 1) % 3 === 0" class="w-100"></div>
+            </ng-container>
+        </div>
+        <div class="row">
+            <!--Including the pagination control.-->
+            <div class="text-right">
+                <pagination-controls (pageChange)="pageCur = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+    <div class="col-3 body-info">
+        <app-lib-book-info [bookInfo] = "bookInfo" ></app-lib-book-info>
+    </div>
+</div>
