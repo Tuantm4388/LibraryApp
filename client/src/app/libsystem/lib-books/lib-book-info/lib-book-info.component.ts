@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LibBook } from 'src/app/_models/libBook';
 import { BookService } from 'src/app/_services/book.service';
+import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
   selector: 'app-lib-book-info',
@@ -11,9 +12,10 @@ import { BookService } from 'src/app/_services/book.service';
 export class LibBookInfoComponent implements OnInit {
 
   @Input() bookInfo: LibBook;
-  constructor(private router: Router, private bookService: BookService) { }
+  constructor(private router: Router, private bookService: BookService, public accountService: AccountService) { }
 
   ngOnInit(): void {
+    
   }
 
   goToRequestBorrow(_book: LibBook) {

@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-    <div class="col-3 body-info">
-        <app-lib-book-info [bookInfo] = "bookInfo" ></app-lib-book-info>
+    <div *ngIf="isShowInfo" class="col-3 body-info">
+        <app-lib-book-info [bookInfo] = "bookInfo"></app-lib-book-info>
     </div>
 </div>

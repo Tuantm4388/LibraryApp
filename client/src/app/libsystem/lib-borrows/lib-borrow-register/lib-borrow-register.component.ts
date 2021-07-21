@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 import { LibBook } from 'src/app/_models/libBook';
+import { User } from 'src/app/_models/user';
+import { AccountService } from 'src/app/_services/account.service';
 import { BookService } from 'src/app/_services/book.service';
 
 @Component({
@@ -12,6 +14,7 @@ import { BookService } from 'src/app/_services/book.service';
 export class LibBorrowRegisterComponent implements OnInit {
 
   bookInfo: LibBook;
+  user:User;
 
   maxDate: Date;
   minReDate: Date;
@@ -20,9 +23,10 @@ export class LibBorrowRegisterComponent implements OnInit {
   borrowDate: Date;
   returnDate: Date;
 
-  constructor(public bookService: BookService, private toast: ToastrService) {
+  constructor(public bookService: BookService, private toast: ToastrService, private accountService: AccountService) {
     //this.bookInfo = bookService.emptyBook();
     this.bookService.selectedBook$.pipe(take(1)).subscribe(book => this.bookInfo = book);
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
   ngOnInit(): void {
