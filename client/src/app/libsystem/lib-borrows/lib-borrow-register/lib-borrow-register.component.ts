@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 import { LibBook } from 'src/app/_models/libBook';
+import { LibUser } from 'src/app/_models/libUser';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
 import { BookService } from 'src/app/_services/book.service';
+import { BorrowService } from 'src/app/_services/borrow.service';
+import { LibMessageComponent } from '../../lib-dialog/lib-message/lib-message.component';
 
 @Component({
   selector: 'app-lib-borrow-register',
@@ -14,7 +19,7 @@ import { BookService } from 'src/app/_services/book.service';
 export class LibBorrowRegisterComponent implements OnInit {
 
   bookInfo: LibBook;
-  user:User;
+  user: User;
 
   maxDate: Date;
   minReDate: Date;
@@ -23,7 +28,9 @@ export class LibBorrowRegisterComponent implements OnInit {
   borrowDate: Date;
   returnDate: Date;
 
-  constructor(public bookService: BookService, private toast: ToastrService, private accountService: AccountService) {
+  constructor(public bookService: BookService, private toast: ToastrService,
+    private accountService: AccountService, private borrowService: BorrowService,
+    private modalService: BsModalService, private router: Router) {
     //this.bookInfo = bookService.emptyBook();
     this.bookService.selectedBook$.pipe(take(1)).subscribe(book => this.bookInfo = book);
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
@@ -47,6 +54,7 @@ export class LibBorrowRegisterComponent implements OnInit {
       this.books = books;
     });
   }
+
   resetLimitReturnDate() {
     this.returnDate = this.borrowDate;
     this.minReDate = this.borrowDate;
@@ -54,6 +62,31 @@ export class LibBorrowRegisterComponent implements OnInit {
     date.setDate(this.borrowDate.getDate() + 30);
     this.maxDate = date;
     //this.toast.info("show");
+  }
+
+  addBorrowCard() {
+     this.borrowService.addBorrowcard(this.bookInfo.id, this.user.id, this.borrowDate, this.returnDate)
+      .subscribe(() => {
+        this.showMessageDialog();
+      }, error => { this.toast.error(error) });
+  }
+
+  bsModalRef: BsModalRef;
+  showMessageDialog() {
+    const config = {
+      class: 'modal-dialog-centered',
+      initialState: {
+        typeMessge: 1,
+        titleDialog: "Borrow request success",
+        titleMessage: "Create borrow request succsess",
+        contentMessage: "Please go to librarian with your library card for getting the book!",
+        success: false
+      }
+    }
+    this.bsModalRef = this.modalService.show(LibMessageComponent, config);
+    this.bsModalRef.content.updateAction.subscribe(() => {
+      this.router.navigateByUrl('/book-list');
+    });
   }
 
 }

@@ -49,6 +49,7 @@ import { LibChagnePassComponent } from './libsystem/lib-members/lib-chagne-pass/
 import { LibBookListComponent } from './libsystem/lib-books/lib-book-list/lib-book-list.component';
 import { LibBookInfoComponent } from './libsystem/lib-books/lib-book-info/lib-book-info.component';
 import { LibBorrowRegisterComponent } from './libsystem/lib-borrows/lib-borrow-register/lib-borrow-register.component';
+import { LibMessageComponent } from './libsystem/lib-dialog/lib-message/lib-message.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { LibBorrowRegisterComponent } from './libsystem/lib-borrows/lib-borrow-r
     LibChagnePassComponent,
     LibBookListComponent,
     LibBookInfoComponent,
-    LibBorrowRegisterComponent
+    LibBorrowRegisterComponent,
+    LibMessageComponent
   ],
   imports: [
     BrowserModule,

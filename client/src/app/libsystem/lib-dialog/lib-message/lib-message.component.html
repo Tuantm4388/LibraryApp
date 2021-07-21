@@ -1,0 +1,17 @@
+<div *ngIf="typeMessge===1">
+    <div class="modal-header" style="background-color:seagreen;">
+        <h4 class="modal-title pull-left" style="color: snow;">{{titleDialog}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="clickX()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form #rolesForm="ngForm" id="rolesForm">
+            <h5>{{titleMessage}}</h5>
+            <p>{{contentMessage}}</p>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="clickOK()">OK</button>
+    </div>
+</div>

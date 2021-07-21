@@ -76,14 +76,31 @@ namespace API.Data.Migrations
                     Language = table.Column<string>(type: "TEXT", nullable: true),
                     Catalogue = table.Column<string>(type: "TEXT", nullable: true),
                     Summary = table.Column<string>(type: "TEXT", nullable: true),
-                    Addtime = table.Column<string>(type: "TEXT", nullable: true),
-                    Publishtime = table.Column<string>(type: "TEXT", nullable: true),
+                    Addtime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Publishtime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Condition = table.Column<string>(type: "TEXT", nullable: true),
                     Photourl = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Books", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BorrowCards",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Idbook = table.Column<int>(type: "INTEGER", nullable: false),
+                    Iduser = table.Column<int>(type: "INTEGER", nullable: false),
+                    Borrowtime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Returntime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    States = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BorrowCards", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -348,6 +365,9 @@ namespace API.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Books");
+
+            migrationBuilder.DropTable(
+                name: "BorrowCards");
 
             migrationBuilder.DropTable(
                 name: "Likes");
