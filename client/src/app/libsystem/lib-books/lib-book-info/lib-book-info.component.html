@@ -1,34 +1,43 @@
 <div class="container" style="background-color:whitesmoke;">
-    <form >
-        <h1>{{bookInfo.title}}</h1>
-        <label class="row">
-            <label>Author: </label>
-            <label class="text-primary">{{bookInfo.author}}</label>
-        </label>
-        <label class="row" >
-            <label>Origin: </label>
-            <label class="text-primary">{{bookInfo.origin}}</label>
-        </label>
-        <label class="row" >
-            <label>Language: </label>
-            <label class="text-primary">{{bookInfo.language}}</label>
-        </label>
-        <label class="row" >
-            <label>Publish date: </label>
-            <label class="text-primary">{{bookInfo.publishtime|date:'dd-MM-yyyy'}}</label>
-        </label>
-        <label class="row" >
-            <label>Catalogue: </label>
-            <label class="text-primary">{{bookInfo.catalogue}}</label>
-        </label>
-        <hr>
-    </form>
-    <form >
-        <h1>Summary</h1>
-        <label class="row">{{bookInfo.summary}}</label>
-        <div class="row">
-            <button *ngIf="(accountService.currentUser$ | async)" type="button" class="btn btn-success" (click)="goToRequestBorrow(bookInfo)">Borrow</button>
+    <div>
+        <form>
+            <h1>{{bookInfo.title}}</h1>
+            <label class="row">
+                <label>Author: </label>
+                <label class="text-primary">{{bookInfo.author}}</label>
+            </label>
+            <label class="row">
+                <label>Origin: </label>
+                <label class="text-primary">{{bookInfo.origin}}</label>
+            </label>
+            <label class="row">
+                <label>Language: </label>
+                <label class="text-primary">{{bookInfo.language}}</label>
+            </label>
+            <label class="row">
+                <label>Publish date: </label>
+                <label class="text-primary">{{bookInfo.publishtime|date:'dd-MM-yyyy'}}</label>
+            </label>
+            <label class="row">
+                <label>Catalogue: </label>
+                <label class="text-primary">{{bookInfo.catalogue}}</label>
+            </label>
+            <hr>
+        </form>
+        <form>
+            <h1>Summary</h1>
+            <label class="row">{{bookInfo.summary}}</label>
+            <div class="row">
+                <button *ngIf="(accountService.currentUser$ | async)" type="button" class="btn btn-success"
+                    (click)="goToRequestBorrow(bookInfo)">Borrow</button>
+            </div>
+            <hr>
+        </form>
+    </div>
+    <div *ngIf="(accountService.currentUser$ | async) as userLog">
+        <div *ngIf="(userLog.roles.includes('Admin') || userLog.roles.includes('Librarian'))">
+            <button type="button" class="btn btn-outline-primary"
+                    (click)="goToCreateISBN()">Create New ISBN</button>
         </div>
-        <hr>
-    </form>
+    </div>
 </div>

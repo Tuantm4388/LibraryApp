@@ -79,7 +79,8 @@ namespace API.Data.Migrations
                     Addtime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Publishtime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Condition = table.Column<string>(type: "TEXT", nullable: true),
-                    Photourl = table.Column<string>(type: "TEXT", nullable: true)
+                    Photourl = table.Column<string>(type: "TEXT", nullable: true),
+                    Count = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

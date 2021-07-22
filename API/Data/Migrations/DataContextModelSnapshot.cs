@@ -34,6 +34,9 @@ namespace API.Data.Migrations
                     b.Property<string>("Condition")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Count")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Isbn")
                         .HasColumnType("TEXT");
 

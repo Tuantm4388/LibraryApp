@@ -16,5 +16,6 @@ namespace API.Entities
         public DateTime Publishtime { get; set; } = DateTime.Now;
         public string Condition { get; set; }
         public string Photourl { get; set; }
+        public int Count { get; set; }
     }
 }
