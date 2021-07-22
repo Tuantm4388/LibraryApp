@@ -50,6 +50,8 @@ import { LibBookListComponent } from './libsystem/lib-books/lib-book-list/lib-bo
 import { LibBookInfoComponent } from './libsystem/lib-books/lib-book-info/lib-book-info.component';
 import { LibBorrowRegisterComponent } from './libsystem/lib-borrows/lib-borrow-register/lib-borrow-register.component';
 import { LibMessageComponent } from './libsystem/lib-dialog/lib-message/lib-message.component';
+import { LibBookAddComponent } from './libsystem/lib-books/lib-book-add/lib-book-add.component';
+import { LibBookInputComponent } from './libsystem/lib-books/lib-book-input/lib-book-input.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +92,9 @@ import { LibMessageComponent } from './libsystem/lib-dialog/lib-message/lib-mess
     LibBookListComponent,
     LibBookInfoComponent,
     LibBorrowRegisterComponent,
-    LibMessageComponent
+    LibMessageComponent,
+    LibBookAddComponent,
+    LibBookInputComponent
   ],
   imports: [
     BrowserModule,

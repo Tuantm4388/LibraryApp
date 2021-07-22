@@ -1,5 +1,6 @@
-<div class="card">
-    <form class="form" autocomplete="off" style="background-color:whitesmoke;">
+<div class="card" style="background-color:whitesmoke;">
+    <h1>Borrow book</h1>
+    <form class="form" autocomplete="off">
         <div class="row">
             <div class="col-2">
                 <div>
@@ -10,7 +11,8 @@
             <div class="col-2">
                 <div class="input-group">
                     <label class="label">Book name</label>
-                    <input class="input input-b-info" name="bookname" [(ngModel)]="bookInfo.title" type="text" readonly="">
+                    <input class="input input-b-info" name="bookname" [(ngModel)]="bookInfo.title" type="text"
+                        readonly="">
                 </div>
             </div>
         </div>
@@ -18,7 +20,8 @@
             <div class="col-2">
                 <div>
                     <label class="label">Author</label>
-                    <input class="input input-b-info" name="author" [(ngModel)]="bookInfo.author" type="text" readonly="">
+                    <input class="input input-b-info" name="author" [(ngModel)]="bookInfo.author" type="text"
+                        readonly="">
                 </div>
             </div>
             <div class="col-2">
@@ -35,16 +38,9 @@
                         <label>Borrow date</label>
                         <label class="text-danger">*</label>
                     </label>
-                    <input type="text" 
-                        class="input" 
-                        placeholder="date" 
-                        bsDatepicker 
-                        value="{{ borrowDate| date:'MM/dd/yyyy' }}" 
-                        [(ngModel)]="borrowDate"
-                        name="borrowdate"
-                        [minDate]='minDate'
-                        (bsValueChange)="resetLimitReturnDate()"
-                    />
+                    <input type="text" class="input" placeholder="date" bsDatepicker
+                        value="{{ borrowDate| date:'MM/dd/yyyy' }}" [(ngModel)]="borrowDate" name="borrowdate"
+                        [minDate]='minDate' (bsValueChange)="resetLimitReturnDate()" />
                 </div>
             </div>
             <div class="col-2">
@@ -53,16 +49,9 @@
                         <label>Return date</label>
                         <label class="text-danger">*</label>
                     </label>
-                    <input type="text" 
-                        class="input" 
-                        placeholder="date" 
-                        bsDatepicker 
-                        value="{{ returnDate| date:'MM/dd/yyyy' }}" 
-                        [(ngModel)]="returnDate"
-                        name="returndate"
-                        [minDate]='minReDate'
-                        [maxDate]='maxDate'
-                    />
+                    <input type="text" class="input" placeholder="date" bsDatepicker
+                        value="{{ returnDate| date:'MM/dd/yyyy' }}" [(ngModel)]="returnDate" name="returndate"
+                        [minDate]='minReDate' [maxDate]='maxDate' />
                 </div>
             </div>
         </div>
@@ -76,8 +65,8 @@
 <div>
     <label>Test borrow :  {{borrowDate|date:'yyyy-MM-dd' }}</label>
     <label>Test return: {{returnDate|date:'yyyy-MM-dd' }}</label>
+    <label>user : {{user.id}}</label>
+<label>user : {{user.username}}</label>
+<label>user : {{bookInfo.id}}</label>
 </div>
 -->
-<label>user :  {{user.id}}</label>
-<label>user :  {{user.username}}</label>
-<label>user :  {{bookInfo.id}}</label>
