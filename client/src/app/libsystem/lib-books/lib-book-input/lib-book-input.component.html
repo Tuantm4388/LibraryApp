@@ -1,1 +1,114 @@
-<p>lib-book-input works!</p>
+<form [formGroup]='registerForm' (ngSubmit)="registerForm.valid && submitFunc()" autocomplete="off">
+    <div class="row row-item">
+        <div class="col colum-item-1">
+            <div>
+                <label>
+                    <label>ISBN</label>
+                    <label class="text-danger">*</label>
+                </label>
+                <app-text-input [formControl]='registerForm.controls["Isbn"]' [label]='"ISBN"'>
+                </app-text-input>
+            </div>
+        </div>
+        <div class="col colum-item-2">
+            <div>
+                <label>
+                    <label>Title</label>
+                    <label class="text-danger">*</label>
+                </label>
+                <app-text-input [formControl]='registerForm.controls["Title"]' [label]='"Title"'>
+                </app-text-input>
+            </div>
+        </div>
+        <div class="col colum-item-3">
+            <div>
+                <label>
+                    <label>Author</label>
+                    <label class="text-danger">*</label>
+                </label>
+                <app-text-input [formControl]='registerForm.controls["Author"]' [label]='"Author"'>
+                </app-text-input>
+            </div>
+        </div>
+    </div>
+    <div class="row row-item">
+        <div class="col colum-item-1">
+            <div>
+                <label>
+                    <label>Origin</label>
+                    <label class="text-danger">*</label>
+                </label>
+                <app-text-input [formControl]='registerForm.controls["Origin"]' [label]='"Origin"'>
+                </app-text-input>
+            </div>
+        </div>
+        <div class="col colum-item-2">
+            <div>
+                <label>
+                    <label>Language</label>
+                    <label class="text-danger">*</label>
+                </label>
+                <app-text-input [formControl]='registerForm.controls["Language"]' [label]='"Language"'>
+                </app-text-input>
+            </div>
+        </div>
+        <div class="col colum-item-3">
+            <div>
+                <label>
+                    <label>Catalogue</label>
+                    <label class="text-danger">*</label>
+                </label>
+                <app-text-input [formControl]='registerForm.controls["Catalogue"]' [label]='"Catalogue"'>
+                </app-text-input>
+            </div>
+        </div>
+    </div>
+    <div class="row row-item">
+        <div class="col colum-item-4">
+            <div>
+                <label>
+                    <label>Summary</label>
+                    <label class="text-danger">*</label>
+                </label>
+                <app-text-input [formControl]='registerForm.controls["Summary"]' [label]='"Summary"'>
+                </app-text-input>
+            </div>
+        </div>
+    </div>
+    <div class="row row-item">
+        <div class="col colum-item-5">
+            <div>
+                <label>
+                    <label>Add date</label>
+                    <label class="text-danger"></label>
+                </label>
+                <app-date-input [formControl]='registerForm.controls["adddate"]' [label]='"Add date"'
+                    [minDate]='minDate'></app-date-input>
+            </div>
+        </div>
+        <div class="col colum-item-6">
+            <div>
+                <label>
+                    <label>Publish date</label>
+                    <label class="text-danger">*</label>
+                </label>
+                <app-date-input [formControl]='registerForm.controls["publishdate"]' [label]='"Publish date"'
+                    [minDate]='minDate'></app-date-input>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" *ngIf="validationErrors.length > 0">
+        <ul class="text-danger">
+            <li *ngFor="let error of validationErrors">
+                {{error}}
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <button [disabled]='!registerForm.valid' class="btn btn-primary mr-2" type="submit">Submit</button>
+        <button class="btn btn-secondary mr-2" (click)="cancel()" type="button">Cancel</button>
+    </div>
+</form>

@@ -16,6 +16,7 @@ namespace API.Data
         public DbSet<UserLike> Likes { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<AppBook> Books { get; set; }
+        public DbSet<BookInfo> Infos { get; set; }
         public DbSet<BorrowCard> BorrowCards { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

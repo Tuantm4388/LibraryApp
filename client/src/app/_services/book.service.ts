@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LibBook } from '../_models/libBook';
-import { LibUser } from '../_models/libUser';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +23,5 @@ export class BookService {
     localStorage.setItem('book', JSON.stringify(_book));
     this.currentBookSource.next(_book);
   }
-
   
 }

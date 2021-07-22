@@ -63,16 +63,26 @@ namespace API.Data
             var itemData = await System.IO.File.ReadAllTextAsync("Data/BookSeedDataLibrary.json");
             Console.WriteLine("\n >>>>>>  data" + itemData);
             var items = JsonSerializer.Deserialize<List<AppBook>>(itemData);
+            var itemInfos = JsonSerializer.Deserialize<List<BookInfo>>(itemData);
             //Console.WriteLine("\n >>>>>> users : "+ items);
             if (items == null) return;
 
-            for (int i = 0; i < items.Count; i++)
+            for (int i = 0; i < itemInfos.Count; i++)
             {
                 AppBook book = items[i];
                 book.Isbn = book.Isbn.ToUpper();
                 book.Addtime = DateTime.Now;
                 book.Publishtime = DateTime.Now;
+                book.Count = 0;
                 context.Books.Add(book);
+
+                BookInfo info = itemInfos[i];
+                info.Isbn = info.Isbn.ToUpper();
+                info.Addtime = DateTime.Now;
+                info.Publishtime = DateTime.Now;
+                info.Count = 0;
+                info.Condition = "";
+                context.Infos.Add(info);
             }
             await context.SaveChangesAsync();
         }

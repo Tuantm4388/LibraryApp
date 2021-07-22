@@ -105,6 +105,30 @@ namespace API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Infos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Isbn = table.Column<string>(type: "TEXT", nullable: true),
+                    Title = table.Column<string>(type: "TEXT", nullable: true),
+                    Author = table.Column<string>(type: "TEXT", nullable: true),
+                    Origin = table.Column<string>(type: "TEXT", nullable: true),
+                    Language = table.Column<string>(type: "TEXT", nullable: true),
+                    Catalogue = table.Column<string>(type: "TEXT", nullable: true),
+                    Summary = table.Column<string>(type: "TEXT", nullable: true),
+                    Addtime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Publishtime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Condition = table.Column<string>(type: "TEXT", nullable: true),
+                    Photourl = table.Column<string>(type: "TEXT", nullable: true),
+                    Count = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Infos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -369,6 +393,9 @@ namespace API.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "BorrowCards");
+
+            migrationBuilder.DropTable(
+                name: "Infos");
 
             migrationBuilder.DropTable(
                 name: "Likes");
