@@ -48,12 +48,12 @@ namespace API.Controllers
                                                     string photourl
         )
         {
-            if (await _context.Infos.AnyAsync(x => x.Isbn == isbn.ToUpper())) return BadRequest("ISBN is exist.");
+            if (await _context.Infos.AnyAsync(x => x.Isbn == isbn.ToUpper())) return BadRequest("The isbn is already available.");
             //var item =  await _context.Infos.FirstOrDefaultAsync(x => x.Isbn == isbn);
             // if(item == null) return BadRequest(item);
             BookInfo info = new BookInfo();
             info.Isbn = isbn;
-            info.Title = title;
+            info.Title = title.ToUpper();
             info.Language = language;
             info.Author = author;
             info.Origin = origin;

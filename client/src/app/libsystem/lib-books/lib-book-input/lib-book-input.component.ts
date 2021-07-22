@@ -17,6 +17,8 @@ export class LibBookInputComponent implements OnInit {
   minDate: Date;
   validationErrors: string[] = [];
 
+  photoUrl:string="./assets/book.png";
+
   constructor(private infoService: InfoService, private toastr: ToastrService,
     private fb: FormBuilder, private router: Router) { }
 
@@ -47,7 +49,6 @@ export class LibBookInputComponent implements OnInit {
   }
 
   addNewISBN() {
-    this.toastr.info("test");
     this.infoService.addNewISBN(this.registerForm.controls["Isbn"].value,
       this.registerForm.controls["Title"].value,
       this.registerForm.controls["Author"].value,
@@ -57,17 +58,19 @@ export class LibBookInputComponent implements OnInit {
       this.registerForm.controls["Summary"].value,
       this.registerForm.controls["adddate"].value,
       this.registerForm.controls["publishdate"].value,
-      "",
+      this.photoUrl,
     ).subscribe(response => {
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/book-list');
     }, error => {
       this.validationErrors = error;
-      this.toastr.error(error);
+      //this.toastr.info(error);
+      //this.toastr.error("The isbn is already available");
     })
   }
 
   cancel() {
-    this.cancelRegister.emit(false);
+    //this.cancelRegister.emit(false);
+    this.router.navigateByUrl('/book-list');
   }
 
 }
