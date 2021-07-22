@@ -53,6 +53,14 @@ namespace API.Data
 
             await userManager.CreateAsync(librarian, "Pa$$w0rd");
             await userManager.AddToRoleAsync(librarian, "Librarian");
+
+            var member = new AppUser
+            {
+                UserName = "member"
+            };
+
+            await userManager.CreateAsync(member, "Pa$$w0rd");
+            await userManager.AddToRoleAsync(member, "Member");
         }
 
 

@@ -1,9 +1,11 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { BookService } from 'src/app/_services/book.service';
 import { InfoService } from 'src/app/_services/info.service';
+import { LibMessageComponent } from '../../lib-dialog/lib-message/lib-message.component';
+import { LibPhotoEditDialogComponent } from '../../lib-dialog/lib-photo-edit-dialog/lib-photo-edit-dialog.component';
 
 @Component({
   selector: 'app-lib-book-input',
@@ -17,10 +19,11 @@ export class LibBookInputComponent implements OnInit {
   minDate: Date;
   validationErrors: string[] = [];
 
-  photoUrl:string="./assets/book.png";
+  photoUrl: string = "./assets/uploadImage.png";
+  photoUrlSource: string = "./assets/uploadImage.png";
 
   constructor(private infoService: InfoService, private toastr: ToastrService,
-    private fb: FormBuilder, private router: Router) { }
+    private fb: FormBuilder, private router: Router, private modalService: BsModalService) { }
 
   ngOnInit(): void {
 
@@ -71,6 +74,27 @@ export class LibBookInputComponent implements OnInit {
   cancel() {
     //this.cancelRegister.emit(false);
     this.router.navigateByUrl('/book-list');
+  }
+
+  bsModalRef: BsModalRef;
+  selectPhotoUrl() {
+    const config = {
+      class: 'modal-dialog-centered',
+      initialState: {
+
+        success: false,
+        selectUrl: ""
+      }
+    }
+    this.bsModalRef = this.modalService.show(LibPhotoEditDialogComponent, config);
+   // this.bsModalRef = this.modalService.show(LibMessageComponent, config);
+    this.bsModalRef.content.updateAction.subscribe(values => {
+      console.log("Tuabnkfdsfbkj hfkjds");
+      this.toastr.error("jhdkjfhlkads;jl");
+      //this.photoUrl = values;
+    });
+    //this.photoUrl = this.bsModalRef.content.returnUrl;
+    //this.toastr.error(this.photoUrl);
   }
 
 }
