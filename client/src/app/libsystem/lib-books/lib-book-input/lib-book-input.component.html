@@ -1,17 +1,14 @@
 <div class="col text-center">
     <div class="row ">
-        <img src="{{photoUrlSource}}" alt="uploadImage" class="card-img-top img-thumbnail">
+        <img src="{{photoUrl || './assets/uploadImage.png'}}" alt="uploadImage" class="card-img-top img-thumbnail">
     </div>
     <div class="row">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="{{photoUrl}}" name="url" [(ngModel)]="photoUrl">
+            <input type="text" class="form-control" placeholder="{{photoUrlSource}}" name="url" [(ngModel)]="photoUrl">
             <div class="input-group-append">
                 <button class="btn btn btn-light" type="button" (click)="selectPhotoUrl()">Browse</button>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <p>{{photoUrl}}</p>
     </div>
 </div>
 <form [formGroup]='registerForm' (ngSubmit)="registerForm.valid && submitFunc()" autocomplete="off">

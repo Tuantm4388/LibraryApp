@@ -19,7 +19,7 @@ export class LibBookInputComponent implements OnInit {
   minDate: Date;
   validationErrors: string[] = [];
 
-  photoUrl: string = "./assets/uploadImage.png";
+  photoUrl: string = "";
   photoUrlSource: string = "./assets/uploadImage.png";
 
   constructor(private infoService: InfoService, private toastr: ToastrService,
@@ -81,20 +81,14 @@ export class LibBookInputComponent implements OnInit {
     const config = {
       class: 'modal-dialog-centered',
       initialState: {
-
-        success: false,
-        selectUrl: ""
+        selectUrl: this.photoUrl
       }
     }
     this.bsModalRef = this.modalService.show(LibPhotoEditDialogComponent, config);
-   // this.bsModalRef = this.modalService.show(LibMessageComponent, config);
     this.bsModalRef.content.updateAction.subscribe(values => {
-      console.log("Tuabnkfdsfbkj hfkjds");
-      this.toastr.error("jhdkjfhlkads;jl");
-      //this.photoUrl = values;
+      //this.toastr.error(values);
+      this.photoUrl = values;
     });
-    //this.photoUrl = this.bsModalRef.content.returnUrl;
-    //this.toastr.error(this.photoUrl);
   }
 
 }

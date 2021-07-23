@@ -26,6 +26,8 @@ export class LibPhotoEditDialogComponent implements OnInit {
   baseUrl = environment.apiUrl;
   user: User;
 
+  isDisable:boolean=false;
+
   constructor(private accountService: AccountService, private memberService: MembersService,
     private toastr: ToastrService,public bsModalRef: BsModalRef) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
@@ -39,7 +41,7 @@ export class LibPhotoEditDialogComponent implements OnInit {
   fileOverBase(e: any) {
     this.hasBaseDropzoneOver = e;
   }
-
+/*
   setMainPhoto(photo: Photo) {
     this.selectUrl = photo.url;
     this.memberService.setMainPhoto(photo.id).subscribe(() => {
@@ -52,7 +54,7 @@ export class LibPhotoEditDialogComponent implements OnInit {
       })
     })
   }
-
+*/
   deletePhoto(photoId: number) {
     this.memberService.deletePhoto(photoId).subscribe(() => {
       this.member.photos = this.member.photos.filter(x => x.id !== photoId);
@@ -77,12 +79,14 @@ export class LibPhotoEditDialogComponent implements OnInit {
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
         const photo: Photo = JSON.parse(response);
-        this.member.photos.push(photo);
-        if (photo.isMain) {
+        this.selectUrl = photo.url;
+        this.closeDlg();
+        //this.member.photos.push(photo);
+       /* if (photo.isMain) {
           this.user.photoUrl = photo.url;
           this.member.photoUrl = photo.url;
           this.accountService.setCurrentUser(this.user);
-        }
+        }*/
       }
     }
   }
@@ -100,13 +104,22 @@ export class LibPhotoEditDialogComponent implements OnInit {
     })
   }
 
+  beginUpload(){
+    this.isDisable = true;
+    this.uploader.uploadAll();
+  }
   
   selectUrl:string="";
- @Input() returnUrl:string="";
+  
   closeDlg(){
     //this.toastr.info(this.selectUrl);
-    this.returnUrl= this.selectUrl;
-    this.updateAction.emit(true);
+    
+    this.updateAction.emit(this.selectUrl);
     this.bsModalRef.hide();
   }
+
+  cancelDlg(){
+    this.bsModalRef.hide();
+  }
+
 }

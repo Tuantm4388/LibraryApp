@@ -1,4 +1,4 @@
-<div class="row">
+<!--<div class="row">
     <div class="col-2" *ngFor="let photo of member.photos">
         <img src="{{photo.url}}" alt="{{photo.url}}" class="img-thumbnail p-1">
         <div class="text-center">
@@ -16,7 +16,7 @@
         </div>
     </div>
 </div>
-
+-->
 <div class="row mt-3">
  
     <div class="col-md-3">
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <button type="button" class="btn btn-success btn-s"
-                    (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                    (click)="beginUpload()" [disabled]="!uploader.getNotUploadedItems().length">
                 <span class="fa fa-upload"></span> Upload all
             </button>
             <button type="button" class="btn btn-warning btn-s"
@@ -79,16 +79,14 @@
                 <span class="fa fa-trash"></span> Remove all
             </button>
         </div>
-
+        <div *ngIf="isDisable">
+            <h1 style="color: red;">Please wait!</h1>
+        </div>
     </div>
 
 </div>
 <div class="row-3">
     <p></p>
-    <button class="btn btn-info btn-lg mr-5" (click)="closeDlg()">Close</button>
+    <button class="btn btn-info btn-lg mr-5" (click)="cancelDlg()" [disabled]='isDisable'>Close</button>
 </div>
-<div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="closeDlg()">OK</button>
-    </div>
-</div>
+
