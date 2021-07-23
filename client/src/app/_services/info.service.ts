@@ -23,6 +23,10 @@ export class InfoService {
     return this.http.get<Partial<LibBookInfo[]>>(this.baseUrl + 'info');
   }
 
+  getBookInfo(idIsbn: number) {
+    return this.http.get<LibBookInfo>(this.baseUrl + 'info/' + idIsbn);
+  }
+
   addNewISBN(isbn: string,
     title: string,
     author: string,
@@ -44,6 +48,31 @@ export class InfoService {
       + '&adddate=' + adddate.toJSON()
       + '&publishdate=' + publishdate.toJSON()
       + '&photourl=' + photourl, 1);
+  }
+
+  updateISBN(id:number,
+    isbn: string,
+    title: string,
+    author: string,
+    origin: string,
+    language: string,
+    catalogue: string,
+    summary: string,
+    adddate: Date,
+    publishdate: Date,
+    photourl: string) {
+    //return this.http.post(this.baseUrl + 'info/add-card?idbook='+idBook+'&iduser='+idUser+'&borrowtime='+borrowTime.toJSON()+'&returntime='+returnTime.toJSON()+'&states=' + this.reservedState,1);
+    return this.http.post(this.baseUrl + 'info/update-info?id=' + id
+      + '&isbn=' + isbn
+      + '&title=' + title
+      + '&author=' + author
+      + '&origin=' + origin
+      + '&language=' + language
+      + '&catalogue=' + catalogue
+      + '&summary=' + summary
+      + '&adddate=' + adddate.toJSON()
+      + '&publishdate=' + publishdate.toJSON()
+      + '&photourl=' + photourl, id);
   }
 
 }

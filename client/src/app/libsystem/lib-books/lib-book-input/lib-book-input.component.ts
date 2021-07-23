@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
@@ -25,14 +25,12 @@ export class LibBookInputComponent implements OnInit {
   minDate: Date;
   validationErrors: string[] = [];
 
-  photoUrl: string = "";
+  photoUrl: string = "./assets/uploadImage.png";
   photoUrlSource: string = "./assets/uploadImage.png";
 
   constructor(private infoService: InfoService, private toastr: ToastrService,
     private fb: FormBuilder, private router: Router, private modalService: BsModalService,
-    private bookService:BookService) {
-    this.infoService.selectedInfo$.pipe(take(1)).subscribe(isbn => this.bookInfo = isbn);
-    this.bookService.selectedBook$.pipe(take(1)).subscribe(book => this.bookStore = book);
+    private bookService: BookService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -42,17 +40,15 @@ export class LibBookInputComponent implements OnInit {
       this.intitializeFormCreate();
     }
     else {
-      this.intitializeFormUpdate();
-     // this.infoService.getIsbnList().subscribe(boos=>{
-       // this.intitializeFormUpdate();
-        //this.intitializeFormCreate();
-     // });
-      
+      this.route.data.subscribe(data => {
+        this.bookInfo = data.bookInfo;
+        this.intitializeFormUpdate();
+      });
     }
   }
 
   intitializeFormCreate() {
-    this.toastr.info("create isbn");
+    //this.toastr.info("create isbn");
     this.registerForm = this.fb.group({
       Isbn: ['', Validators.required],
       Title: ['', Validators.required],
@@ -67,25 +63,11 @@ export class LibBookInputComponent implements OnInit {
   }
 
   intitializeFormUpdate() {
-    
+    this.minDate = new Date(this.bookInfo.addtime.toString());
+    this.minDate.setFullYear(this.minDate.getFullYear());
     this.photoUrl = this.bookInfo.photourl;
-    this.toastr.info(this.bookInfo.photourl);
+
     this.registerForm = this.fb.group({
-      Isbn: ['', Validators.required],
-      Title: ['', Validators.required],
-      Author: ['', Validators.required],
-      Origin: ['', Validators.required],
-      Language: ['', Validators.required],
-      Catalogue: ['', Validators.required],
-      Summary: ['', Validators.required],
-      adddate: [this.minDate, Validators.required],
-      publishdate: [this.minDate, Validators.required]
-    })
-     /*  this.photoUrl = this.bookInfo.photourl
-    let addDate = new Date();
-   // addDate.setFullYear(this.bookInfo.addtime.getFullYear());
-    this.toastr.info(addDate.toString());
- this.registerForm = this.fb.group({
       Isbn: [this.bookInfo.isbn, Validators.required],
       Title: [this.bookInfo.title, Validators.required],
       Author: [this.bookInfo.author, Validators.required],
@@ -93,19 +75,44 @@ export class LibBookInputComponent implements OnInit {
       Language: [this.bookInfo.language, Validators.required],
       Catalogue: [this.bookInfo.catalogue, Validators.required],
       Summary: [this.bookInfo.summary, Validators.required],
-      adddate: [addDate, Validators.required],
-      publishdate: [this.minDate, Validators.required]
+      adddate: [new Date(this.bookInfo.addtime.toString()), Validators.required],
+      publishdate: [new Date(this.bookInfo.publishtime.toString()), Validators.required]
     })
-    */
+
   }
 
 
   submitFunc() {
-    this.addNewISBN();
+    if (this.isCreated) {
+      this.addNewISBN();
+    } else {
+      this.editISBN();
+    }
   }
 
   addNewISBN() {
     this.infoService.addNewISBN(this.registerForm.controls["Isbn"].value,
+      this.registerForm.controls["Title"].value,
+      this.registerForm.controls["Author"].value,
+      this.registerForm.controls["Origin"].value,
+      this.registerForm.controls["Language"].value,
+      this.registerForm.controls["Catalogue"].value,
+      this.registerForm.controls["Summary"].value,
+      this.registerForm.controls["adddate"].value,
+      this.registerForm.controls["publishdate"].value,
+      this.photoUrl,
+    ).subscribe(response => {
+      this.router.navigateByUrl('/book-list');
+    }, error => {
+      this.validationErrors = error;
+      //this.toastr.info(error);
+      //this.toastr.error("The isbn is already available");
+    })
+  }
+
+  editISBN() {
+    this.infoService.updateISBN(this.bookInfo.id,
+      this.registerForm.controls["Isbn"].value,
       this.registerForm.controls["Title"].value,
       this.registerForm.controls["Author"].value,
       this.registerForm.controls["Origin"].value,

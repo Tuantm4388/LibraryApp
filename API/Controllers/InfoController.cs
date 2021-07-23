@@ -69,6 +69,47 @@ namespace API.Controllers
             // Ok("Success");
         }
 
+        [HttpPost("update-info")]
+        public async Task<ActionResult> UpdateBookinfo(int id,
+                                                    string isbn,
+                                                    string title,
+                                                    string author,
+                                                    string origin,
+                                                    string language,
+                                                    string catalogue,
+                                                    string summary,
+                                                    DateTime adddate,
+                                                    DateTime publishdate,
+                                                    string photourl
+        )
+        {
+            BookInfo info = await _context.Infos.FindAsync(id);
+            if (info == null) return BadRequest("The info is not exist");
+            if (info.Isbn != isbn.ToUpper())
+            {
+                if (await _context.Infos.AnyAsync(x => x.Isbn == isbn.ToUpper()))
+                    return BadRequest("The isbn is already available.");
+            }
+            //var item =  await _context.Infos.FirstOrDefaultAsync(x => x.Isbn == isbn);
+            // if(item == null) return BadRequest(item);
+            //BookInfo info = new BookInfo();
+            info.Isbn = isbn;
+            info.Title = title.ToUpper();
+            info.Language = language;
+            info.Author = author;
+            info.Origin = origin;
+            info.Catalogue = catalogue;
+            info.Summary = summary;
+            info.Addtime = adddate;
+            info.Publishtime = publishdate;
+            info.Photourl = photourl;
+
+            _context.Infos.Update(info);
+            var result = await _context.SaveChangesAsync();
+            return Ok(result);
+            // Ok("Success");
+        }
+
         [HttpPut("update-user-info/{userId}")]
         public async Task<ActionResult<AppBook>> UpdateUserInfo(int userId, int te)
         {

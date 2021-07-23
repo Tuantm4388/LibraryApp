@@ -34,9 +34,9 @@ export class LibBookInfoComponent implements OnInit {
   }
 
   goToEditISBN() {
-    this.toastr.info(this.bookInfo.isbn);
-    this.infoService.setSelectedISBN(this.bookInfo);
-    this.router.navigateByUrl('/book-edit');
+    //this.toastr.info(this.bookInfo.isbn);
+    //this.infoService.setSelectedISBN(this.bookInfo);
+    this.router.navigateByUrl('/book-edit/' + this.bookInfo.id);
   }
 
   goToDeleteISBN(_bookInfo: LibBookInfo) {
