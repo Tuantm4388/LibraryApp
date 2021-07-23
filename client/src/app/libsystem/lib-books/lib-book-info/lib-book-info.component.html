@@ -1,7 +1,7 @@
 <div class="container" style="background-color:whitesmoke;">
     <div>
         <form>
-            <h1>{{bookInfo.title}}</h1>
+            <h2>{{bookInfo.title}}</h2>
             <label class="row">
                 <label>Author: </label>
                 <label class="text-primary">{{bookInfo.author}}</label>
@@ -25,7 +25,7 @@
             <hr>
         </form>
         <form>
-            <h1>Summary</h1>
+            <h5>Summary</h5>
             <label class="row">{{bookInfo.summary}}</label>
             <div class="row">
                 <button *ngIf="(accountService.currentUser$ | async)" type="button" class="btn btn-success"
@@ -33,11 +33,33 @@
             </div>
             <hr>
         </form>
+        <form>
+            <h5>Admin/Librarian function</h5>
+            <label class="row">
+                <label>ISBN: </label>
+                <label class="text-primary">{{bookInfo.isbn}}</label>
+            </label>
+            <label class="row">
+                <label>Book available: </label>
+                <label class="text-primary">{{bookInfo.id}}</label>
+            </label>
+            <div class="row">
+                <div class="col-6">
+                    <button *ngIf="(accountService.currentUser$ | async)" type="button" class="btn btn-outline-warning"
+                        (click)="goToEditISBN()">Edit ISBN</button>
+                </div>
+                <div class="col-2">
+                    <button *ngIf="(accountService.currentUser$ | async)" type="button" class="btn btn-outline-danger"
+                        (click)="goToDeleteISBN(bookInfo)">Delete</button>
+                </div>
+            </div>
+
+            <hr>
+        </form>
     </div>
     <div *ngIf="(accountService.currentUser$ | async) as userLog">
         <div *ngIf="(userLog.roles.includes('Admin') || userLog.roles.includes('Librarian'))">
-            <button type="button" class="btn btn-outline-primary"
-                    (click)="goToCreateISBN()">Create New ISBN</button>
+            <button type="button" class="btn btn-outline-primary" (click)="goToCreateISBN()">Create New ISBN</button>
         </div>
     </div>
 </div>

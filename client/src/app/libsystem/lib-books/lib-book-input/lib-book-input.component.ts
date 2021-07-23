@@ -1,8 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs/operators';
+import { LibBook, LibBookInfo } from 'src/app/_models/libBook';
+import { BookService } from 'src/app/_services/book.service';
 import { InfoService } from 'src/app/_services/info.service';
 import { LibMessageComponent } from '../../lib-dialog/lib-message/lib-message.component';
 import { LibPhotoEditDialogComponent } from '../../lib-dialog/lib-photo-edit-dialog/lib-photo-edit-dialog.component';
@@ -14,6 +17,9 @@ import { LibPhotoEditDialogComponent } from '../../lib-dialog/lib-photo-edit-dia
 })
 export class LibBookInputComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
+  @Input() isCreated = true;
+  bookInfo: LibBookInfo;
+  bookStore: LibBook;
 
   registerForm: FormGroup;
   minDate: Date;
@@ -23,16 +29,30 @@ export class LibBookInputComponent implements OnInit {
   photoUrlSource: string = "./assets/uploadImage.png";
 
   constructor(private infoService: InfoService, private toastr: ToastrService,
-    private fb: FormBuilder, private router: Router, private modalService: BsModalService) { }
-
-  ngOnInit(): void {
-
-    this.minDate = new Date();
-    this.minDate.setFullYear(this.minDate.getFullYear());
-    this.intitializeForm();
+    private fb: FormBuilder, private router: Router, private modalService: BsModalService,
+    private bookService:BookService) {
+    this.infoService.selectedInfo$.pipe(take(1)).subscribe(isbn => this.bookInfo = isbn);
+    this.bookService.selectedBook$.pipe(take(1)).subscribe(book => this.bookStore = book);
   }
 
-  intitializeForm() {
+  ngOnInit(): void {
+    this.minDate = new Date();
+    this.minDate.setFullYear(this.minDate.getFullYear());
+    if (this.isCreated) {
+      this.intitializeFormCreate();
+    }
+    else {
+      this.intitializeFormUpdate();
+     // this.infoService.getIsbnList().subscribe(boos=>{
+       // this.intitializeFormUpdate();
+        //this.intitializeFormCreate();
+     // });
+      
+    }
+  }
+
+  intitializeFormCreate() {
+    this.toastr.info("create isbn");
     this.registerForm = this.fb.group({
       Isbn: ['', Validators.required],
       Title: ['', Validators.required],
@@ -44,6 +64,39 @@ export class LibBookInputComponent implements OnInit {
       adddate: [this.minDate, Validators.required],
       publishdate: [this.minDate, Validators.required]
     })
+  }
+
+  intitializeFormUpdate() {
+    
+    this.photoUrl = this.bookInfo.photourl;
+    this.toastr.info(this.bookInfo.photourl);
+    this.registerForm = this.fb.group({
+      Isbn: ['', Validators.required],
+      Title: ['', Validators.required],
+      Author: ['', Validators.required],
+      Origin: ['', Validators.required],
+      Language: ['', Validators.required],
+      Catalogue: ['', Validators.required],
+      Summary: ['', Validators.required],
+      adddate: [this.minDate, Validators.required],
+      publishdate: [this.minDate, Validators.required]
+    })
+     /*  this.photoUrl = this.bookInfo.photourl
+    let addDate = new Date();
+   // addDate.setFullYear(this.bookInfo.addtime.getFullYear());
+    this.toastr.info(addDate.toString());
+ this.registerForm = this.fb.group({
+      Isbn: [this.bookInfo.isbn, Validators.required],
+      Title: [this.bookInfo.title, Validators.required],
+      Author: [this.bookInfo.author, Validators.required],
+      Origin: [this.bookInfo.origin, Validators.required],
+      Language: [this.bookInfo.language, Validators.required],
+      Catalogue: [this.bookInfo.catalogue, Validators.required],
+      Summary: [this.bookInfo.summary, Validators.required],
+      adddate: [addDate, Validators.required],
+      publishdate: [this.minDate, Validators.required]
+    })
+    */
   }
 
 

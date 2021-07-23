@@ -12,15 +12,15 @@ export class InfoService {
   emptyInfo: LibBookInfo;
   constructor(private http: HttpClient) { }
   private currentInfoSource = new ReplaySubject<LibBookInfo>(1);
-  selectedISBN$ = this.currentInfoSource.asObservable();
+  selectedInfo$ = this.currentInfoSource.asObservable();
 
-  //getBookList() {
-  //  return this.http.get<Partial<LibBookInfo[]>>(this.baseUrl + 'book');
-  //}
-
-  setSelectedBook(_info: LibBookInfo) {
+  setSelectedISBN(_info: LibBookInfo) {
     localStorage.setItem('info', JSON.stringify(_info));
     this.currentInfoSource.next(_info);
+  }
+
+  getIsbnList() {
+    return this.http.get<Partial<LibBookInfo[]>>(this.baseUrl + 'info');
   }
 
   addNewISBN(isbn: string,

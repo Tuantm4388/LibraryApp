@@ -53,6 +53,7 @@ import { LibMessageComponent } from './libsystem/lib-dialog/lib-message/lib-mess
 import { LibBookAddComponent } from './libsystem/lib-books/lib-book-add/lib-book-add.component';
 import { LibBookInputComponent } from './libsystem/lib-books/lib-book-input/lib-book-input.component';
 import { LibPhotoEditDialogComponent } from './libsystem/lib-dialog/lib-photo-edit-dialog/lib-photo-edit-dialog.component';
+import { LibBookEditComponent } from './libsystem/lib-books/lib-book-edit/lib-book-edit.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { LibPhotoEditDialogComponent } from './libsystem/lib-dialog/lib-photo-ed
     LibMessageComponent,
     LibBookAddComponent,
     LibBookInputComponent,
-    LibPhotoEditDialogComponent
+    LibPhotoEditDialogComponent,
+    LibBookEditComponent
   ],
   imports: [
     BrowserModule,

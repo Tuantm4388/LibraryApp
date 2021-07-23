@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { LibBook } from 'src/app/_models/libBook';
+import { LibBook, LibBookInfo } from 'src/app/_models/libBook';
 import { AccountService } from 'src/app/_services/account.service';
 import { BookService } from 'src/app/_services/book.service';
+import { InfoService } from 'src/app/_services/info.service';
 
 @Component({
   selector: 'app-lib-book-list',
@@ -11,10 +12,11 @@ import { BookService } from 'src/app/_services/book.service';
 })
 export class LibBookListComponent implements OnInit {
 
-  constructor(private bookService: BookService, private accountService: AccountService) {
+  constructor(private bookService: BookService, private accountService: AccountService,
+              private infoService: InfoService) {
   }
 
-  bookInfo: LibBook;
+  bookInfo: LibBookInfo;
 
   pageCur: Number = 1;
   countPage: Number = 6;
@@ -25,14 +27,14 @@ export class LibBookListComponent implements OnInit {
     this.getBookList();
   }
 
-  books: Partial<LibBook[]>;
+  books: Partial<LibBookInfo[]>;
   getBookList() {
-    this.bookService.getBookList().subscribe(books => {
+    this.infoService.getIsbnList().subscribe(books => {
       this.books = books;
     });
   }
 
-  getSelectedtBook(_bookInfo: LibBook) {
+  getSelectedtBook(_bookInfo: LibBookInfo) {
     this.bookInfo = _bookInfo;
     this.isShowInfo = true;
   }
