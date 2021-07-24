@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210722151928_InitialCreate")]
+    [Migration("20210724175457_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,9 @@ namespace API.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Count")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("IdISNB")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Isbn")

@@ -70,27 +70,41 @@ namespace API.Data
 
             var itemData = await System.IO.File.ReadAllTextAsync("Data/BookSeedDataLibrary.json");
             Console.WriteLine("\n >>>>>>  data" + itemData);
-            var items = JsonSerializer.Deserialize<List<AppBook>>(itemData);
             var itemInfos = JsonSerializer.Deserialize<List<BookInfo>>(itemData);
             //Console.WriteLine("\n >>>>>> users : "+ items);
-            if (items == null) return;
-
-            for (int i = 0; i < itemInfos.Count; i++)
+            if (itemInfos == null) return;
+            int i = 0;
+            BookInfo info;
+            for (i = 0; i < itemInfos.Count; i++)
             {
-                AppBook book = items[i];
-                book.Isbn = book.Isbn.ToUpper();
-                book.Addtime = DateTime.Now;
-                book.Publishtime = DateTime.Now;
-                book.Count = 0;
-                context.Books.Add(book);
-
-                BookInfo info = itemInfos[i];
+                info = itemInfos[i];
                 info.Isbn = info.Isbn.ToUpper();
                 info.Addtime = DateTime.Now;
                 info.Publishtime = DateTime.Now;
                 info.Count = 0;
                 info.Condition = "";
                 context.Infos.Add(info);
+            }
+            await context.SaveChangesAsync();
+
+            if (await context.Books.AnyAsync()) return;
+            BookInfo _info = new BookInfo();
+            if (itemInfos.Count > 0)
+            {
+                _info = context.Infos.Find(1);
+            }
+            if (_info == null) return;
+            
+            for (i = 0; i < itemInfos.Count; i++)
+            {
+                AppBook book = new AppBook();
+                book.IdISNB = _info.Id;
+                book.Isbn = _info.Isbn.ToUpper();
+                book.Title = _info.Title;
+                book.Addtime = DateTime.Now;
+                book.Condition = "New";
+
+                context.Books.Add(book);
             }
             await context.SaveChangesAsync();
         }

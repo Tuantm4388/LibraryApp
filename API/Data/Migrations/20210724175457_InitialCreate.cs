@@ -69,16 +69,17 @@ namespace API.Data.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    IdISNB = table.Column<int>(type: "INTEGER", nullable: false),
                     Isbn = table.Column<string>(type: "TEXT", nullable: true),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
+                    Condition = table.Column<string>(type: "TEXT", nullable: true),
+                    Addtime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Author = table.Column<string>(type: "TEXT", nullable: true),
                     Origin = table.Column<string>(type: "TEXT", nullable: true),
                     Language = table.Column<string>(type: "TEXT", nullable: true),
                     Catalogue = table.Column<string>(type: "TEXT", nullable: true),
                     Summary = table.Column<string>(type: "TEXT", nullable: true),
-                    Addtime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Publishtime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Condition = table.Column<string>(type: "TEXT", nullable: true),
                     Photourl = table.Column<string>(type: "TEXT", nullable: true),
                     Count = table.Column<int>(type: "INTEGER", nullable: false)
                 },
