@@ -3,11 +3,9 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { take } from 'rxjs/operators';
 import { LibBook, LibBookInfo } from 'src/app/_models/libBook';
 import { BookService } from 'src/app/_services/book.service';
 import { InfoService } from 'src/app/_services/info.service';
-import { LibMessageComponent } from '../../lib-dialog/lib-message/lib-message.component';
 import { LibPhotoEditDialogComponent } from '../../lib-dialog/lib-photo-edit-dialog/lib-photo-edit-dialog.component';
 
 @Component({
@@ -30,7 +28,7 @@ export class LibBookInputComponent implements OnInit {
 
   constructor(private infoService: InfoService, private toastr: ToastrService,
     private fb: FormBuilder, private router: Router, private modalService: BsModalService,
-    private bookService: BookService, private route: ActivatedRoute) {
+    private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -50,13 +48,13 @@ export class LibBookInputComponent implements OnInit {
   intitializeFormCreate() {
     //this.toastr.info("create isbn");
     this.registerForm = this.fb.group({
-      Isbn: ['', Validators.required],
-      Title: ['', Validators.required],
-      Author: ['', Validators.required],
-      Origin: ['', Validators.required],
-      Language: ['', Validators.required],
-      Catalogue: ['', Validators.required],
-      Summary: ['', Validators.required],
+      Isbn: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      Title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      Author: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      Origin: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      Language: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      Catalogue: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      Summary: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       adddate: [this.minDate, Validators.required],
       publishdate: [this.minDate, Validators.required]
     })
@@ -68,13 +66,13 @@ export class LibBookInputComponent implements OnInit {
     this.photoUrl = this.bookInfo.photourl;
 
     this.registerForm = this.fb.group({
-      Isbn: [this.bookInfo.isbn, Validators.required],
-      Title: [this.bookInfo.title, Validators.required],
-      Author: [this.bookInfo.author, Validators.required],
-      Origin: [this.bookInfo.origin, Validators.required],
-      Language: [this.bookInfo.language, Validators.required],
-      Catalogue: [this.bookInfo.catalogue, Validators.required],
-      Summary: [this.bookInfo.summary, Validators.required],
+      Isbn: [this.bookInfo.isbn, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      Title: [this.bookInfo.title, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      Author: [this.bookInfo.author, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      Origin: [this.bookInfo.origin, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      Language: [this.bookInfo.language, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      Catalogue: [this.bookInfo.catalogue, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      Summary: [this.bookInfo.summary, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       adddate: [new Date(this.bookInfo.addtime.toString()), Validators.required],
       publishdate: [new Date(this.bookInfo.publishtime.toString()), Validators.required]
     })

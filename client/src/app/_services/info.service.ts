@@ -50,7 +50,7 @@ export class InfoService {
       + '&photourl=' + photourl, 1);
   }
 
-  updateISBN(id:number,
+  updateISBN(id: number,
     isbn: string,
     title: string,
     author: string,
@@ -75,4 +75,7 @@ export class InfoService {
       + '&photourl=' + photourl, id);
   }
 
+  deleteISBN(id:number) {
+    return this.http.post(this.baseUrl + 'info/delete/' + id, id);
+  }
 }

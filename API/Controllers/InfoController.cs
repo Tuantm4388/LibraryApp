@@ -90,9 +90,7 @@ namespace API.Controllers
                 if (await _context.Infos.AnyAsync(x => x.Isbn == isbn.ToUpper()))
                     return BadRequest("The isbn is already available.");
             }
-            //var item =  await _context.Infos.FirstOrDefaultAsync(x => x.Isbn == isbn);
-            // if(item == null) return BadRequest(item);
-            //BookInfo info = new BookInfo();
+            
             info.Isbn = isbn;
             info.Title = title.ToUpper();
             info.Language = language;
@@ -110,25 +108,14 @@ namespace API.Controllers
             // Ok("Success");
         }
 
-        [HttpPut("update-user-info/{userId}")]
-        public async Task<ActionResult<AppBook>> UpdateUserInfo(int userId, int te)
+        [HttpPost("delete/{id}")]
+        public async Task<ActionResult> DeleleISBN(int id)
         {
-            ////if (await _context.SaveChangesAsync()) return NoContent();
-            return await _context.Books.FindAsync(userId);
+            BookInfo info = await _context.Infos.FindAsync(id);
+            if (info == null) return BadRequest("The info is not exist");
+            _context.Infos.Remove(info);
+            var result = await _context.SaveChangesAsync();
+            return Ok(result);
         }
-        //[HttpPut]
-        /* public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
-         {
-
-             var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
-
-             _mapper.Map(memberUpdateDto, user);
-
-             _userRepository.Update(user);
-
-             if (await _userRepository.SaveAllAsync()) return NoContent();
-
-             return BadRequest("Failed to update user");
-         }*/
     }
 }

@@ -1,3 +1,4 @@
+<!-- message success dialog, have 1 OK button-->
 <div *ngIf="typeMessge===1">
     <div class="modal-header" style="background-color:seagreen;">
         <h4 class="modal-title pull-left" style="color: snow;">{{titleDialog}}</h4>
@@ -12,6 +13,51 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="clickOK()">OK</button>
+        <button type="button" class="btn btn-success" (click)="clickOK()">OK</button>
+    </div>
+</div>
+<!-- message warning dialog, have 1 OK button-->
+<div *ngIf="typeMessge===2">
+    <div class="modal-header" style="background-color:yellow;">
+        <h4 class="modal-title pull-left" style="color: black;">{{titleDialog}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="clickX()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form #rolesForm="ngForm" id="rolesForm">
+            <h5>{{titleMessage}}</h5>
+            <p>{{contentMessage}}</p>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning" (click)="clickOK()">OK</button>
+    </div>
+</div>
+<!-- Delete confirm dialog, have 2 button-->
+<div *ngIf="typeMessge===3">
+    <div class="modal-header" style="background-color:red;">
+        <h4 class="modal-title pull-left" style="color: snow;">{{titleDialog}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="clickX()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form #rolesForm="ngForm" id="rolesForm">
+            <h5>{{titleMessage}}</h5>
+            <p>{{contentMessage}}</p>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col ml-2">
+                <button type="button" class="btn btn-secondary" (click)="clickX()">Close</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col ml-2">
+                <button type="button" class="btn btn-danger" (click)="clickOK()">Corfirm</button>
+            </div>
+        </div>
     </div>
 </div>

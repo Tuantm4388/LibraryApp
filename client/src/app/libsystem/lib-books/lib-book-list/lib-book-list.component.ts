@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs/operators';
 import { LibBook, LibBookInfo } from 'src/app/_models/libBook';
 import { AccountService } from 'src/app/_services/account.service';
@@ -13,7 +14,7 @@ import { InfoService } from 'src/app/_services/info.service';
 export class LibBookListComponent implements OnInit {
 
   constructor(private bookService: BookService, private accountService: AccountService,
-              private infoService: InfoService) {
+              private infoService: InfoService, private toastr: ToastrService) {
   }
 
   bookInfo: LibBookInfo;
@@ -31,7 +32,14 @@ export class LibBookListComponent implements OnInit {
   getBookList() {
     this.infoService.getIsbnList().subscribe(books => {
       this.books = books;
+      //this.toastr.info("getBookList");
     });
+  }
+
+  reloadListFunc(event: boolean){
+    //this.toastr.error("reloadListFunc");
+    this.isShowInfo = false;
+    this.getBookList();
   }
 
   getSelectedtBook(_bookInfo: LibBookInfo) {
