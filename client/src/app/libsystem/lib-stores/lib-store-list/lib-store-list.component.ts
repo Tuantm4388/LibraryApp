@@ -11,6 +11,7 @@ import { AdminService } from 'src/app/_services/admin.service';
 import { BookService } from 'src/app/_services/book.service';
 import { LibUserService } from 'src/app/_services/lib-user.service';
 import { LibDeleteUserComponent } from '../../lib-dialog/lib-delete-user/lib-delete-user.component';
+import { LibMessageComponent } from '../../lib-dialog/lib-message/lib-message.component';
 
 
 @Component({
@@ -22,7 +23,6 @@ export class LibStoreListComponent implements OnInit {
 
   bookList: Partial<LibBook[]>;
   booksBackup = [];
-  bsModalRef: BsModalRef;
 
   p: Number = 1;
   count: Number = 10;
@@ -267,5 +267,36 @@ export class LibStoreListComponent implements OnInit {
        return 0;
      });
    }
+
+   deleteFunction(book:LibBook) {
+    this.bookService.deleteBook(book.id).subscribe(response => {
+      this.toastr.success("Delete success.");
+      this.getBookList();
+    }, error => {
+      this.toastr.warning("Delete fail.");
+    });
+  }
+
+  bsModalRef: BsModalRef;
+  showDeleteConfirmDialog(book:LibBook) {
+    let messageConfirm: string = "Id: " + book.id+" - ISBN: "+book.isbn+" - Name: "+book.title;
+    const config = {
+      class: 'modal-dialog-centered',
+      initialState: {
+        typeMessge: 3,
+        titleDialog: "Delete confirmation",
+        titleMessage: "Please confirm for deleting Book: ",
+        contentMessage: messageConfirm,
+        success: false
+      }
+    }
+    this.bsModalRef = this.modalService.show(LibMessageComponent, config);
+    this.bsModalRef.content.updateAction.subscribe(value => {
+      if (value) {
+        // this.toastr.success("ok");
+        this.deleteFunction(book);
+      }
+    });
+  }
 
 }

@@ -32,15 +32,15 @@
                 <a class="nav-link disabled">Action</a>
             </th>
         </tr>
-        <tr *ngFor="let user of bookList| paginate: { itemsPerPage: count, currentPage: p }">
-            <td>{{user.id}}</td>
-            <td>{{user.isbn}}</td>
-            <td>{{user.title}}</td>
-            <td>{{user.condition}}</td>
-            <td>{{user.addtime| date :'MM/dd/yyyy'}}</td>
+        <tr *ngFor="let book of bookList| paginate: { itemsPerPage: count, currentPage: p }">
+            <td>{{book.id}}</td>
+            <td>{{book.isbn}}</td>
+            <td>{{book.title}}</td>
+            <td>{{book.condition}}</td>
+            <td>{{book.addtime| date :'MM/dd/yyyy'}}</td>
             <td>
-                <button class="btn btn-warning rm-2" (click)="routToEditPage(user)">Edit</button>
-                <button class="btn btn-danger ml-2" (click)="openDeleteModal(user)">Delete</button>
+                <button class="btn btn-warning rm-2" (click)="routToEditPage(book)">Edit</button>
+                <button class="btn btn-danger ml-2" (click)="showDeleteConfirmDialog(book)">Delete</button>
             </td>
         </tr>
     </table>

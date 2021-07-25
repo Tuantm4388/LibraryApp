@@ -22,5 +22,9 @@ export class BookService {
     localStorage.setItem('book', JSON.stringify(_book));
     this.currentBookSource.next(_book);
   }
+
+  deleteBook(id:number) {
+    return this.http.post(this.baseUrl + 'book/delete/' + id, id);
+  }
   
 }

@@ -45,5 +45,15 @@ namespace API.Controllers
         {
             return await _context.Books.FindAsync(id);
         }
+
+        [HttpPost("delete/{id}")]
+        public async Task<ActionResult> DeleleBook(int id)
+        {
+            AppBook book = await _context.Books.FindAsync(id);
+            if (book == null) return BadRequest("The book is not exist");
+            _context.Books.Remove(book);
+            var result = await _context.SaveChangesAsync();
+            return Ok(result);
+        }
     }
 }

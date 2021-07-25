@@ -65,7 +65,7 @@ export class LibBookInfoComponent implements OnInit {
       class: 'modal-dialog-centered',
       initialState: {
         typeMessge: 3,
-        titleDialog: "Delet confirmation",
+        titleDialog: "Delete confirmation",
         titleMessage: "",
         contentMessage: messageConfirm,
         success: false
