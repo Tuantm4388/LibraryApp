@@ -54,6 +54,7 @@ import { LibBookAddComponent } from './libsystem/lib-books/lib-book-add/lib-book
 import { LibBookInputComponent } from './libsystem/lib-books/lib-book-input/lib-book-input.component';
 import { LibPhotoEditDialogComponent } from './libsystem/lib-dialog/lib-photo-edit-dialog/lib-photo-edit-dialog.component';
 import { LibBookEditComponent } from './libsystem/lib-books/lib-book-edit/lib-book-edit.component';
+import { LibStoreListComponent } from './libsystem/lib-stores/lib-store-list/lib-store-list.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { LibBookEditComponent } from './libsystem/lib-books/lib-book-edit/lib-bo
     LibBookAddComponent,
     LibBookInputComponent,
     LibPhotoEditDialogComponent,
-    LibBookEditComponent
+    LibBookEditComponent,
+    LibStoreListComponent
   ],
   imports: [
     BrowserModule,

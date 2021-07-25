@@ -27,7 +27,7 @@ export class LibBookInfoComponent implements OnInit {
   }
 
   goToRequestBorrow(_book: LibBookInfo) {
-    this.bookService.setSelectedBook(_book);
+    //this.bookService.setSelectedBook(_book);
     this.router.navigateByUrl('/borrow/register');
   }
 

@@ -19,6 +19,12 @@
                 <li class="nav-item" *appHasRole='["Admin", "Librarian"]' >
                     <a class="nav-link" routerLink='/lib-users' routerLinkActive='active'>Users</a>
                 </li>
+                <li class="nav-item" *appHasRole='["Admin", "Librarian"]' >
+                    <a class="nav-link" routerLink='/lib-store' routerLinkActive='active'>Book management</a>
+                </li>
+                <li class="nav-item" *appHasRole='["Admin", "Librarian"]' >
+                    <a class="nav-link" routerLink='/lib-users' routerLinkActive='active'>Borrow</a>
+                </li>
                 
                 
             </ng-container>

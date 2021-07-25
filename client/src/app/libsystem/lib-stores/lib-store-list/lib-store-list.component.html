@@ -1,0 +1,51 @@
+<h1>Book Storage</h1>
+<div class="row">
+    <input name="searchid" [(ngModel)]="idKeyWord" class="form-control mr-sm-2" style="width: 200px;" type="text"
+        placeholder="Search book ID">
+    <input name="searchname" [(ngModel)]="keyWord" class="form-control mr-sm-2" style="width: 300px;" type="text"
+        placeholder="Search book name">
+    <button class="btn btn-primary my-2 my-sm-0" type="submit" (click)="searchFunction()">Search</button>
+    <button class="btn btn-primary " style="margin-left: auto;" routerLink="/member/register">Add new Book</button>
+</div>
+<div>
+    <p></p>
+</div>
+<div class="row">
+    <table class="table">
+        <tr class="table-secondary">
+            <th style="width: 15%;">
+                <a class="nav-link disabled" routerLink='/lib-store' (click)="sort_Id()">Book id</a>
+            </th>
+            <th style="width: 20%;">
+                <a class="nav-link disabled" routerLink='/lib-store' (click)="sort_Name()">ISBN</a>
+            </th>
+            <th style="width: 25%;">
+                <a class="nav-link disabled" routerLink='/lib-store' (click)="sort_Name()">Book name</a>
+            </th>
+            <th style="width: 5%;">
+                <a class="nav-link disabled" routerLink='/lib-store' (click)="sort_Name()">Condition</a>
+            </th>
+            <th style="width: 20%;">
+                <a class="nav-link disabled" routerLink='/lib-store' (click)="sort_Name()">Add date</a>
+            </th>
+            <th style="width: 15%;">
+                <a class="nav-link disabled">Action</a>
+            </th>
+        </tr>
+        <tr *ngFor="let user of bookList| paginate: { itemsPerPage: count, currentPage: p }">
+            <td>{{user.id}}</td>
+            <td>{{user.isbn}}</td>
+            <td>{{user.title}}</td>
+            <td>{{user.condition}}</td>
+            <td>{{user.addtime| date :'MM/dd/yyyy'}}</td>
+            <td>
+                <button class="btn btn-warning rm-2" (click)="routToEditPage(user)">Edit</button>
+                <button class="btn btn-danger ml-2" (click)="openDeleteModal(user)">Delete</button>
+            </td>
+        </tr>
+    </table>
+    <!--Including the pagination control.-->
+    <div class="text-right">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+</div>

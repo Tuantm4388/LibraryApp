@@ -1,15 +1,17 @@
 export interface LibBook {
     id: number;
+    idISNB: number;
     isbn: string;
     title: string;
+    condition: string;
+    addtime: Date;
+
     author: string;
     origin: string;
     language: string;
     catalogue: string;
     summary: string;
-    addtime: Date;
     publishtime: Date;
-    condition: string;
     photourl: string;
 }
 

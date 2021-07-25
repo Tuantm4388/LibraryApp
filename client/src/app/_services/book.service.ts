@@ -10,7 +10,6 @@ import { LibBook } from '../_models/libBook';
 export class BookService {
 
   baseUrl = environment.apiUrl;
-  emptyInfo: LibBook;
   constructor(private http: HttpClient) { }
   private currentBookSource = new ReplaySubject<LibBook>(1);
   selectedBook$ = this.currentBookSource.asObservable();
