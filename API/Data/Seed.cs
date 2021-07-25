@@ -202,6 +202,7 @@ namespace API.Data
             item2.Isbnname = info.Isbn;
             item2.Titlebook = info.Title;
             item2.States = "borrowed";
+            item2.Actborrowtime=DateTime.Now;
             context.BorrowCards.Add(item2);
 
             BorrowCard item3 = new BorrowCard();
@@ -216,6 +217,8 @@ namespace API.Data
             item3.Isbnname = info.Isbn;
             item3.Titlebook = info.Title;
             item3.States = "returned";
+            item3.Actborrowtime=DateTime.Now;
+            item3.Actreturntime=DateTime.Now;
             context.BorrowCards.Add(item3);
 
             await context.SaveChangesAsync();

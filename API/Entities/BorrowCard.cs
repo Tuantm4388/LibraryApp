@@ -12,8 +12,8 @@ namespace API.Entities
         public string States { get; set; } /* reserved , borrowed , returned */
 
         public int Isbnid { get; set; }
-        public DateTime Actborrowtime { get; set; } = DateTime.Now;
-        public DateTime Actreturntime { get; set; } = DateTime.Now;
+        public DateTime Actborrowtime { get; set; } = DateTime.MinValue;
+        public DateTime Actreturntime { get; set; } = DateTime.MinValue;
 
 
         public string Username { get; set; }

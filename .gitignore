@@ -434,3 +434,5 @@ $RECYCLE.BIN/
 
 ## appsettings.json
 libraryapp.db
+libraryapp.db-shm
+libraryapp.db-wal
