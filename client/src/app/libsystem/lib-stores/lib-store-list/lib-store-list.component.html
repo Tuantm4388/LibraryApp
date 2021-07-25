@@ -39,7 +39,7 @@
             <td>{{book.condition}}</td>
             <td>{{book.addtime| date :'MM/dd/yyyy'}}</td>
             <td>
-                <button class="btn btn-warning rm-2" (click)="routToEditPage(book)">Edit</button>
+                <button class="btn btn-warning rm-2" (click)="showUpdateBookDialog(book)">Edit</button>
                 <button class="btn btn-danger ml-2" (click)="showDeleteConfirmDialog(book)">Delete</button>
             </td>
         </tr>

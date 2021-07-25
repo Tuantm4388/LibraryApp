@@ -42,7 +42,7 @@ export class LibStoreEditComponent implements OnInit {
       this.intitializeFormCreate();
     }
     else {
-
+      this.intitializeFormUpdate();
     }
   }
 
@@ -50,7 +50,17 @@ export class LibStoreEditComponent implements OnInit {
     //this.toastr.info("create isbn");
     this.registerForm = this.fb.group({
       Isbn: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
-      Condition: ['', Validators.required]
+      Condition: ['', Validators.required],
+      adddate: [this.minDate, Validators.required]
+    })
+  }
+
+  intitializeFormUpdate() {
+    //this.toastr.info("update isbn");
+    this.registerForm = this.fb.group({
+      Isbn: [this.bookStore.isbn, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      Condition: [this.bookStore.condition, Validators.required],
+      adddate: [new Date(this.bookStore.addtime.toString()), Validators.required]
     })
   }
 
@@ -63,6 +73,9 @@ export class LibStoreEditComponent implements OnInit {
     if (this.isCreated) {
       this.addNewBookFunc();
     }
+    else{
+      this.updateBookFunc();
+    }
   }
 
   addNewBookFunc() {
@@ -71,6 +84,24 @@ export class LibStoreEditComponent implements OnInit {
       this.registerForm.controls["Condition"].value).subscribe(
         () => {
           this.toastr.success("Add book successfully.");
+          this.updateAction.emit(true);
+          this.bsModalRef.hide();
+        }, error => {
+          this.toastr.error(error);
+          this.updateAction.emit(false);
+          this.bsModalRef.hide();
+          this.router.navigateByUrl('/book-add');
+        }
+      );
+  }
+
+  updateBookFunc() {
+    this.bookService.updateBook(this.bookStore.id,
+      this.registerForm.controls["Isbn"].value,
+      this.registerForm.controls["Condition"].value,
+      this.registerForm.controls["adddate"].value).subscribe(
+        () => {
+          this.toastr.success("Update book successfully.");
           this.updateAction.emit(true);
           this.bsModalRef.hide();
         }, error => {

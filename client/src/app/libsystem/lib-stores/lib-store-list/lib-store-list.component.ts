@@ -321,4 +321,24 @@ export class LibStoreListComponent implements OnInit {
     });
   }
 
+  showUpdateBookDialog(book: LibBook) {
+    const config = {
+      class: 'modal-dialog-centered',
+      initialState: {
+        typeMessge: 1,
+        isCreated:false,
+        bookStore:book,
+        titleDialog: "Edit Book",
+        success: false
+      }
+    }
+    //this.bsModalRef = this.modalService.show(LibMessageComponent, config);
+    this.bsModalRef = this.modalService.show(LibStoreEditComponent, config);
+    this.bsModalRef.content.updateAction.subscribe(value => {
+      if (value) {
+        this.getBookList();
+      }
+    });
+  }
+
 }

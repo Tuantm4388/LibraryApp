@@ -1,5 +1,5 @@
 <!-- message success dialog, have 1 OK button-->
-<div *ngIf="typeMessge===1">
+<div>
     <div class="modal-header" style="background-color:dodgerblue;">
         <h4 class="modal-title pull-left" style="color: snow;">{{titleDialog}}</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="clickX()">
@@ -27,6 +27,16 @@
                         </label>
                         <app-text-input [formControl]='registerForm.controls["Condition"]' [label]='"input condition"'>
                         </app-text-input>
+                    </div>
+                </div>
+                <div *ngIf=(!isCreated) class="row row-item-3">
+                    <div>
+                        <label>
+                            <label>Add date</label>
+                            <label class="text-danger">*</label>
+                        </label>
+                        <app-date-input [formControl]='registerForm.controls["adddate"]' [label]='"Add date"'>
+                        </app-date-input>
                     </div>
                 </div>
             </div>
