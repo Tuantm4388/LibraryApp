@@ -32,7 +32,7 @@ export class LibStoreListComponent implements OnInit {
 
   constructor(private adminService: AdminService, private modalService: BsModalService,
     private libUserService: LibUserService, private router: Router,
-    private bookService: BookService,private toastr: ToastrService) { }
+    private bookService: BookService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getBookList();
@@ -51,26 +51,28 @@ export class LibStoreListComponent implements OnInit {
       //let resulf = this.usersBackup.find(a => a.username.toUpperCase() == this.keyWord.toUpperCase());
 
       this.bookList = [];
-     /* if (this.keyWord && this.keyWord.length > 0) {
+      if (this.keyWord && this.keyWord.length > 0) {
         let resulf = this.booksBackup.filter(a => this.isSearchCompare(a.title, this.keyWord));
         console.log(resulf);
         if (resulf) {
           console.log("searchFunction added name");
           this.bookList = resulf;
         }
-      }*/
-      if(this.idKeyWord && this.idKeyWord.length > 0)
-      {
-        this.toastr.info(this.idKeyWord);
-        let resulf = this.booksBackup.filter(a => this.isSearchCompare(a.id, this.keyWord));
+      }
+      if (this.idKeyWord && this.idKeyWord.length > 0) {
+        //this.toastr.info(this.idKeyWord);
+        let resulf = this.booksBackup.filter(a => this.isSearchCompare(a.id.toString(), this.idKeyWord));
+        //this.toastr.info(resulf.toString());
         console.log(resulf);
         if (resulf) {
           console.log("searchFunction added id");
-          for(let item of resulf)
-          {
-            this.bookList.push(item);
+          for (let item of resulf) {
+            var test = this.bookList.find(a => a.id == item.id);
+            if (test) { }
+            else {
+              this.bookList.push(item);
+            }
           }
-          
         }
       }
       this.p = 1;
