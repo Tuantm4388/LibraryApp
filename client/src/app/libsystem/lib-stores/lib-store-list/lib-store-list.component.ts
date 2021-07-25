@@ -10,8 +10,10 @@ import { User } from 'src/app/_models/user';
 import { AdminService } from 'src/app/_services/admin.service';
 import { BookService } from 'src/app/_services/book.service';
 import { LibUserService } from 'src/app/_services/lib-user.service';
+import { LibBookEditComponent } from '../../lib-books/lib-book-edit/lib-book-edit.component';
 import { LibDeleteUserComponent } from '../../lib-dialog/lib-delete-user/lib-delete-user.component';
 import { LibMessageComponent } from '../../lib-dialog/lib-message/lib-message.component';
+import { LibStoreEditComponent } from '../../lib-dialog/lib-store-edit/lib-store-edit.component';
 
 
 @Component({
@@ -44,7 +46,7 @@ export class LibStoreListComponent implements OnInit {
       this.booksBackup = this.bookList;
     })
   }
-  
+
   searchFunction() {
     if ((this.keyWord && this.keyWord.length > 0) || (this.idKeyWord && this.idKeyWord.length > 0)) {
       //let resulf = this.usersBackup.find(a => a.username.toUpperCase() == this.keyWord.toUpperCase());
@@ -105,181 +107,182 @@ export class LibStoreListComponent implements OnInit {
   }
 
   sorterISBN: boolean = false;
-   sort_ISBN() {
-     this.sorterISBN = !this.sorterISBN;
-     if (this.sorterISBN) {
-       this.sortToLow_isbn();
-     }
-     else {
-       this.sortToUp_isbn();
-     }
-   }
- 
-   sortToLow_isbn() {
-     this.bookList = this.booksBackup.sort(function (a, b) {
-       var nameA = a.isbn.toUpperCase(); // ignore upper and lowercase
-       var nameB = b.isbn.toUpperCase(); // ignore upper and lowercase
-       if (nameA < nameB) {
-         return 1;
-       }
-       if (nameA > nameB) {
-         return -1;
-       }
-       // must be equal
-       return 0;
-     });
-   }
- 
-   sortToUp_isbn() {
-     this.bookList = this.booksBackup.sort(function (a, b) {
-       var nameA = a.isbn.toUpperCase(); // ignore upper and lowercase
-       var nameB = b.isbn.toUpperCase(); // ignore upper and lowercase
-       if (nameA < nameB) {
-         return -1;
-       }
-       if (nameA > nameB) {
-         return 1;
-       }
-       // must be equal
-       return 0;
-     });
-   }
+  sort_ISBN() {
+    this.sorterISBN = !this.sorterISBN;
+    if (this.sorterISBN) {
+      this.sortToLow_isbn();
+    }
+    else {
+      this.sortToUp_isbn();
+    }
+  }
 
-   sorterName: boolean = false;
-   sort_Name() {
-     this.sorterName = !this.sorterName;
-     if (this.sorterName) {
-       this.sortToLow_Name();
-     }
-     else {
-       this.sortToUp_Name();
-     }
-   }
- 
-   sortToLow_Name() {
-     this.bookList = this.booksBackup.sort(function (a, b) {
-       var nameA = a.title.toUpperCase(); // ignore upper and lowercase
-       var nameB = b.title.toUpperCase(); // ignore upper and lowercase
-       if (nameA < nameB) {
-         return 1;
-       }
-       if (nameA > nameB) {
-         return -1;
-       }
-       // must be equal
-       return 0;
-     });
-   }
- 
-   sortToUp_Name() {
-     this.bookList = this.booksBackup.sort(function (a, b) {
-       var nameA = a.title.toUpperCase(); // ignore upper and lowercase
-       var nameB = b.title.toUpperCase(); // ignore upper and lowercase
-       if (nameA < nameB) {
-         return -1;
-       }
-       if (nameA > nameB) {
-         return 1;
-       }
-       // must be equal
-       return 0;
-     });
-   }
+  sortToLow_isbn() {
+    this.bookList = this.booksBackup.sort(function (a, b) {
+      var nameA = a.isbn.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.isbn.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
 
-   sorterCondition: boolean = false;
-   sort_Condition() {
-     this.sorterCondition = !this.sorterCondition;
-     if (this.sorterCondition) {
-       this.sortToLow_Condition();
-     }
-     else {
-       this.sortToUp_Condition();
-     }
-   }
- 
-   sortToLow_Condition() {
-     this.bookList = this.booksBackup.sort(function (a, b) {
-       var nameA = a.condition.toUpperCase(); // ignore upper and lowercase
-       var nameB = b.condition.toUpperCase(); // ignore upper and lowercase
-       if (nameA < nameB) {
-         return 1;
-       }
-       if (nameA > nameB) {
-         return -1;
-       }
-       // must be equal
-       return 0;
-     });
-   }
- 
-   sortToUp_Condition() {
-     this.bookList = this.booksBackup.sort(function (a, b) {
-       var nameA = a.condition.toUpperCase(); // ignore upper and lowercase
-       var nameB = b.condition.toUpperCase(); // ignore upper and lowercase
-       if (nameA < nameB) {
-         return -1;
-       }
-       if (nameA > nameB) {
-         return 1;
-       }
-       // must be equal
-       return 0;
-     });
-   }
+  sortToUp_isbn() {
+    this.bookList = this.booksBackup.sort(function (a, b) {
+      var nameA = a.isbn.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.isbn.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
 
-   sorterDate: boolean = false;
-   sort_Date() {
-     this.sorterDate = !this.sorterDate;
-     if (this.sorterDate) {
-       this.sortToLow_Date();
-     }
-     else {
-       this.sortToUp_Date();
-     }
-   }
- 
-   sortToLow_Date() {
-     this.bookList = this.booksBackup.sort(function (a, b) {
-       var nameA = a.addtime.toString(); // ignore upper and lowercase
-       var nameB = b.addtime.toString(); // ignore upper and lowercase
-       if (nameA < nameB) {
-         return 1;
-       }
-       if (nameA > nameB) {
-         return -1;
-       }
-       // must be equal
-       return 0;
-     });
-   }
- 
-   sortToUp_Date() {
-     this.bookList = this.booksBackup.sort(function (a, b) {
-       var nameA = a.addtime.toString(); // ignore upper and lowercase
-       var nameB = b.addtime.toString(); // ignore upper and lowercase
-       if (nameA < nameB) {
-         return -1;
-       }
-       if (nameA > nameB) {
-         return 1;
-       }
-       // must be equal
-       return 0;
-     });
-   }
+  sorterName: boolean = false;
+  sort_Name() {
+    this.sorterName = !this.sorterName;
+    if (this.sorterName) {
+      this.sortToLow_Name();
+    }
+    else {
+      this.sortToUp_Name();
+    }
+  }
 
-   deleteFunction(book:LibBook) {
+  sortToLow_Name() {
+    this.bookList = this.booksBackup.sort(function (a, b) {
+      var nameA = a.title.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.title.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  sortToUp_Name() {
+    this.bookList = this.booksBackup.sort(function (a, b) {
+      var nameA = a.title.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.title.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  sorterCondition: boolean = false;
+  sort_Condition() {
+    this.sorterCondition = !this.sorterCondition;
+    if (this.sorterCondition) {
+      this.sortToLow_Condition();
+    }
+    else {
+      this.sortToUp_Condition();
+    }
+  }
+
+  sortToLow_Condition() {
+    this.bookList = this.booksBackup.sort(function (a, b) {
+      var nameA = a.condition.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.condition.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  sortToUp_Condition() {
+    this.bookList = this.booksBackup.sort(function (a, b) {
+      var nameA = a.condition.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.condition.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  sorterDate: boolean = false;
+  sort_Date() {
+    this.sorterDate = !this.sorterDate;
+    if (this.sorterDate) {
+      this.sortToLow_Date();
+    }
+    else {
+      this.sortToUp_Date();
+    }
+  }
+
+  sortToLow_Date() {
+    this.bookList = this.booksBackup.sort(function (a, b) {
+      var nameA = a.addtime.toString(); // ignore upper and lowercase
+      var nameB = b.addtime.toString(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  sortToUp_Date() {
+    this.bookList = this.booksBackup.sort(function (a, b) {
+      var nameA = a.addtime.toString(); // ignore upper and lowercase
+      var nameB = b.addtime.toString(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  deleteFunction(book: LibBook) {
     this.bookService.deleteBook(book.id).subscribe(response => {
       this.toastr.success("Delete success.");
       this.getBookList();
+      this.p = 1;
     }, error => {
       this.toastr.warning("Delete fail.");
     });
   }
 
   bsModalRef: BsModalRef;
-  showDeleteConfirmDialog(book:LibBook) {
-    let messageConfirm: string = "Id: " + book.id+" - ISBN: "+book.isbn+" - Name: "+book.title;
+  showDeleteConfirmDialog(book: LibBook) {
+    let messageConfirm: string = "Id: " + book.id + " - ISBN: " + book.isbn + " - Name: " + book.title;
     const config = {
       class: 'modal-dialog-centered',
       initialState: {
@@ -295,6 +298,25 @@ export class LibStoreListComponent implements OnInit {
       if (value) {
         // this.toastr.success("ok");
         this.deleteFunction(book);
+      }
+    });
+  }
+
+  showAddBookDialog() {
+    const config = {
+      class: 'modal-dialog-centered',
+      initialState: {
+        typeMessge: 1,
+        isCreated:true,
+        titleDialog: "Create New Book",
+        success: false
+      }
+    }
+    //this.bsModalRef = this.modalService.show(LibMessageComponent, config);
+    this.bsModalRef = this.modalService.show(LibStoreEditComponent, config);
+    this.bsModalRef.content.updateAction.subscribe(value => {
+      if (value) {
+        this.getBookList();
       }
     });
   }

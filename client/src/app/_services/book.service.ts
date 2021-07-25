@@ -23,8 +23,25 @@ export class BookService {
     this.currentBookSource.next(_book);
   }
 
-  deleteBook(id:number) {
+  deleteBook(id: number) {
     return this.http.post(this.baseUrl + 'book/delete/' + id, id);
   }
-  
+
+  addNewBook(isbn: string,
+    condition: string) {
+    return this.http.post(this.baseUrl + 'book/add-book?isbn=' + isbn
+      + '&condition=' + condition, 1);
+  }
+
+  updateBook(id: number,
+    isbn: string,
+    condition: string,
+    adddate: Date) {
+    return this.http.post(this.baseUrl + 'book/update-book?id=' + id
+      + '&isbn=' + isbn
+      + '&condition=' + condition
+      + '&adddate=' + adddate.toJSON(), 1);
+  }
+
+
 }

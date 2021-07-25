@@ -48,7 +48,7 @@ namespace API.Controllers
                                                     string photourl
         )
         {
-            if (await _context.Infos.AnyAsync(x => x.Isbn == isbn.ToUpper())) return BadRequest("The isbn is already available.");
+            if (await _context.Infos.AnyAsync(x => x.Isbn == isbn.ToUpper())) return BadRequest("The ISBN is already available.");
             //var item =  await _context.Infos.FirstOrDefaultAsync(x => x.Isbn == isbn);
             // if(item == null) return BadRequest(item);
             BookInfo info = new BookInfo();
@@ -84,11 +84,11 @@ namespace API.Controllers
         )
         {
             BookInfo info = await _context.Infos.FindAsync(id);
-            if (info == null) return BadRequest("The info is not exist");
+            if (info == null) return BadRequest("The ISBN is not exist");
             if (info.Isbn != isbn.ToUpper())
             {
                 if (await _context.Infos.AnyAsync(x => x.Isbn == isbn.ToUpper()))
-                    return BadRequest("The isbn is already available.");
+                    return BadRequest("The ISBN is already available.");
             }
             
             info.Isbn = isbn;

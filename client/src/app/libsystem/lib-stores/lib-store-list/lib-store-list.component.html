@@ -5,7 +5,7 @@
     <input name="searchname" [(ngModel)]="keyWord" class="form-control mr-sm-2" style="width: 300px;" type="text"
         placeholder="Search book name">
     <button class="btn btn-primary my-2 my-sm-0" type="submit" (click)="searchFunction()">Search</button>
-    <button class="btn btn-primary " style="margin-left: auto;" routerLink="/member/register">Add new Book</button>
+    <button class="btn btn-primary " style="margin-left: auto;" (click)="showAddBookDialog()">Add new Book</button>
 </div>
 <div>
     <p></p>

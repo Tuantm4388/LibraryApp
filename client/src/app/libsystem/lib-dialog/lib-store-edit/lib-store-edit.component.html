@@ -1,0 +1,48 @@
+<!-- message success dialog, have 1 OK button-->
+<div *ngIf="typeMessge===1">
+    <div class="modal-header" style="background-color:dodgerblue;">
+        <h4 class="modal-title pull-left" style="color: snow;">{{titleDialog}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="clickX()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]='registerForm' (ngSubmit)="registerForm.valid && clickOK()" autocomplete="off">
+            <div class="col">
+                <div class="row row-item-1">
+                    <div>
+                        <label>
+                            <label>ISBN</label>
+                            <label class="text-danger">*</label>
+                        </label>
+                        <app-text-input [formControl]='registerForm.controls["Isbn"]' [label]='"input ISBN"'>
+                        </app-text-input>
+                    </div>
+                </div>
+                <div class="row row-item-2">
+                    <div>
+                        <label>
+                            <label>Condition</label>
+                            <label class="text-danger">*</label>
+                        </label>
+                        <app-text-input [formControl]='registerForm.controls["Condition"]' [label]='"input condition"'>
+                        </app-text-input>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="validationErrors.length > 0">
+                <ul class="text-danger">
+                    <li *ngFor="let error of validationErrors">
+                        {{error}}
+                    </li>
+                </ul>
+            </div>
+            <hr>
+            <div>
+                <button class="btn btn-secondary ml-2" (click)="clickX()" type="button">Close</button>
+                <button [disabled]='!registerForm.valid' class="btn btn-primary ml-2" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- message warning dialog, have 1 OK button-->
