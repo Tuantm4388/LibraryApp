@@ -28,6 +28,7 @@ import { LibBookAddComponent } from './libsystem/lib-books/lib-book-add/lib-book
 import { LibBookEditComponent } from './libsystem/lib-books/lib-book-edit/lib-book-edit.component';
 import { BookInfoResolver } from './_resolvers/book-info.resolver';
 import { LibStoreListComponent } from './libsystem/lib-stores/lib-store-list/lib-store-list.component';
+import { LibBorrowListComponent } from './libsystem/lib-borrows/lib-borrow-list/lib-borrow-list.component';
 
 const routes: Routes = [
   {path: '', component: LibHomeComponent},
@@ -49,6 +50,7 @@ const routes: Routes = [
       {path: 'book-add', component: LibBookAddComponent, canActivate: [AdminGuard]},
       {path: 'book-edit/:idIsbn', component: LibBookEditComponent, resolve: {bookInfo: BookInfoResolver}},
       {path: 'borrow/register', component: LibBorrowRegisterComponent},
+      {path: 'borrow-list', component: LibBorrowListComponent, canActivate: [AdminGuard]},
       {path: 'lib-store', component: LibStoreListComponent, canActivate: [AdminGuard]},
     ]
   },

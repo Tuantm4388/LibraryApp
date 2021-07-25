@@ -7,6 +7,7 @@
                 <a class="nav-link" routerLink='/book-list' routerLinkActive='active'>Book list</a>
             </li>
             <ng-container *ngIf="accountService.currentUser$ | async">
+                <!--
                 <li class="nav-item">
                     <a class="nav-link" routerLink='/members' routerLinkActive='active'>Matches</a>
                 </li>
@@ -16,6 +17,7 @@
                 <li class="nav-item">
                     <a class="nav-link" routerLink='/messages' routerLinkActive='active'>Messages</a>
                 </li>
+                -->
                 <li class="nav-item" *appHasRole='["Admin", "Librarian"]' >
                     <a class="nav-link" routerLink='/lib-users' routerLinkActive='active'>Users</a>
                 </li>
@@ -23,7 +25,7 @@
                     <a class="nav-link" routerLink='/lib-store' routerLinkActive='active'>Book management</a>
                 </li>
                 <li class="nav-item" *appHasRole='["Admin", "Librarian"]' >
-                    <a class="nav-link" routerLink='/lib-users' routerLinkActive='active'>Borrow</a>
+                    <a class="nav-link" routerLink='/borrow-list' routerLinkActive='active'>Borrow</a>
                 </li>
                 
                 
