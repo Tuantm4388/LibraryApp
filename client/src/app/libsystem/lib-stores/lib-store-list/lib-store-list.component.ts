@@ -44,8 +44,7 @@ export class LibStoreListComponent implements OnInit {
       this.booksBackup = this.bookList;
     })
   }
-  sort_Id() { }
-  sort_Name() { }
+  
   searchFunction() {
     if ((this.keyWord && this.keyWord.length > 0) || (this.idKeyWord && this.idKeyWord.length > 0)) {
       //let resulf = this.usersBackup.find(a => a.username.toUpperCase() == this.keyWord.toUpperCase());
@@ -93,72 +92,60 @@ export class LibStoreListComponent implements OnInit {
     return false;
   }
 
-  /*
-    openDeleteModal(user: LibUser) {
-      const config = {
-        class: 'modal-dialog-centered',
-        initialState: {
-          user,
-          success: false
-        }
-      }
-      this.bsModalRef = this.modalService.show(LibDeleteUserComponent, config);
-      this.bsModalRef.content.updateAction.subscribe(values => {
-        if (values) {
-          let idx = this.users.indexOf(user);
-          this.users.splice(idx, 1);
-          this.usersBackup.splice(idx, 1);
-        }
-      });
+  /// tablesorter
+  sorterId: boolean = true;
+  sort_Id() {
+    this.sorterId = !this.sorterId;
+    if (this.sorterId) {
+      this.bookList = this.booksBackup.sort((a, b) => a.id - b.id);
     }
-  
-    routToEditPage(user: LibUser) {
-      this.libUserService.setSelectedUserInfo(user);
-      this.router.navigateByUrl('/edituser/' + user.username);
+    else {
+      this.bookList = this.booksBackup.sort((a, b) => b.id - a.id);
     }
-  
-    searchFunction() {
-      if (this.keyWord && this.keyWord.length > 0) {
-        //let resulf = this.usersBackup.find(a => a.username.toUpperCase() == this.keyWord.toUpperCase());
-        let resulf = this.usersBackup.filter(a => this.isSearchCompare(a.username, this.keyWord));
-        console.log(resulf);
-        this.users = [];
-        if (resulf) {
-          console.log("searchFunction added");
-          this.users = resulf;
-        }
-        this.p = 1;
-      }
-      else {
-        this.users = this.usersBackup;
-        this.p = 1;
-      }
-    }
-  
-    isSearchCompare(_strParent: string, _strChild: string) {
-      let strParent: string = _strParent.toLowerCase();
-      let strChild: string = _strChild.toLowerCase();
-      let a = strParent.indexOf(strChild);
-      /*if (a == -1) {
-      } else {
-      }*/
-  /*   if (a > -1) return true;
-     return false;
-   }
- 
-   /// tablesorter
-   sorterId: boolean = true;
-   sort_Id() {
-     this.sorterId = !this.sorterId;
-     if (this.sorterId) {
-       this.users = this.usersBackup.sort((a, b) => a.id - b.id);
+  }
+
+  sorterISBN: boolean = false;
+   sort_ISBN() {
+     this.sorterISBN = !this.sorterISBN;
+     if (this.sorterISBN) {
+       this.sortToLow_isbn();
      }
      else {
-       this.users = this.usersBackup.sort((a, b) => b.id - a.id);
+       this.sortToUp_isbn();
      }
    }
  
-   sorterName: boolean = true;
+   sortToLow_isbn() {
+     this.bookList = this.booksBackup.sort(function (a, b) {
+       var nameA = a.isbn.toUpperCase(); // ignore upper and lowercase
+       var nameB = b.isbn.toUpperCase(); // ignore upper and lowercase
+       if (nameA < nameB) {
+         return 1;
+       }
+       if (nameA > nameB) {
+         return -1;
+       }
+       // must be equal
+       return 0;
+     });
+   }
+ 
+   sortToUp_isbn() {
+     this.bookList = this.booksBackup.sort(function (a, b) {
+       var nameA = a.isbn.toUpperCase(); // ignore upper and lowercase
+       var nameB = b.isbn.toUpperCase(); // ignore upper and lowercase
+       if (nameA < nameB) {
+         return -1;
+       }
+       if (nameA > nameB) {
+         return 1;
+       }
+       // must be equal
+       return 0;
+     });
+   }
+
+   sorterName: boolean = false;
    sort_Name() {
      this.sorterName = !this.sorterName;
      if (this.sorterName) {
@@ -170,9 +157,9 @@ export class LibStoreListComponent implements OnInit {
    }
  
    sortToLow_Name() {
-     this.users = this.usersBackup.sort(function (a, b) {
-       var nameA = a.username.toUpperCase(); // ignore upper and lowercase
-       var nameB = b.username.toUpperCase(); // ignore upper and lowercase
+     this.bookList = this.booksBackup.sort(function (a, b) {
+       var nameA = a.title.toUpperCase(); // ignore upper and lowercase
+       var nameB = b.title.toUpperCase(); // ignore upper and lowercase
        if (nameA < nameB) {
          return 1;
        }
@@ -185,9 +172,9 @@ export class LibStoreListComponent implements OnInit {
    }
  
    sortToUp_Name() {
-     this.users = this.usersBackup.sort(function (a, b) {
-       var nameA = a.username.toUpperCase(); // ignore upper and lowercase
-       var nameB = b.username.toUpperCase(); // ignore upper and lowercase
+     this.bookList = this.booksBackup.sort(function (a, b) {
+       var nameA = a.title.toUpperCase(); // ignore upper and lowercase
+       var nameB = b.title.toUpperCase(); // ignore upper and lowercase
        if (nameA < nameB) {
          return -1;
        }
@@ -198,22 +185,22 @@ export class LibStoreListComponent implements OnInit {
        return 0;
      });
    }
- 
-   sorterType: boolean = true;
-   sort_Type() {
-     this.sorterType = !this.sorterType;
-     if (this.sorterType) {
-       this.sortToLow_Type();
+
+   sorterCondition: boolean = false;
+   sort_Condition() {
+     this.sorterCondition = !this.sorterCondition;
+     if (this.sorterCondition) {
+       this.sortToLow_Condition();
      }
      else {
-       this.sortToUp_Type();
+       this.sortToUp_Condition();
      }
    }
  
-   sortToLow_Type() {
-     this.users = this.usersBackup.sort(function (a, b) {
-       var nameA = a.roles; // ignore upper and lowercase
-       var nameB = b.roles; // ignore upper and lowercase
+   sortToLow_Condition() {
+     this.bookList = this.booksBackup.sort(function (a, b) {
+       var nameA = a.condition.toUpperCase(); // ignore upper and lowercase
+       var nameB = b.condition.toUpperCase(); // ignore upper and lowercase
        if (nameA < nameB) {
          return 1;
        }
@@ -225,10 +212,10 @@ export class LibStoreListComponent implements OnInit {
      });
    }
  
-   sortToUp_Type() {
-     this.users = this.usersBackup.sort(function (a, b) {
-       var nameA = a.roles; // ignore upper and lowercase
-       var nameB = b.roles; // ignore upper and lowercase
+   sortToUp_Condition() {
+     this.bookList = this.booksBackup.sort(function (a, b) {
+       var nameA = a.condition.toUpperCase(); // ignore upper and lowercase
+       var nameB = b.condition.toUpperCase(); // ignore upper and lowercase
        if (nameA < nameB) {
          return -1;
        }
@@ -239,7 +226,46 @@ export class LibStoreListComponent implements OnInit {
        return 0;
      });
    }
- */
-  ///////
+
+   sorterDate: boolean = false;
+   sort_Date() {
+     this.sorterDate = !this.sorterDate;
+     if (this.sorterDate) {
+       this.sortToLow_Date();
+     }
+     else {
+       this.sortToUp_Date();
+     }
+   }
+ 
+   sortToLow_Date() {
+     this.bookList = this.booksBackup.sort(function (a, b) {
+       var nameA = a.addtime.toString(); // ignore upper and lowercase
+       var nameB = b.addtime.toString(); // ignore upper and lowercase
+       if (nameA < nameB) {
+         return 1;
+       }
+       if (nameA > nameB) {
+         return -1;
+       }
+       // must be equal
+       return 0;
+     });
+   }
+ 
+   sortToUp_Date() {
+     this.bookList = this.booksBackup.sort(function (a, b) {
+       var nameA = a.addtime.toString(); // ignore upper and lowercase
+       var nameB = b.addtime.toString(); // ignore upper and lowercase
+       if (nameA < nameB) {
+         return -1;
+       }
+       if (nameA > nameB) {
+         return 1;
+       }
+       // must be equal
+       return 0;
+     });
+   }
 
 }
