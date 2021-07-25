@@ -74,6 +74,8 @@ namespace API.Data.Migrations
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Condition = table.Column<string>(type: "TEXT", nullable: true),
                     Addtime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    isborrowed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    isreserved = table.Column<bool>(type: "INTEGER", nullable: false),
                     Author = table.Column<string>(type: "TEXT", nullable: true),
                     Origin = table.Column<string>(type: "TEXT", nullable: true),
                     Language = table.Column<string>(type: "TEXT", nullable: true),
@@ -98,7 +100,15 @@ namespace API.Data.Migrations
                     Iduser = table.Column<int>(type: "INTEGER", nullable: false),
                     Borrowtime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Returntime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    States = table.Column<string>(type: "TEXT", nullable: true)
+                    States = table.Column<string>(type: "TEXT", nullable: true),
+                    Isbnid = table.Column<int>(type: "INTEGER", nullable: false),
+                    Actborrowtime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Actreturntime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Username = table.Column<string>(type: "TEXT", nullable: true),
+                    Titlebook = table.Column<string>(type: "TEXT", nullable: true),
+                    Isbnname = table.Column<string>(type: "TEXT", nullable: true),
+                    Chargefine = table.Column<int>(type: "INTEGER", nullable: false),
+                    isdeleted = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

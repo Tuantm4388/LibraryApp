@@ -88,7 +88,7 @@ namespace API.Controllers
             if (info.Isbn != isbn.ToUpper())
             {
                 if (await _context.Infos.AnyAsync(x => x.Isbn == isbn.ToUpper()))
-                    return BadRequest("The ISBN is already available.");
+                    return BadRequest("The isbn is already available.");
             }
             
             info.Isbn = isbn;

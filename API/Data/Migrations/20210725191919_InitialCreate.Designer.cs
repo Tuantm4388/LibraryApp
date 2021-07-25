@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210724175457_InitialCreate")]
+    [Migration("20210725191919_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,6 +62,12 @@ namespace API.Data.Migrations
 
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("isborrowed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("isreserved")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -273,8 +279,17 @@ namespace API.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("Actborrowtime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Actreturntime")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("Borrowtime")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Chargefine")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Idbook")
                         .HasColumnType("INTEGER");
@@ -282,11 +297,26 @@ namespace API.Data.Migrations
                     b.Property<int>("Iduser")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Isbnid")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Isbnname")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("Returntime")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("States")
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("Titlebook")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("isdeleted")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

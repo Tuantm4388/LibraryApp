@@ -9,7 +9,18 @@ namespace API.Entities
         public int Iduser { get; set; }
         public DateTime Borrowtime { get; set; } = DateTime.Now;
         public DateTime Returntime { get; set; } = DateTime.Now;
-        public string States { get; set; }
+        public string States { get; set; } /* reserved , borrowed , returned */
+
+        public int Isbnid { get; set; }
+        public DateTime Actborrowtime { get; set; } = DateTime.Now;
+        public DateTime Actreturntime { get; set; } = DateTime.Now;
+
+
+        public string Username { get; set; }
+        public string Titlebook { get; set; }
+        public string Isbnname { get; set; }
+        public int Chargefine { get; set; } = 0;
+        public bool isdeleted { get; set; } = false;
 
     }
 }

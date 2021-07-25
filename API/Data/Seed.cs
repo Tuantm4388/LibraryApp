@@ -66,6 +66,7 @@ namespace API.Data
 
         public static async Task SeedBooks(DataContext context)
         {
+            /* ISBN */
             if (await context.Books.AnyAsync()) return;
 
             var itemData = await System.IO.File.ReadAllTextAsync("Data/BookSeedDataLibrary.json");
@@ -85,8 +86,36 @@ namespace API.Data
                 info.Condition = "";
                 context.Infos.Add(info);
             }
+
+            BookInfo info1 = new BookInfo();
+            info1.Isbn = "000-000-0-00000-0";
+            info1.Title = "Library App";
+            info1.Author = "TuanTM14";
+            info1.Language = "VN";
+            info1.Origin = "VN";
+            info1.Summary = "App is Angular";
+            info1.Catalogue = "dev";
+            info1.Addtime = DateTime.Now;
+            info1.Publishtime = DateTime.Now;
+            info1.Photourl = "";
+            info1.Condition = "";
+            context.Infos.Add(info1);
+            BookInfo info2 = new BookInfo();
+            info2.Isbn = "000-000-0-00000-1";
+            info2.Title = "System App";
+            info2.Author = "Tuan tran";
+            info2.Language = "VN";
+            info2.Origin = "VN";
+            info2.Summary = "App is dotnet";
+            info2.Catalogue = "dev";
+            info2.Addtime = DateTime.Now;
+            info2.Publishtime = DateTime.Now;
+            info2.Photourl = "";
+            info2.Condition = "";
+            context.Infos.Add(info2);
             await context.SaveChangesAsync();
 
+            /* book */
             if (await context.Books.AnyAsync()) return;
             BookInfo _info = new BookInfo();
             if (itemInfos.Count > 0)
@@ -94,7 +123,7 @@ namespace API.Data
                 _info = context.Infos.Find(1);
             }
             if (_info == null) return;
-            
+
             for (i = 0; i < itemInfos.Count; i++)
             {
                 AppBook book = new AppBook();
@@ -102,10 +131,93 @@ namespace API.Data
                 book.Isbn = _info.Isbn.ToUpper();
                 book.Title = _info.Title;
                 book.Addtime = DateTime.Now;
-                book.Condition = "New";
+                book.Condition = "Old";
+                book.isborrowed = false;
+                book.isreserved = false;
 
                 context.Books.Add(book);
             }
+            AppBook book1 = new AppBook();
+            book1.IdISNB = info1.Id;
+            book1.Isbn = info1.Isbn.ToUpper();
+            book1.Title = info1.Title;
+            book1.Addtime = DateTime.Now;
+            book1.Condition = "New";
+            book1.isborrowed = false;
+            book1.isreserved = false;
+            context.Books.Add(book1);
+            AppBook book2 = new AppBook();
+            book2.IdISNB = info1.Id;
+            book2.Isbn = info1.Isbn.ToUpper();
+            book2.Title = info1.Title;
+            book2.Addtime = DateTime.Now;
+            book2.Condition = "Broken";
+            book2.isborrowed = false;
+            book2.isreserved = false;
+            context.Books.Add(book2);
+            AppBook book3 = new AppBook();
+            book3.IdISNB = info2.Id;
+            book3.Isbn = info2.Isbn.ToUpper();
+            book3.Title = info2.Title;
+            book3.Addtime = DateTime.Now;
+            book3.Condition = "Old";
+            book3.isborrowed = false;
+            book3.isreserved = false;
+            context.Books.Add(book3);
+
+            await context.SaveChangesAsync();
+        }
+
+        public static async Task SeedBorrow(DataContext context)
+        {
+            /* Borrow */
+            if (await context.BorrowCards.AnyAsync()) return;
+            AppUser user = await context.Users.SingleOrDefaultAsync(x => x.UserName.ToLower() == "admin");
+            if (user == null) return;
+            BookInfo info = new BookInfo();
+            AppBook book = new AppBook();
+            BorrowCard item1 = new BorrowCard();
+            item1.Iduser = user.Id;
+            item1.Username = user.UserName;
+            item1.Idbook = 1;
+            book = await context.Books.FindAsync(item1.Idbook);
+            if (book == null) return;
+            item1.Isbnid = book.IdISNB;
+            info = await context.Infos.FindAsync(item1.Isbnid);
+            if (info == null) return;
+            item1.Isbnname = info.Isbn;
+            item1.Titlebook = info.Title;
+            item1.States = "reserved";
+            context.BorrowCards.Add(item1);
+
+            BorrowCard item2 = new BorrowCard();
+            item2.Iduser = user.Id;
+            item2.Username = user.UserName;
+            item2.Idbook = 2;
+            book = await context.Books.FindAsync(item2.Idbook);
+            if (book == null) return;
+            item2.Isbnid = book.IdISNB;
+            info = await context.Infos.FindAsync(item2.Isbnid);
+            if (info == null) return;
+            item2.Isbnname = info.Isbn;
+            item2.Titlebook = info.Title;
+            item2.States = "borrowed";
+            context.BorrowCards.Add(item2);
+
+            BorrowCard item3 = new BorrowCard();
+            item3.Iduser = user.Id;
+            item3.Username = user.UserName;
+            item3.Idbook = 3;
+            book = await context.Books.FindAsync(item3.Idbook);
+            if (book == null) return;
+            item3.Isbnid = book.IdISNB;
+            info = await context.Infos.FindAsync(item3.Isbnid);
+            if (info == null) return;
+            item3.Isbnname = info.Isbn;
+            item3.Titlebook = info.Title;
+            item3.States = "returned";
+            context.BorrowCards.Add(item3);
+
             await context.SaveChangesAsync();
         }
     }

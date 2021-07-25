@@ -29,6 +29,7 @@ namespace API
                 await context.Database.MigrateAsync();
                 await Seed.SeedUsers(userManager, roleManager);
                 await Seed.SeedBooks(context);
+                await Seed.SeedBorrow(context);
             }
             catch (Exception ex)
             {
