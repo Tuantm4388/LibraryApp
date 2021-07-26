@@ -221,6 +221,20 @@ namespace API.Data
             item3.Actreturntime=DateTime.Now;
             context.BorrowCards.Add(item3);
 
+            BorrowCard item4 = new BorrowCard();
+            item4.Iduser = user.Id;
+            item4.Username = user.UserName;
+            item4.Idbook = 3;
+            book = await context.Books.FindAsync(item4.Idbook);
+            if (book == null) return;
+            item4.Isbnid = book.IdISNB;
+            info = await context.Infos.FindAsync(item4.Isbnid);
+            if (info == null) return;
+            item4.Isbnname = info.Isbn;
+            item4.Titlebook = info.Title;
+            item4.States = "reserved";
+            context.BorrowCards.Add(item4);
+
             await context.SaveChangesAsync();
         }
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
@@ -18,6 +19,51 @@ namespace API.Controllers
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BorrowCard>>> GetBorrowCards()
+        {
+            var cardList = await _context.BorrowCards.ToListAsync();
+            if (cardList.Any())
+            {
+                foreach (var card in cardList)
+                {
+                    AppUser user = await _context.Users.FindAsync(card.Iduser);
+                    if (user == null)
+                    {
+                        card.Username = "";
+                    }
+                    else
+                    {
+                        card.Username = user.UserName;
+                    }
+                    AppBook book = await _context.Books.FindAsync(card.Idbook);
+                    if (book == null)
+                    {
+                        card.Idbook = -1;
+                    }
+                    else
+                    {
+                        card.Isbnid = book.IdISNB;
+                        BookInfo info = await _context.Infos.FindAsync(card.Isbnid);
+                        if (info == null)
+                        {
+                            card.Isbnname = " ";
+                            card.Titlebook = " ";
+                        }
+                        else
+                        {
+                            card.Isbnname = info.Isbn;
+                            card.Titlebook = info.Title;
+                        }
+                    }
+
+                }
+                await _context.SaveChangesAsync();
+            }
+
+            return cardList;
+        }
+
+        [HttpGet("no-dto")]
+        public async Task<ActionResult<IEnumerable<BorrowCard>>> GetBorrowCardsNoDTO()
         {
             return await _context.BorrowCards.ToListAsync();
         }

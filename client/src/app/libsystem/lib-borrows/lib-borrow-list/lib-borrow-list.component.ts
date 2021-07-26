@@ -4,9 +4,11 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { throwError } from 'rxjs';
 import { RolesModalComponent } from 'src/app/modals/roles-modal/roles-modal.component';
 import { LibBook } from 'src/app/_models/libBook';
+import { LibBorrow } from 'src/app/_models/libBorrow';
 import { LibUser } from 'src/app/_models/libUser';
 import { User } from 'src/app/_models/user';
 import { AdminService } from 'src/app/_services/admin.service';
+import { BorrowService } from 'src/app/_services/borrow.service';
 import { LibUserService } from 'src/app/_services/lib-user.service';
 import { LibDeleteUserComponent } from '../../lib-dialog/lib-delete-user/lib-delete-user.component';
 
@@ -17,8 +19,8 @@ import { LibDeleteUserComponent } from '../../lib-dialog/lib-delete-user/lib-del
 })
 export class LibBorrowListComponent implements OnInit {
 
-  users: Partial<LibUser[]>;
-  usersBackup = [];
+  borrowList: Partial<LibBorrow[]>;
+  borrowListBackup = [];
   bsModalRef: BsModalRef;
 
   p: Number = 1;
@@ -27,56 +29,38 @@ export class LibBorrowListComponent implements OnInit {
   keyWord: string;
 
   constructor(private adminService: AdminService, private modalService: BsModalService,
-    private libUserService: LibUserService, private router: Router) { }
+    private libUserService: LibUserService, private router: Router, private borrowService: BorrowService) { }
 
   ngOnInit(): void {
-    this.getUsersWithRoles();
+    this.getBorrowCardList();
   }
 
-  getUsersWithRoles() {
-    this.adminService.getLibUserList().subscribe(users => {
-      this.users = users.sort((a, b) => a.id - b.id);
-      this.usersBackup = this.users;
+  getBorrowCardList() {
+    this.borrowService.getBorrowList().subscribe(users => {
+      this.borrowList = users.sort((a, b) => b.id - a.id);
+      this.borrowListBackup = this.borrowList;
     })
   }
 
-  openDeleteModal(user: LibUser) {
-    const config = {
-      class: 'modal-dialog-centered',
-      initialState: {
-        user,
-        success: false
-      }
-    }
-    this.bsModalRef = this.modalService.show(LibDeleteUserComponent, config);
-    this.bsModalRef.content.updateAction.subscribe(values => {
-      if (values) {
-        let idx = this.users.indexOf(user);
-        this.users.splice(idx, 1);
-        this.usersBackup.splice(idx, 1);
-      }
-    });
-  }
-
-  routToEditPage(user: LibUser) {
-    this.libUserService.setSelectedUserInfo(user);
-    this.router.navigateByUrl('/edituser/' + user.username);
+  isShowActBorrowTime(card: LibBorrow) {
+    if ((card.states === "borrowed" || (card.states === "returned"))) return true;
+    return false;
   }
 
   searchFunction() {
     if (this.keyWord && this.keyWord.length > 0) {
       //let resulf = this.usersBackup.find(a => a.username.toUpperCase() == this.keyWord.toUpperCase());
-      let resulf = this.usersBackup.filter(a => this.isSearchCompare(a.username, this.keyWord));
+      let resulf = this.borrowListBackup.filter(a => this.isSearchCompare(a.iduser.toString(), this.keyWord));
       console.log(resulf);
-      this.users = [];
+      this.borrowList = [];
       if (resulf) {
         console.log("searchFunction added");
-        this.users = resulf;
+        this.borrowList = resulf;
       }
       this.p = 1;
     }
     else {
-      this.users = this.usersBackup;
+      this.borrowList = this.borrowListBackup;
       this.p = 1;
     }
   }
@@ -92,15 +76,49 @@ export class LibBorrowListComponent implements OnInit {
     return false;
   }
 
+  isApproveDisable(card: LibBorrow){
+    if(card.states==="reserved") return true;
+    return false;
+  }
+
+  isBorrowDisable(card: LibBorrow){
+    if(card.states==="borrowed") return true;
+    return false;
+  }
+
+  ///////////////////////////////////////////////
+  openDeleteModal(user: LibUser) {
+    const config = {
+      class: 'modal-dialog-centered',
+      initialState: {
+        user,
+        success: false
+      }
+    }
+    this.bsModalRef = this.modalService.show(LibDeleteUserComponent, config);
+    this.bsModalRef.content.updateAction.subscribe(values => {
+      if (values) {
+
+      }
+    });
+  }
+
+  routToEditPage(user: LibUser) {
+    this.libUserService.setSelectedUserInfo(user);
+    this.router.navigateByUrl('/edituser/' + user.username);
+  }
+
+  
+
   /// tablesorter
   sorterId: boolean = true;
   sort_Id() {
     this.sorterId = !this.sorterId;
     if (this.sorterId) {
-      this.users = this.usersBackup.sort((a, b) => a.id - b.id);
+      this.borrowList = this.borrowListBackup.sort((a, b) => a.id - b.id);
     }
     else {
-      this.users = this.usersBackup.sort((a, b) => b.id - a.id);
+      this.borrowList = this.borrowListBackup.sort((a, b) => b.id - a.id);
     }
   }
 
@@ -116,7 +134,7 @@ export class LibBorrowListComponent implements OnInit {
   }
 
   sortToLow_Name() {
-    this.users = this.usersBackup.sort(function (a, b) {
+    this.borrowList = this.borrowListBackup.sort(function (a, b) {
       var nameA = a.username.toUpperCase(); // ignore upper and lowercase
       var nameB = b.username.toUpperCase(); // ignore upper and lowercase
       if (nameA < nameB) {
@@ -131,7 +149,7 @@ export class LibBorrowListComponent implements OnInit {
   }
 
   sortToUp_Name() {
-    this.users = this.usersBackup.sort(function (a, b) {
+    this.borrowList = this.borrowListBackup.sort(function (a, b) {
       var nameA = a.username.toUpperCase(); // ignore upper and lowercase
       var nameB = b.username.toUpperCase(); // ignore upper and lowercase
       if (nameA < nameB) {
@@ -157,7 +175,7 @@ export class LibBorrowListComponent implements OnInit {
   }
 
   sortToLow_Type() {
-    this.users = this.usersBackup.sort(function (a, b) {
+    this.borrowList = this.borrowListBackup.sort(function (a, b) {
       var nameA = a.roles; // ignore upper and lowercase
       var nameB = b.roles; // ignore upper and lowercase
       if (nameA < nameB) {
@@ -172,7 +190,7 @@ export class LibBorrowListComponent implements OnInit {
   }
 
   sortToUp_Type() {
-    this.users = this.usersBackup.sort(function (a, b) {
+    this.borrowList = this.borrowListBackup.sort(function (a, b) {
       var nameA = a.roles; // ignore upper and lowercase
       var nameB = b.roles; // ignore upper and lowercase
       if (nameA < nameB) {
