@@ -101,5 +101,37 @@ namespace API.Controllers
             return Ok();
         }
 
+        [HttpPost("approve")]
+        public async Task<ActionResult> ApproveBorrowRequest(int id)
+        {
+            var card = await _context.BorrowCards.FindAsync(id);
+            if (card == null) return BadRequest("Not found borrow id ");
+            AppUser user = await _context.Users.FindAsync(card.Iduser);
+            if (user == null) return BadRequest("User is not exist");
+            AppBook book = await _context.Books.FindAsync(card.Idbook);
+            if (book == null) return BadRequest("This book is not exist.");
+            if (book.isborrowed == true) return BadRequest("This book is borrowed.");
+            BookInfo info = await _context.Infos.FindAsync(card.Isbnid);
+            if (info == null) return BadRequest("This ISBN is not exist.");
+            card.States = "borrowed";
+            card.Actborrowtime = DateTime.Now;
+            _context.BorrowCards.Update(card);
+            book.isborrowed = true;
+            _context.Books.Update(book);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost("cancel")]
+        public async Task<ActionResult> CancelBorrowRequest(int id)
+        {
+            var card = await _context.BorrowCards.FindAsync(id);
+            if (card == null) return BadRequest("Not found borrow id ");
+            card.isdeleted = true;
+            _context.BorrowCards.Update(card);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
     }
 }

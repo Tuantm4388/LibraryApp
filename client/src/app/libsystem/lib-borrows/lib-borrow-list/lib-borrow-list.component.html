@@ -60,7 +60,7 @@
             <td>{{card.states|titlecase}}</td>
             <td>
                 <div class="row">
-                    <button [disabled]='!isApproveDisable(card)' class="btn btn-primary mr-2" routerLink='/members/{{card.username}}'>Approve</button>
+                    <button [disabled]='!isApproveDisable(card)' class="btn btn-primary mr-2" (click)="approveFunc(card)">Approve</button>
                 </div>
                 <div class="row">
                     <button [disabled]='!isApproveDisable(card)' class="btn btn-secondary mr-2" (click)="routToEditPage(card)">Cancel</button>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 import { throwError } from 'rxjs';
 import { RolesModalComponent } from 'src/app/modals/roles-modal/roles-modal.component';
 import { LibBook } from 'src/app/_models/libBook';
@@ -29,7 +30,8 @@ export class LibBorrowListComponent implements OnInit {
   keyWord: string;
 
   constructor(private adminService: AdminService, private modalService: BsModalService,
-    private libUserService: LibUserService, private router: Router, private borrowService: BorrowService) { }
+    private libUserService: LibUserService, private router: Router, private borrowService: BorrowService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getBorrowCardList();
@@ -84,6 +86,15 @@ export class LibBorrowListComponent implements OnInit {
   isBorrowDisable(card: LibBorrow){
     if(card.states==="borrowed") return true;
     return false;
+  }
+
+  approveFunc(card: LibBorrow){
+    this.toastr.info(card.id.toString());
+    this.borrowService.setApprove(card.id).subscribe(()=>{
+      this.getBorrowCardList();
+    },err=>{
+      this.toastr.error(err);
+    });
   }
 
   ///////////////////////////////////////////////

@@ -21,4 +21,12 @@ export class BorrowService {
     return this.http.get<Partial<LibBorrow[]>>(this.baseUrl + 'borrow');
   }
 
+  setApprove(id:number) {
+    return this.http.post(this.baseUrl + 'borrow/approve',id);
+  }
+
+  setCancel(id:number) {
+    return this.http.post(this.baseUrl + 'borrow/cancel',id);
+  }
+
 }
