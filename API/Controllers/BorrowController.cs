@@ -105,7 +105,7 @@ namespace API.Controllers
         public async Task<ActionResult> ApproveBorrowRequest(int id)
         {
             var card = await _context.BorrowCards.FindAsync(id);
-            if (card == null) return BadRequest("Not found borrow id ");
+            if (card == null) return BadRequest("Borrow id : "+id+" not found.");
             AppUser user = await _context.Users.FindAsync(card.Iduser);
             if (user == null) return BadRequest("User is not exist");
             AppBook book = await _context.Books.FindAsync(card.Idbook);

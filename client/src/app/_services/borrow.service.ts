@@ -22,11 +22,11 @@ export class BorrowService {
   }
 
   setApprove(id:number) {
-    return this.http.post(this.baseUrl + 'borrow/approve',id);
+    return this.http.post(this.baseUrl + 'borrow/approve?id='+id,id);
   }
 
   setCancel(id:number) {
-    return this.http.post(this.baseUrl + 'borrow/cancel',id);
+    return this.http.post(this.baseUrl + 'borrow/cancel?id='+id,id);
   }
 
 }

@@ -78,21 +78,30 @@ export class LibBorrowListComponent implements OnInit {
     return false;
   }
 
-  isApproveDisable(card: LibBorrow){
-    if(card.states==="reserved") return true;
+  isApproveDisable(card: LibBorrow) {
+    if (card.states === "reserved" && card.isdeleted === false) return true;
     return false;
   }
 
-  isBorrowDisable(card: LibBorrow){
-    if(card.states==="borrowed") return true;
+  isBorrowDisable(card: LibBorrow) {
+    if (card.states === "borrowed") return true;
     return false;
   }
 
-  approveFunc(card: LibBorrow){
-    this.toastr.info(card.id.toString());
-    this.borrowService.setApprove(card.id).subscribe(()=>{
+  approveFunc(card: LibBorrow) {
+    //this.toastr.info(card.id.toString());
+    this.borrowService.setApprove(card.id).subscribe(() => {
       this.getBorrowCardList();
-    },err=>{
+    }, err => {
+      this.toastr.error(err);
+    });
+  }
+
+  cancelFunc(card: LibBorrow) {
+    //this.toastr.info(card.id.toString());
+    this.borrowService.setCancel(card.id).subscribe(() => {
+      this.getBorrowCardList();
+    }, err => {
       this.toastr.error(err);
     });
   }
@@ -119,7 +128,7 @@ export class LibBorrowListComponent implements OnInit {
     this.router.navigateByUrl('/edituser/' + user.username);
   }
 
-  
+
 
   /// tablesorter
   sorterId: boolean = true;
