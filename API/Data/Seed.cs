@@ -91,10 +91,10 @@ namespace API.Data
             info1.Isbn = "000-000-0-00000-0";
             info1.Title = "Library App";
             info1.Author = "TuanTM14";
-            info1.Language = "VN";
-            info1.Origin = "VN";
+            info1.Language = "English";
+            info1.Origin = "English";
             info1.Summary = "App is Angular";
-            info1.Catalogue = "dev";
+            info1.Catalogue = "Novel";
             info1.Addtime = DateTime.Now;
             info1.Publishtime = DateTime.Now;
             info1.Photourl = "";
@@ -107,7 +107,7 @@ namespace API.Data
             info2.Language = "VN";
             info2.Origin = "VN";
             info2.Summary = "App is dotnet";
-            info2.Catalogue = "dev";
+            info2.Catalogue = "Education";
             info2.Addtime = DateTime.Now;
             info2.Publishtime = DateTime.Now;
             info2.Photourl = "";
@@ -221,9 +221,11 @@ namespace API.Data
             item3.Actreturntime=DateTime.Now;
             context.BorrowCards.Add(item3);
 
+            AppUser user2 = await context.Users.SingleOrDefaultAsync(x => x.UserName.ToLower() == "librarian");
+            if (user2 == null) return;
             BorrowCard item4 = new BorrowCard();
-            item4.Iduser = user.Id;
-            item4.Username = user.UserName;
+            item4.Iduser = user2.Id;
+            item4.Username = user2.UserName;
             item4.Idbook = 3;
             book = await context.Books.FindAsync(item4.Idbook);
             if (book == null) return;

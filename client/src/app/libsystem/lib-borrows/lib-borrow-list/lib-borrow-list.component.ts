@@ -119,20 +119,16 @@ export class LibBorrowListComponent implements OnInit {
 
   checkOverReturnTime(card: LibBorrow) {
     let today: Date = new Date();
-    today.setDate(29);
+    //today.setDate(29);
     today.setHours(0, 0, 0, 0);
 
     let returnDate: Date = new Date(card.returntime.toString());
     returnDate.setHours(0, 0, 0, 0);
-
-    //this.toastr.info(today.toString() + " - time :" + today.getTime().toString());
-    //this.toastr.warning(returnDate.toString() + " - time :" + returnDate.getTime().toString());
     if (today.getTime() < (returnDate.getTime() + 1)) {
       return 0;
     }
     let timeDelta: number = today.getTime() - returnDate.getTime();
     let date: number = timeDelta / 86400000; // miliseconds -> day
-    //this.toastr.success(date.toString());
     return date;
   }
 
@@ -169,42 +165,154 @@ export class LibBorrowListComponent implements OnInit {
   }
 
   ///////////////////////////////////////////////
-  openDeleteModal(user: LibUser) {
-    const config = {
-      class: 'modal-dialog-centered',
-      initialState: {
-        user,
-        success: false
-      }
-    }
-    this.bsModalRef = this.modalService.show(LibDeleteUserComponent, config);
-    this.bsModalRef.content.updateAction.subscribe(values => {
-      if (values) {
-
-      }
-    });
-  }
-
-  routToEditPage(user: LibUser) {
-    this.libUserService.setSelectedUserInfo(user);
-    this.router.navigateByUrl('/edituser/' + user.username);
-  }
-
-
 
   /// tablesorter
   sorterId: boolean = true;
   sort_Id() {
     this.sorterId = !this.sorterId;
     if (this.sorterId) {
-      this.borrowList = this.borrowListBackup.sort((a, b) => a.id - b.id);
+      this.borrowList = this.borrowListBackup.sort((a, b) => a.iduser - b.iduser);
     }
     else {
-      this.borrowList = this.borrowListBackup.sort((a, b) => b.id - a.id);
+      this.borrowList = this.borrowListBackup.sort((a, b) => b.iduser - a.iduser);
     }
   }
 
-  sorterName: boolean = true;
+  sorterIdBook: boolean = true;
+  sort_IdBook() {
+    this.sorterIdBook = !this.sorterIdBook;
+    if (this.sorterIdBook) {
+      this.borrowList = this.borrowListBackup.sort((a, b) => a.idbook - b.idbook);
+    }
+    else {
+      this.borrowList = this.borrowListBackup.sort((a, b) => b.idbook - a.idbook);
+    }
+  }
+
+  sorterEstBorrow: boolean = false;
+  sorterEstBorrowFunc() {
+    this.sorterEstBorrow = !this.sorterEstBorrow;
+    if (this.sorterEstBorrow) {
+      this.sorterEstBorrowFunc_L();
+    }
+    else {
+      this.sorterEstBorrowFunc_U();
+    }
+  }
+
+  sorterEstBorrowFunc_L() {
+    this.borrowList = this.borrowListBackup.sort(function (a, b) {
+      var nameA = a.borrowtime.toString(); // ignore upper and lowercase
+      var nameB = b.borrowtime.toString(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  sorterEstBorrowFunc_U() {
+    this.borrowList = this.borrowListBackup.sort(function (a, b) {
+      var nameA = a.borrowtime.toString(); // ignore upper and lowercase
+      var nameB = b.borrowtime.toString(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  sorterEstReturn: boolean = false;
+  sorterEstReturnFunc() {
+    this.sorterEstReturn = !this.sorterEstReturn;
+    if (this.sorterEstReturn) {
+      this.sorterEstReturnFunc_L();
+    }
+    else {
+      this.sorterEstReturnFunc_U();
+    }
+  }
+
+  sorterEstReturnFunc_L() {
+    this.borrowList = this.borrowListBackup.sort(function (a, b) {
+      var nameA = a.returntime.toString(); // ignore upper and lowercase
+      var nameB = b.returntime.toString(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  sorterEstReturnFunc_U() {
+    this.borrowList = this.borrowListBackup.sort(function (a, b) {
+      var nameA = a.returntime.toString(); // ignore upper and lowercase
+      var nameB = b.returntime.toString(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  sorterActBorrow: boolean = false;
+  sorterActBorrowFunc() {
+    this.sorterActBorrow = !this.sorterActBorrow;
+    if (this.sorterActBorrow) {
+      this.sorterActBorrowFunc_L();
+    }
+    else {
+      this.sorterActBorrowFunc_U();
+    }
+  }
+
+  sorterActBorrowFunc_L() {
+    this.borrowList = this.borrowListBackup.sort(function (a, b) {
+      var nameA = a.actborrowtime.toString(); // ignore upper and lowercase
+      var nameB = b.actborrowtime.toString(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  sorterActBorrowFunc_U() {
+    this.borrowList = this.borrowListBackup.sort(function (a, b) {
+      var nameA = a.actborrowtime.toString(); // ignore upper and lowercase
+      var nameB = b.actborrowtime.toString(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  sorterName: boolean = false;
   sort_Name() {
     this.sorterName = !this.sorterName;
     if (this.sorterName) {
@@ -245,21 +353,21 @@ export class LibBorrowListComponent implements OnInit {
     });
   }
 
-  sorterType: boolean = true;
-  sort_Type() {
-    this.sorterType = !this.sorterType;
-    if (this.sorterType) {
-      this.sortToLow_Type();
+  sorterBookISBN: boolean = false;
+  sort_ISBN() {
+    this.sorterBookISBN = !this.sorterBookISBN;
+    if (this.sorterBookISBN) {
+      this.sortToLow_ISBN();
     }
     else {
-      this.sortToUp_Type();
+      this.sortToUp_ISBN();
     }
   }
 
-  sortToLow_Type() {
+  sortToLow_ISBN() {
     this.borrowList = this.borrowListBackup.sort(function (a, b) {
-      var nameA = a.roles; // ignore upper and lowercase
-      var nameB = b.roles; // ignore upper and lowercase
+      var nameA = a.isbnname.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.isbnname.toUpperCase(); // ignore upper and lowercase
       if (nameA < nameB) {
         return 1;
       }
@@ -271,10 +379,10 @@ export class LibBorrowListComponent implements OnInit {
     });
   }
 
-  sortToUp_Type() {
+  sortToUp_ISBN() {
     this.borrowList = this.borrowListBackup.sort(function (a, b) {
-      var nameA = a.roles; // ignore upper and lowercase
-      var nameB = b.roles; // ignore upper and lowercase
+      var nameA = a.isbnname.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.isbnname.toUpperCase(); // ignore upper and lowercase
       if (nameA < nameB) {
         return -1;
       }
@@ -286,6 +394,87 @@ export class LibBorrowListComponent implements OnInit {
     });
   }
 
+  sorterBookName: boolean = false;
+  sort_BookName() {
+    this.sorterBookName = !this.sorterBookName;
+    if (this.sorterBookName) {
+      this.sortToLow_BookName();
+    }
+    else {
+      this.sortToUp_BookName();
+    }
+  }
+
+  sortToLow_BookName() {
+    this.borrowList = this.borrowListBackup.sort(function (a, b) {
+      var nameA = a.titlebook.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.titlebook.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  sortToUp_BookName() {
+    this.borrowList = this.borrowListBackup.sort(function (a, b) {
+      var nameA = a.titlebook.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.titlebook.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  sorterStatus: boolean = false;
+  sorterStatusFunc() {
+    this.sorterStatus = !this.sorterStatus;
+    if (this.sorterStatus) {
+      this.sorterStatus_Low();
+    }
+    else {
+      this.sorterStatus_Up();
+    }
+  }
+
+  sorterStatus_Low() {
+    this.borrowList = this.borrowListBackup.sort(function (a, b) {
+      var nameA = a.states.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.states.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  sorterStatus_Up() {
+    this.borrowList = this.borrowListBackup.sort(function (a, b) {
+      var nameA = a.states.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.states.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
   ///////
 
 }
