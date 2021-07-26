@@ -105,7 +105,7 @@ namespace API.Controllers
         public async Task<ActionResult> ApproveBorrowRequest(int id)
         {
             var card = await _context.BorrowCards.FindAsync(id);
-            if (card == null) return BadRequest("Borrow id : "+id+" not found.");
+            if (card == null) return BadRequest("Borrow id : " + id + " not found.");
             AppUser user = await _context.Users.FindAsync(card.Iduser);
             if (user == null) return BadRequest("User is not exist");
             AppBook book = await _context.Books.FindAsync(card.Idbook);
@@ -129,6 +129,28 @@ namespace API.Controllers
             if (card == null) return BadRequest("Not found borrow id ");
             card.isdeleted = true;
             _context.BorrowCards.Update(card);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPost("return")]
+        public async Task<ActionResult> ReturnBorrowRequest(int id)
+        {
+            var card = await _context.BorrowCards.FindAsync(id);
+            if (card == null) return BadRequest("Not found borrow id ");
+            card.isdeleted = false;
+            card.States = "returned";
+            card.Actreturntime = DateTime.Now;
+            card.Chargefine = 0;
+            _context.BorrowCards.Update(card);
+            await _context.SaveChangesAsync();
+
+            AppBook book = await _context.Books.FindAsync(card.Idbook);
+            if (book == null) return Ok();
+            book.isreserved = false;
+            book.isborrowed = false;
+            _context.Books.Update(book);
             await _context.SaveChangesAsync();
             return Ok();
         }

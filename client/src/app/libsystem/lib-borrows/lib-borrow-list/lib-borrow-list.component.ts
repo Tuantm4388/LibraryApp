@@ -12,6 +12,7 @@ import { AdminService } from 'src/app/_services/admin.service';
 import { BorrowService } from 'src/app/_services/borrow.service';
 import { LibUserService } from 'src/app/_services/lib-user.service';
 import { LibDeleteUserComponent } from '../../lib-dialog/lib-delete-user/lib-delete-user.component';
+import { LibMessageComponent } from '../../lib-dialog/lib-message/lib-message.component';
 
 @Component({
   selector: 'app-lib-borrow-list',
@@ -103,6 +104,67 @@ export class LibBorrowListComponent implements OnInit {
       this.getBorrowCardList();
     }, err => {
       this.toastr.error(err);
+    });
+  }
+
+  returnFunct(card: LibBorrow) {
+    let date: number = this.checkOverReturnTime(card);
+    if (date > 0) {
+      this.showReturnConfirmDialog(card,date);
+    }
+    else {
+      this.doReturnFunction(card);
+    }
+  }
+
+  checkOverReturnTime(card: LibBorrow) {
+    let today: Date = new Date();
+    today.setDate(29);
+    today.setHours(0, 0, 0, 0);
+
+    let returnDate: Date = new Date(card.returntime.toString());
+    returnDate.setHours(0, 0, 0, 0);
+
+    //this.toastr.info(today.toString() + " - time :" + today.getTime().toString());
+    //this.toastr.warning(returnDate.toString() + " - time :" + returnDate.getTime().toString());
+    if (today.getTime() < (returnDate.getTime() + 1)) {
+      return 0;
+    }
+    let timeDelta: number = today.getTime() - returnDate.getTime();
+    let date: number = timeDelta / 86400000; // miliseconds -> day
+    //this.toastr.success(date.toString());
+    return date;
+  }
+
+  doReturnFunction(card: LibBorrow) {
+    this.borrowService.setReturn(card.id).subscribe(() => {
+      this.getBorrowCardList();
+    }, err => {
+      this.toastr.error(err);
+    });
+  }
+
+  showReturnConfirmDialog(card: LibBorrow, chargeDay: number) {
+    let charge = chargeDay * 10000;
+    let messageConfirm: string = charge + " VND";
+    const config = {
+      class: 'modal-dialog-centered',
+      initialState: {
+        typeMessge: 4,
+        titleDialog: "Charge notice",
+        titleMessage: "The charging fine for this user is",
+        middleMessage: messageConfirm,
+        contentMessage: "Due to late returning",
+        CorfirmBtn: "Take Charing fine",
+        success: false
+      }
+    }
+    this.bsModalRef = this.modalService.show(LibMessageComponent, config);
+    this.bsModalRef.content.updateAction.subscribe(value => {
+      if (value) {
+        // this.toastr.success("ok");
+        this.doReturnFunction(card);
+      }
     });
   }
 

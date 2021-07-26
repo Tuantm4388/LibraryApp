@@ -29,4 +29,8 @@ export class BorrowService {
     return this.http.post(this.baseUrl + 'borrow/cancel?id='+id,id);
   }
 
+  setReturn(id:number) {
+    return this.http.post(this.baseUrl + 'borrow/return?id='+id,id);
+  }
+
 }

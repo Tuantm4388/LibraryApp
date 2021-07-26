@@ -2,12 +2,12 @@ export interface LibBorrow {
     id: number;
     idbook: number;
     iduser: number;
-    borrowtime: string;
-    returntime: string;
+    borrowtime: Date;
+    returntime: Date;
     states: string;
     isbnid: number;
-    actborrowtime: string;
-    actreturntime: string;
+    actborrowtime: Date;
+    actreturntime: Date;
     username: string;
     titlebook: string;
     isbnname: string;

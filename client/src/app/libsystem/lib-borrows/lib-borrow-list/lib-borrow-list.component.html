@@ -38,7 +38,7 @@
                 <a class="nav-link disabled" routerLink='/borrow-list'>Status</a>
             </th>
             <th style="width: 30%;">
-                <a class="nav-link disabled" routerLink='/borrow-list'>Actions</a>
+                <a class="nav-link disabled" >Actions</a>
             </th>
         </tr>
         <tr *ngFor="let card of borrowList| paginate: { itemsPerPage: count, currentPage: p }">
@@ -66,7 +66,7 @@
                     <button [disabled]='!isApproveDisable(card)' class="btn btn-secondary mr-2" (click)="cancelFunc(card)">Cancel</button>
                 </div>
                 <div class="row">
-                    <button [disabled]='!isBorrowDisable(card)' class="btn btn-success mr-2" (click)="openDeleteModal(card)">Return</button>
+                    <button [disabled]='!isBorrowDisable(card)' class="btn btn-success mr-2" (click)="returnFunct(card)">Return</button>
                 </div>
             </td>
         </tr>

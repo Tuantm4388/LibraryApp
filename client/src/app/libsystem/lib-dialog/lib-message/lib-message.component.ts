@@ -17,9 +17,12 @@ export class LibMessageComponent implements OnInit {
   typeMessge:number = 1; /* 1 : message is success, have 1 button OK */
                          /* 2 : message is warning, have 1 button OK */
                           /* 3 : Delete confirm dialog, have 2 button*/
+                          /* 4 : Charge confirm dialog, have 2 button*/
   titleDialog: string = "";
   titleMessage: string = "";
   contentMessage: string = "";
+  middleMessage:string="";
+  CorfirmBtn:string="Confirm";
 
   constructor(public bsModalRef: BsModalRef, public accountService: AccountService,
     private toastr: ToastrService) { }
