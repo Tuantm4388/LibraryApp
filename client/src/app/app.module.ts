@@ -57,6 +57,7 @@ import { LibBookEditComponent } from './libsystem/lib-books/lib-book-edit/lib-bo
 import { LibStoreListComponent } from './libsystem/lib-stores/lib-store-list/lib-store-list.component';
 import { LibStoreEditComponent } from './libsystem/lib-dialog/lib-store-edit/lib-store-edit.component';
 import { LibBorrowListComponent } from './libsystem/lib-borrows/lib-borrow-list/lib-borrow-list.component';
+import { LibBorrowHistoryComponent } from './libsystem/lib-borrows/lib-borrow-history/lib-borrow-history.component';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import { LibBorrowListComponent } from './libsystem/lib-borrows/lib-borrow-list/
     LibBookEditComponent,
     LibStoreListComponent,
     LibStoreEditComponent,
-    LibBorrowListComponent
+    LibBorrowListComponent,
+    LibBorrowHistoryComponent
   ],
   imports: [
     BrowserModule,

@@ -62,6 +62,51 @@ namespace API.Controllers
             return cardList;
         }
 
+        [HttpGet("iduser")]
+        public async Task<ActionResult<IEnumerable<BorrowCard>>> GetBorrowCardsByUser(int iduser)
+        {
+            var cardList = await _context.BorrowCards.Where(p => p.Iduser == iduser).ToListAsync();
+            if (cardList.Any())
+            {
+                foreach (var card in cardList)
+                {
+                    AppUser user = await _context.Users.FindAsync(card.Iduser);
+                    if (user == null)
+                    {
+                        card.Username = "";
+                    }
+                    else
+                    {
+                        card.Username = user.UserName;
+                    }
+                    AppBook book = await _context.Books.FindAsync(card.Idbook);
+                    if (book == null)
+                    {
+                        card.Idbook = -1;
+                    }
+                    else
+                    {
+                        card.Isbnid = book.IdISNB;
+                        BookInfo info = await _context.Infos.FindAsync(card.Isbnid);
+                        if (info == null)
+                        {
+                            card.Isbnname = " ";
+                            card.Titlebook = " ";
+                        }
+                        else
+                        {
+                            card.Isbnname = info.Isbn;
+                            card.Titlebook = info.Title;
+                        }
+                    }
+
+                }
+                await _context.SaveChangesAsync();
+            }
+
+            return cardList;
+        }
+
         [HttpGet("no-dto")]
         public async Task<ActionResult<IEnumerable<BorrowCard>>> GetBorrowCardsNoDTO()
         {

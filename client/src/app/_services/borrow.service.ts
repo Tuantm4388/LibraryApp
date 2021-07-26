@@ -9,28 +9,32 @@ import { LibBorrow } from '../_models/libBorrow';
 export class BorrowService {
   baseUrl = environment.apiUrl;
 
-  reservedState:string="reserved";
+  reservedState: string = "reserved";
 
   constructor(private http: HttpClient) { }
-  
-  addBorrowcard(idBook:number,idUser: number,borrowTime:Date,returnTime:Date) {
-    return this.http.post(this.baseUrl + 'borrow/add-card?idbook='+idBook+'&iduser='+idUser+'&borrowtime='+borrowTime.toJSON()+'&returntime='+returnTime.toJSON()+'&states=' + this.reservedState,1);
+
+  addBorrowcard(idBook: number, idUser: number, borrowTime: Date, returnTime: Date) {
+    return this.http.post(this.baseUrl + 'borrow/add-card?idbook=' + idBook + '&iduser=' + idUser + '&borrowtime=' + borrowTime.toJSON() + '&returntime=' + returnTime.toJSON() + '&states=' + this.reservedState, 1);
   }
 
   getBorrowList() {
     return this.http.get<Partial<LibBorrow[]>>(this.baseUrl + 'borrow');
   }
 
-  setApprove(id:number) {
-    return this.http.post(this.baseUrl + 'borrow/approve?id='+id,id);
+  getBorrowListByUser(idUser: number) {
+    return this.http.get<Partial<LibBorrow[]>>(this.baseUrl + 'borrow/iduser?iduser=' + idUser);
   }
 
-  setCancel(id:number) {
-    return this.http.post(this.baseUrl + 'borrow/cancel?id='+id,id);
+  setApprove(id: number) {
+    return this.http.post(this.baseUrl + 'borrow/approve?id=' + id, id);
   }
 
-  setReturn(id:number) {
-    return this.http.post(this.baseUrl + 'borrow/return?id='+id,id);
+  setCancel(id: number) {
+    return this.http.post(this.baseUrl + 'borrow/cancel?id=' + id, id);
+  }
+
+  setReturn(id: number) {
+    return this.http.post(this.baseUrl + 'borrow/return?id=' + id, id);
   }
 
 }
