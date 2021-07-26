@@ -115,23 +115,31 @@ namespace API.Controllers
 
         [HttpPost("add-card")]
         public async Task<ActionResult> AddBorrowCard(int idbook,
+                                                        int idISNB,
                                                         int iduser,
                                                         DateTime borrowtime,
-                                                        DateTime returntime,
-                                                        string states)
+                                                        DateTime returntime)
         {
             Console.WriteLine(">>>> run AddBorrowCard  iduser" + iduser + ".");
+            AppBook book = await _context.Books.FindAsync(idbook);
+            if (book == null) return BadRequest("This book is not exist in the library.");
+            if (book.isborrowed) return BadRequest("This book is borrowed.");
+            book.isreserved = true;
+            _context.Books.Update(book);
+            await _context.SaveChangesAsync();
+
             var card = new BorrowCard
             {
                 Idbook = idbook,
+                Isbnid = idISNB,
                 Iduser = iduser,
                 Borrowtime = borrowtime,
                 Returntime = returntime,
-                States = states
+                States = "reserved"
             };
             _context.BorrowCards.Add(card);
-
             await _context.SaveChangesAsync();
+
             return Ok();
         }
 

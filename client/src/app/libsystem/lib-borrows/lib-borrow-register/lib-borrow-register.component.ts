@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
-import { LibBook } from 'src/app/_models/libBook';
+import { LibBook, LibBookInfo } from 'src/app/_models/libBook';
 import { LibUser } from 'src/app/_models/libUser';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
@@ -18,7 +18,7 @@ import { LibMessageComponent } from '../../lib-dialog/lib-message/lib-message.co
 })
 export class LibBorrowRegisterComponent implements OnInit {
 
-  bookInfo: LibBook;
+  bookInfo: LibBookInfo;
   user: User;
 
   maxDate: Date;
@@ -30,16 +30,15 @@ export class LibBorrowRegisterComponent implements OnInit {
 
   constructor(public bookService: BookService, private toast: ToastrService,
     private accountService: AccountService, private borrowService: BorrowService,
-    private modalService: BsModalService, private router: Router) {
-    //this.bookInfo = bookService.emptyBook();
-    this.bookService.selectedBook$.pipe(take(1)).subscribe(book => this.bookInfo = book);
+    private modalService: BsModalService, private router: Router, private route: ActivatedRoute) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
   ngOnInit(): void {
-    //this.bookInfo = this.bookService.emptyBook();
-    //this.bookInfo.isbn = "fdfd";
-    //this.getBookList();
+    this.route.data.subscribe(data => {
+      this.bookInfo = data.bookInfo;
+    });
+    this.getBookList();
     this.borrowDate = new Date();
     this.returnDate = new Date();
     this.minDate = new Date();
@@ -65,10 +64,18 @@ export class LibBorrowRegisterComponent implements OnInit {
   }
 
   addBorrowCard() {
-     this.borrowService.addBorrowcard(this.bookInfo.id, this.user.id, this.borrowDate, this.returnDate)
-      .subscribe(() => {
-        this.showMessageDialog();
-      }, error => { this.toast.error(error) });
+    let freeId: number = this.findFreeBook(this.bookInfo.id);
+    if (freeId < 1) {
+      this.toast.error("This book is not exist in the library");
+      return;
+    }
+    else {
+      this.borrowService.addBorrowcard(freeId, this.bookInfo.id, this.user.id, this.borrowDate, this.returnDate)
+        .subscribe(() => {
+          this.showMessageDialog();
+        }, error => { this.toast.error(error) });
+    }
+
   }
 
   bsModalRef: BsModalRef;
@@ -87,6 +94,26 @@ export class LibBorrowRegisterComponent implements OnInit {
     this.bsModalRef.content.updateAction.subscribe(() => {
       this.router.navigateByUrl('/book-list');
     });
+  }
+
+  bookArray = [];
+  findFreeBook(idISBN: number) {
+    this.bookArray = [];
+    let resulf = this.books.filter(a => this.isSearchCompare(a, idISBN));
+    if (resulf) {
+      //this.toast.info("have item");
+      this.bookArray = resulf;
+      return this.bookArray[0].id;
+    }
+    return 0;
+  }
+
+  isSearchCompare(a: LibBook, idISBN: number) {
+    if (a.idISNB === idISBN) {
+      if (a.isborrowed) return false;
+      return true;
+    }
+    return false;
   }
 
 }

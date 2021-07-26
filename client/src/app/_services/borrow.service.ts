@@ -13,8 +13,8 @@ export class BorrowService {
 
   constructor(private http: HttpClient) { }
 
-  addBorrowcard(idBook: number, idUser: number, borrowTime: Date, returnTime: Date) {
-    return this.http.post(this.baseUrl + 'borrow/add-card?idbook=' + idBook + '&iduser=' + idUser + '&borrowtime=' + borrowTime.toJSON() + '&returntime=' + returnTime.toJSON() + '&states=' + this.reservedState, 1);
+  addBorrowcard(idBook: number, idISBN: number, idUser: number, borrowTime: Date, returnTime: Date) {
+    return this.http.post(this.baseUrl + 'borrow/add-card?idbook=' + idBook + '&idISNB=' + idISBN + '&iduser=' + idUser + '&borrowtime=' + borrowTime.toJSON() + '&returntime=' + returnTime.toJSON(), 1);
   }
 
   getBorrowList() {

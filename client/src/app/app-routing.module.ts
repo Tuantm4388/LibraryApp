@@ -50,7 +50,7 @@ const routes: Routes = [
       {path: 'lib-users', component: LibUserListComponent, canActivate: [AdminGuard]},
       {path: 'book-add', component: LibBookAddComponent, canActivate: [AdminGuard]},
       {path: 'book-edit/:idIsbn', component: LibBookEditComponent, resolve: {bookInfo: BookInfoResolver}},
-      {path: 'borrow/register', component: LibBorrowRegisterComponent},
+      {path: 'borrow/register/:idIsbn', component: LibBorrowRegisterComponent, resolve: {bookInfo: BookInfoResolver}},
       {path: 'borrow-list', component: LibBorrowListComponent, canActivate: [AdminGuard]},
       {path: 'borrow-history/:username', component: LibBorrowHistoryComponent, resolve: {member: MemberDetailedResolver}},
       {path: 'lib-store', component: LibStoreListComponent, canActivate: [AdminGuard]},

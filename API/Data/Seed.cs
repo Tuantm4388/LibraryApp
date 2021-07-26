@@ -165,6 +165,26 @@ namespace API.Data
             book3.isreserved = false;
             context.Books.Add(book3);
 
+            AppBook book4 = new AppBook();
+            book4.IdISNB = info1.Id;
+            book4.Isbn = info1.Isbn.ToUpper();
+            book4.Title = info1.Title;
+            book4.Addtime = DateTime.Now;
+            book4.Condition = "New";
+            book4.isborrowed = false;
+            book4.isreserved = false;
+            context.Books.Add(book4);
+
+            AppBook book5 = new AppBook();
+            book5.IdISNB = info1.Id;
+            book5.Isbn = info1.Isbn.ToUpper();
+            book5.Title = info1.Title;
+            book5.Addtime = DateTime.Now;
+            book5.Condition = "New";
+            book5.isborrowed = false;
+            book5.isreserved = false;
+            context.Books.Add(book5);
+
             await context.SaveChangesAsync();
         }
 
@@ -202,7 +222,7 @@ namespace API.Data
             item2.Isbnname = info.Isbn;
             item2.Titlebook = info.Title;
             item2.States = "borrowed";
-            item2.Actborrowtime=DateTime.Now;
+            item2.Actborrowtime = DateTime.Now;
             context.BorrowCards.Add(item2);
 
             BorrowCard item3 = new BorrowCard();
@@ -217,8 +237,8 @@ namespace API.Data
             item3.Isbnname = info.Isbn;
             item3.Titlebook = info.Title;
             item3.States = "returned";
-            item3.Actborrowtime=DateTime.Now;
-            item3.Actreturntime=DateTime.Now;
+            item3.Actborrowtime = DateTime.Now;
+            item3.Actreturntime = DateTime.Now;
             context.BorrowCards.Add(item3);
 
             AppUser user2 = await context.Users.SingleOrDefaultAsync(x => x.UserName.ToLower() == "librarian");
@@ -236,6 +256,50 @@ namespace API.Data
             item4.Titlebook = info.Title;
             item4.States = "reserved";
             context.BorrowCards.Add(item4);
+
+            DateTime today = DateTime.Now;
+            int month = today.Month;
+            int day = 15;
+            if (month == 1) day = 1;
+            else month = month - 1;
+
+            Console.WriteLine(">>>> month : " + month);
+            Console.WriteLine(">>>> day : " + day);
+
+            BorrowCard item5 = new BorrowCard();
+            item5.Iduser = user.Id;
+            item5.Username = user.UserName;
+            item5.Idbook = 2;
+            book = await context.Books.FindAsync(item5.Idbook);
+            if (book == null) return;
+            item5.Isbnid = book.IdISNB;
+            info = await context.Infos.FindAsync(item5.Isbnid);
+            if (info == null) return;
+            item5.Isbnname = info.Isbn;
+            item5.Titlebook = info.Title;
+            item5.States = "borrowed";
+            item5.Borrowtime = new DateTime(today.Year, month, day);
+            item5.Returntime = new DateTime(today.Year, month, day);
+            item5.Actborrowtime = new DateTime(today.Year, month, day);
+            context.BorrowCards.Add(item5);
+            Console.WriteLine(">>>> Returntime : " + item5.Returntime.ToString());
+
+            BorrowCard item6 = new BorrowCard();
+            item6.Iduser = user.Id;
+            item6.Username = user.UserName;
+            item6.Idbook = 2;
+            book = await context.Books.FindAsync(item6.Idbook);
+            if (book == null) return;
+            item6.Isbnid = book.IdISNB;
+            info = await context.Infos.FindAsync(item6.Isbnid);
+            if (info == null) return;
+            item6.Isbnname = info.Isbn;
+            item6.Titlebook = info.Title;
+            item6.States = "borrowed";
+            item6.Borrowtime = new DateTime(today.Year, month, day);
+            item6.Returntime = new DateTime(today.Year, month, day);
+            item6.Actborrowtime = new DateTime(today.Year, month, day);
+            context.BorrowCards.Add(item6);
 
             await context.SaveChangesAsync();
         }

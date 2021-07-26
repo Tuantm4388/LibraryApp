@@ -5,6 +5,8 @@ export interface LibBook {
     title: string;
     condition: string;
     addtime: Date;
+    isborrowed: boolean;
+    isreserved: boolean;
 
     author: string;
     origin: string;
