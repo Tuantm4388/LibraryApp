@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { LibBook } from 'src/app/_models/libBook';
+import { LibBook, LibBookInfo } from 'src/app/_models/libBook';
 import { Member } from 'src/app/_models/member';
 import { MembersService } from 'src/app/_services/members.service';
 
@@ -12,9 +12,9 @@ import { MembersService } from 'src/app/_services/members.service';
 export class LibCardBookComponent implements OnInit {
 
   //@Input() member: Member;
-  @Input() book: LibBook;
+  @Input() book: LibBookInfo;
   //@Output() book: LibBook;
-  @Output() submitBookInfo = new EventEmitter<LibBook>();
+  @Output() submitBookInfo = new EventEmitter<LibBookInfo>();
 
 
   constructor(private toastr: ToastrService) {
