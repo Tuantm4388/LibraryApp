@@ -26,8 +26,10 @@ export class LibBookListComponent implements OnInit {
 
   isShowInfo: boolean = false;
 
+  bookStore: Partial<LibBook[]>;
   ngOnInit(): void {
     this.getBookList();
+    this.bookService.getBookList().subscribe(store => { this.bookStore = store; });
   }
 
   bookInfoList: Partial<LibBookInfo[]>;

@@ -7,13 +7,10 @@
                     <hr>
                 </div>
                 <div class="form-check" *ngFor="let item of arrCatalogue">
-                    <input type="checkbox"
-                        class="form-check-input"
-                        [checked]="isCheck(item,arrCheckStatus_catalogue)"
-                        (change)="isShow_Catalogue(isCheck(item,arrCheckStatus_catalogue),item) "
-                    >
+                    <input type="checkbox" class="form-check-input" [checked]="isCheck(item,arrCheckStatus_catalogue)"
+                        (change)="isShow_Catalogue(isCheck(item,arrCheckStatus_catalogue),item) ">
                     <label>{{item}}</label>
-                  </div>
+                </div>
             </div>
             <div *ngIf="isShowMenu">
                 <div>
@@ -21,11 +18,8 @@
                     <hr>
                 </div>
                 <div class="form-check" *ngFor="let item of arrAuthor">
-                    <input type="checkbox"
-                        class="form-check-input"
-                        [checked]="isCheck(item,arrCheckStatus_author)"
-                        (change)="isShow_author(isCheck(item,arrCheckStatus_author),item) "
-                    >
+                    <input type="checkbox" class="form-check-input" [checked]="isCheck(item,arrCheckStatus_author)"
+                        (change)="isShow_author(isCheck(item,arrCheckStatus_author),item) ">
                     <label>{{item}}</label>
                 </div>
             </div>
@@ -35,25 +29,19 @@
                     <hr>
                 </div>
                 <div class="form-check" *ngFor="let item of arrLanguage">
-                    <input type="checkbox"
-                        class="form-check-input"
-                        [checked]="isCheck(item,arrCheckStatus_language)"
-                        (change)="isShow_language(isCheck(item,arrCheckStatus_language),item) "
-                    >
+                    <input type="checkbox" class="form-check-input" [checked]="isCheck(item,arrCheckStatus_language)"
+                        (change)="isShow_language(isCheck(item,arrCheckStatus_language),item) ">
                     <label>{{item}}</label>
                 </div>
             </div>
-            <div *ngIf="isShowMenu" >
+            <div *ngIf="isShowMenu">
                 <div>
                     <h5>Origin</h5>
                     <hr>
                 </div>
                 <div class="form-check" *ngFor="let item of arrOrigin">
-                    <input type="checkbox"
-                        class="form-check-input"
-                        [checked]="isCheck(item,arrCheckStatus_origin)"
-                        (change)="isShow_origin(isCheck(item,arrCheckStatus_origin),item) "
-                    >
+                    <input type="checkbox" class="form-check-input" [checked]="isCheck(item,arrCheckStatus_origin)"
+                        (change)="isShow_origin(isCheck(item,arrCheckStatus_origin),item) ">
                     <label>{{item}}</label>
                 </div>
             </div>
@@ -88,6 +76,6 @@
         </div>
     </div>
     <div *ngIf="isShowInfo" class="col-3 body-info">
-        <app-lib-book-info [bookInfo]="bookInfo" (reloadList)="reloadListFunc($event)"></app-lib-book-info>
+        <app-lib-book-info [bookInfo]="bookInfo" [bookStore]="bookStore" (reloadList)="reloadListFunc($event)"></app-lib-book-info>
     </div>
 </div>

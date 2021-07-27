@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { LibBook, LibBookInfo } from 'src/app/_models/libBook';
 import { BookService } from 'src/app/_services/book.service';
@@ -13,9 +13,11 @@ import { LibMessageComponent } from '../../lib-dialog/lib-message/lib-message.co
   templateUrl: './lib-book-info.component.html',
   styleUrls: ['./lib-book-info.component.css']
 })
-export class LibBookInfoComponent implements OnInit {
+export class LibBookInfoComponent implements OnInit,OnChanges {
 
   @Input() bookInfo: LibBookInfo;
+  @Input() bookStore: Partial<LibBook[]>;
+
   constructor(private router: Router, private bookService: BookService,
     public accountService: AccountService,
     private modalService: BsModalService,
@@ -23,12 +25,18 @@ export class LibBookInfoComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+   // this.toastr.info(this.bookStore.length.toString());
+    
+  }
 
+  ngOnChanges(){
+   // this.toastr.info(this.bookInfo.id.toString());
+    this.countBookNumber();
   }
 
   goToRequestBorrow(_book: LibBookInfo) {
     //this.bookService.setSelectedBook(_book);
-    this.router.navigateByUrl('/borrow/register/'+_book.id);
+    this.router.navigateByUrl('/borrow/register/' + _book.id);
   }
 
   goToCreateISBN() {
@@ -113,6 +121,16 @@ export class LibBookInfoComponent implements OnInit {
     this.bsModalRef = this.modalService.show(LibMessageComponent, config);
   }
 
+  countBook: number = 0;
+  countBookNumber() {
+    let resulf = this.bookStore.filter(a => this.isStoreCompare(a, this.bookInfo.id));
+    this.countBook = resulf.length;
+    //this.toastr.warning();
+  }
 
-
+  isStoreCompare(a: LibBook, id: number) {
+    if (a.idISNB != id) return false;
+    if (a.isborrowed == true || a.isreserved == true) return true;
+    return false;
+  }
 }
