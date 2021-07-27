@@ -17,7 +17,7 @@ export class LibBookListComponent implements OnInit {
     private infoService: InfoService, private toastr: ToastrService) {
   }
 
-  
+
 
   bookInfo: LibBookInfo;
 
@@ -37,8 +37,15 @@ export class LibBookListComponent implements OnInit {
       this.bookInfoList = books;
       this.bookListBackUp = this.bookInfoList;
       this.arrBackupSearch = this.bookInfoList;
-      this.arrCatalogue = this.getArray_nationality();
+      this.arrCatalogue = this.getArray_catalogue();
       this.arrCheckStatus_catalogue = this.arrCatalogue;
+
+      this.arrAuthor = this.getArray_author();
+      this.arrCheckStatus_author = this.arrAuthor;
+      this.arrLanguage = this.getArray_language();
+      this.arrCheckStatus_language = this.arrLanguage;
+      this.arrOrigin = this.getArray_origin();
+      this.arrCheckStatus_origin = this.arrOrigin;
     });
   }
 
@@ -54,7 +61,7 @@ export class LibBookListComponent implements OnInit {
   }
 
   keyWord: string = "";
-  isShowMenu:boolean=false;
+  isShowMenu: boolean = false;
   searchFunction() {
     if (this.keyWord && this.keyWord.length > 0) {
       this.isShowMenu = true;
@@ -84,13 +91,20 @@ export class LibBookListComponent implements OnInit {
       this.pageCur = 1;
     }
     else {
-      this.isShowMenu=false;
+      this.isShowMenu = false;
       this.bookInfoList = this.bookListBackUp;
       this.pageCur = 1;
     }
     this.arrBackupSearch = this.bookInfoList;
-    this.arrCatalogue = this.getArray_nationality();
+    this.arrCatalogue = this.getArray_catalogue();
     this.arrCheckStatus_catalogue = this.arrCatalogue;
+
+    this.arrAuthor = this.getArray_author();
+    this.arrCheckStatus_author = this.arrAuthor;
+    this.arrLanguage = this.getArray_language();
+    this.arrCheckStatus_language = this.arrLanguage;
+    this.arrOrigin = this.getArray_origin();
+    this.arrCheckStatus_origin = this.arrOrigin;
   }
 
   isSearchCompare(_strParent: string, _strChild: string) {
@@ -105,9 +119,9 @@ export class LibBookListComponent implements OnInit {
   }
 
   ////// filter
-  child:string = "";
-  arrBackupSearch =[];
-  isCheck(check:string,arrCheck:any){
+  //child:string = "";
+  arrBackupSearch = [];
+  isCheck(check: string, arrCheck: any) {
     if (arrCheck.find(x => x === check) == null) return false;
     return true;
   }
@@ -115,7 +129,7 @@ export class LibBookListComponent implements OnInit {
   //catalogue
   arrCatalogue = [];
   arrCheckStatus_catalogue = [];
-  getArray_nationality() {
+  getArray_catalogue() {
     let arrCheck = [];
     if (this.bookInfoList.length > 0) {
       arrCheck.push(this.bookInfoList[0].catalogue);
@@ -127,19 +141,139 @@ export class LibBookListComponent implements OnInit {
     return arrCheck;
   }
 
-  isShow_Catalogue(event: boolean,check:string) {
+  isShow_Catalogue(event: boolean, check: string) {
     if (event) { // checkbox is checking when clicked, so need romove item to change to no check status
-      let store=[];
-      store = this.arrCheckStatus_catalogue.filter(x=>x!=check);
+      let store = [];
+      store = this.arrCheckStatus_catalogue.filter(x => x != check);
       this.arrCheckStatus_catalogue = store;
-      this.child = store.toString();
     }
-    else 
-    {
+    else {
       this.arrCheckStatus_catalogue.push(check);
-      this.child = this.arrCheckStatus_catalogue.toString();
     }
-    this.bookInfoList = this.arrBackupSearch.filter(x=>this.isCheck(x.catalogue,this.arrCheckStatus_catalogue));
+    this.bookInfoList = this.arrBackupSearch.filter(x => this.isCheck(x.catalogue, this.arrCheckStatus_catalogue));
+
+    if (this.isShowMenu) {
+      let backup = [];
+      backup = this.bookInfoList;
+      this.bookInfoList = backup.filter(x => this.isCheck(x.author, this.arrCheckStatus_author));
+      backup = this.bookInfoList;
+      this.bookInfoList = backup.filter(x => this.isCheck(x.language, this.arrCheckStatus_language));
+      backup = this.bookInfoList;
+      this.bookInfoList = backup.filter(x => this.isCheck(x.origin, this.arrCheckStatus_origin));
+    }
+
+    this.pageCur = 1;
+  }
+
+  //author
+  arrAuthor = [];
+  arrCheckStatus_author = [];
+  getArray_author() {
+    let arrCheck = [];
+    if (this.bookInfoList.length > 0) {
+      arrCheck.push(this.bookInfoList[0].author);
+      for (let item of this.bookInfoList) {
+        if (arrCheck.find(x => x === item.author) == null)
+          arrCheck.push(item.author);
+      }
+    }
+    return arrCheck;
+  }
+
+  isShow_author(event: boolean, check: string) {
+    if (event) { // checkbox is checking when clicked, so need romove item to change to no check status
+      let store = [];
+      store = this.arrCheckStatus_author.filter(x => x != check);
+      this.arrCheckStatus_author = store;
+    }
+    else {
+      this.arrCheckStatus_author.push(check);
+    }
+
+    let backup = [];
+    this.bookInfoList = this.arrBackupSearch.filter(x => this.isCheck(x.author, this.arrCheckStatus_author));
+    backup = this.bookInfoList;
+    this.bookInfoList = backup.filter(x => this.isCheck(x.catalogue, this.arrCheckStatus_catalogue));
+    backup = this.bookInfoList;
+    this.bookInfoList = backup.filter(x => this.isCheck(x.language, this.arrCheckStatus_language));
+    backup = this.bookInfoList;
+    this.bookInfoList = backup.filter(x => this.isCheck(x.origin, this.arrCheckStatus_origin));
+
+    this.pageCur = 1;
+  }
+
+  //language
+  arrLanguage = [];
+  arrCheckStatus_language = [];
+  getArray_language() {
+    let arrCheck = [];
+    if (this.bookInfoList.length > 0) {
+      arrCheck.push(this.bookInfoList[0].language);
+      for (let item of this.bookInfoList) {
+        if (arrCheck.find(x => x === item.language) == null)
+          arrCheck.push(item.language);
+      }
+    }
+    return arrCheck;
+  }
+
+  isShow_language(event: boolean, check: string) {
+    if (event) { // checkbox is checking when clicked, so need romove item to change to no check status
+      let store = [];
+      store = this.arrCheckStatus_language.filter(x => x != check);
+      this.arrCheckStatus_language = store;
+    }
+    else {
+      this.arrCheckStatus_language.push(check);
+    }
+
+    let backup = [];
+    this.bookInfoList = this.arrBackupSearch.filter(x => this.isCheck(x.author, this.arrCheckStatus_author));
+    backup = this.bookInfoList;
+    this.bookInfoList = backup.filter(x => this.isCheck(x.catalogue, this.arrCheckStatus_catalogue));
+    backup = this.bookInfoList;
+    this.bookInfoList = backup.filter(x => this.isCheck(x.language, this.arrCheckStatus_language));
+    backup = this.bookInfoList;
+    this.bookInfoList = backup.filter(x => this.isCheck(x.origin, this.arrCheckStatus_origin));
+
+    this.pageCur = 1;
+  }
+
+  //origin
+  arrOrigin = [];
+  arrCheckStatus_origin = [];
+  getArray_origin() {
+    let arrCheck = [];
+    if (this.bookInfoList.length > 0) {
+      arrCheck.push(this.bookInfoList[0].origin);
+      for (let item of this.bookInfoList) {
+        if (arrCheck.find(x => x === item.origin) == null)
+          arrCheck.push(item.origin);
+      }
+    }
+    return arrCheck;
+  }
+
+  isShow_origin(event: boolean, check: string) {
+    if (event) { // checkbox is checking when clicked, so need romove item to change to no check status
+      let store = [];
+      store = this.arrCheckStatus_origin.filter(x => x != check);
+      this.arrCheckStatus_origin = store;
+    }
+    else {
+      this.arrCheckStatus_origin.push(check);
+    }
+
+    let backup = [];
+    this.bookInfoList = this.arrBackupSearch.filter(x => this.isCheck(x.author, this.arrCheckStatus_author));
+    backup = this.bookInfoList;
+    this.bookInfoList = backup.filter(x => this.isCheck(x.catalogue, this.arrCheckStatus_catalogue));
+    backup = this.bookInfoList;
+    this.bookInfoList = backup.filter(x => this.isCheck(x.language, this.arrCheckStatus_language));
+    backup = this.bookInfoList;
+    this.bookInfoList = backup.filter(x => this.isCheck(x.origin, this.arrCheckStatus_origin));
+
+    this.pageCur = 1;
   }
 
 }

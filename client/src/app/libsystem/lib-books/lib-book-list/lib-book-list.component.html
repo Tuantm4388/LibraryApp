@@ -4,6 +4,7 @@
             <div>
                 <div>
                     <h5>Catalogue</h5>
+                    <hr>
                 </div>
                 <div class="form-check" *ngFor="let item of arrCatalogue">
                     <input type="checkbox"
@@ -13,12 +14,49 @@
                     >
                     <label>{{item}}</label>
                   </div>
-                  <p> child= {{child}}</p>
-                <hr>
             </div>
-            <div *ngIf="isShowMenu" class="list-group-item">ca2</div>
-            <div *ngIf="isShowMenu" class="list-group-item">ca3</div>
-            <div *ngIf="isShowMenu" class="list-group-item">ca4</div>
+            <div *ngIf="isShowMenu">
+                <div>
+                    <h5>Author</h5>
+                    <hr>
+                </div>
+                <div class="form-check" *ngFor="let item of arrAuthor">
+                    <input type="checkbox"
+                        class="form-check-input"
+                        [checked]="isCheck(item,arrCheckStatus_author)"
+                        (change)="isShow_author(isCheck(item,arrCheckStatus_author),item) "
+                    >
+                    <label>{{item}}</label>
+                </div>
+            </div>
+            <div *ngIf="isShowMenu">
+                <div>
+                    <h5>Languge</h5>
+                    <hr>
+                </div>
+                <div class="form-check" *ngFor="let item of arrLanguage">
+                    <input type="checkbox"
+                        class="form-check-input"
+                        [checked]="isCheck(item,arrCheckStatus_language)"
+                        (change)="isShow_language(isCheck(item,arrCheckStatus_language),item) "
+                    >
+                    <label>{{item}}</label>
+                </div>
+            </div>
+            <div *ngIf="isShowMenu" >
+                <div>
+                    <h5>Origin</h5>
+                    <hr>
+                </div>
+                <div class="form-check" *ngFor="let item of arrOrigin">
+                    <input type="checkbox"
+                        class="form-check-input"
+                        [checked]="isCheck(item,arrCheckStatus_origin)"
+                        (change)="isShow_origin(isCheck(item,arrCheckStatus_origin),item) "
+                    >
+                    <label>{{item}}</label>
+                </div>
+            </div>
         </div>
     </div>
     <div class="col">
