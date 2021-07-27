@@ -17,6 +17,8 @@ export class LibBookListComponent implements OnInit {
     private infoService: InfoService, private toastr: ToastrService) {
   }
 
+  
+
   bookInfo: LibBookInfo;
 
   pageCur: Number = 1;
@@ -34,7 +36,9 @@ export class LibBookListComponent implements OnInit {
     this.infoService.getIsbnList().subscribe(books => {
       this.bookInfoList = books;
       this.bookListBackUp = this.bookInfoList;
-      //this.toastr.info("getBookList");
+      this.arrBackupSearch = this.bookInfoList;
+      this.arrCatalogue = this.getArray_nationality();
+      this.arrCheckStatus_catalogue = this.arrCatalogue;
     });
   }
 
@@ -84,6 +88,9 @@ export class LibBookListComponent implements OnInit {
       this.bookInfoList = this.bookListBackUp;
       this.pageCur = 1;
     }
+    this.arrBackupSearch = this.bookInfoList;
+    this.arrCatalogue = this.getArray_nationality();
+    this.arrCheckStatus_catalogue = this.arrCatalogue;
   }
 
   isSearchCompare(_strParent: string, _strChild: string) {
@@ -95,6 +102,44 @@ export class LibBookListComponent implements OnInit {
     }*/
     if (a > -1) return true;
     return false;
+  }
+
+  ////// filter
+  child:string = "";
+  arrBackupSearch =[];
+  isCheck(check:string,arrCheck:any){
+    if (arrCheck.find(x => x === check) == null) return false;
+    return true;
+  }
+
+  //catalogue
+  arrCatalogue = [];
+  arrCheckStatus_catalogue = [];
+  getArray_nationality() {
+    let arrCheck = [];
+    if (this.bookInfoList.length > 0) {
+      arrCheck.push(this.bookInfoList[0].catalogue);
+      for (let item of this.bookInfoList) {
+        if (arrCheck.find(x => x === item.catalogue) == null)
+          arrCheck.push(item.catalogue);
+      }
+    }
+    return arrCheck;
+  }
+
+  isShow_Catalogue(event: boolean,check:string) {
+    if (event) { // checkbox is checking when clicked, so need romove item to change to no check status
+      let store=[];
+      store = this.arrCheckStatus_catalogue.filter(x=>x!=check);
+      this.arrCheckStatus_catalogue = store;
+      this.child = store.toString();
+    }
+    else 
+    {
+      this.arrCheckStatus_catalogue.push(check);
+      this.child = this.arrCheckStatus_catalogue.toString();
+    }
+    this.bookInfoList = this.arrBackupSearch.filter(x=>this.isCheck(x.catalogue,this.arrCheckStatus_catalogue));
   }
 
 }
