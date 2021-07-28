@@ -83,4 +83,8 @@ export class AccountService {
     return this.http.post(this.baseUrl + 'account/change-password/'+username+'?oldPass='+passInfo.oldpass+'&newPass=' + passInfo.newpass,username);
   }
 
+  resetPassword(username: string, passInfo: LibPass) {
+    return this.http.post(this.baseUrl + 'account/change-password/'+username+'?oldPass='+passInfo.oldpass+'&newPass=' + passInfo.newpass,username);
+  }
+
 }

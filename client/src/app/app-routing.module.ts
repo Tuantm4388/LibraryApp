@@ -31,6 +31,7 @@ import { LibStoreListComponent } from './libsystem/lib-stores/lib-store-list/lib
 import { LibBorrowListComponent } from './libsystem/lib-borrows/lib-borrow-list/lib-borrow-list.component';
 import { LibBorrowHistoryComponent } from './libsystem/lib-borrows/lib-borrow-history/lib-borrow-history.component';
 import { LibUserLoginComponent } from './libsystem/lib-members/lib-user-login/lib-user-login.component';
+import { LibResetPassComponent } from './libsystem/lib-members/lib-reset-pass/lib-reset-pass.component';
 
 const routes: Routes = [
   {path: '', component: LibHomeComponent},
@@ -58,6 +59,7 @@ const routes: Routes = [
     ]
   },
   {path: 'login', component: LibUserLoginComponent},
+  {path: 'reset-pass', component: LibResetPassComponent},
   {path: 'book-list', component: LibBookListComponent},
   {path: 'member/register', component: LibUserRegisterComponent},
   {path: 'member/edituser', component: LibUserEditComponent},

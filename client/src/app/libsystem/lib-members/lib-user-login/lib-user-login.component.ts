@@ -49,7 +49,7 @@ export class LibUserLoginComponent implements OnInit {
   }
 
   forgotPassword() {
-    this.router.navigateByUrl('/')
+    this.router.navigateByUrl('/reset-pass')
   }
 
   isCheck: boolean = true;
