@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
 
+
 @Component({
   selector: 'app-lib-user-login',
   templateUrl: './lib-user-login.component.html',
@@ -12,42 +13,60 @@ export class LibUserLoginComponent implements OnInit {
 
   model: any = {}
 
-  constructor(public accountService: AccountService, private router: Router, 
+  constructor(public accountService: AccountService, private router: Router,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.isCheck = false;
-    this.isRemember = false;
+    this.isCheck = true;
+    this.isRemember = true;
   }
 
   login() {
+    console.log("login : isRemember = "+this.isRemember);
+    if (this.isRemember) {
+      console.log("case : isRemember = true");
+      this.loginRemember();
+    }
+    else {
+      console.log("case : isRemember = false");
+      this.loginNoRemember();
+    }
+  }
+
+  loginRemember() {
     this.accountService.login(this.model).subscribe(response => {
       this.router.navigateByUrl('/');
     })
   }
+  loginNoRemember() {
+    this.accountService.loginNoRemember(this.model).subscribe(response => {
+      this.router.navigateByUrl('/');
+    })
+  }
 
-  cancelLogin(){
+  cancelLogin() {
     this.router.navigateByUrl('/')
   }
 
-  forgotPassword(){
+  forgotPassword() {
     this.router.navigateByUrl('/')
   }
 
-  isCheck:boolean = false;
-  isRemember:boolean = false;
-  rememberUser(){
-    if(this.isCheck) // remember
+  isCheck: boolean = true;
+  isRemember: boolean = true;
+  rememberUser() {
+    if (this.isCheck) // remember
     {
       this.test = "no remember";
       this.isRemember = false;
     }
-    else{ // no remember
+    else { // no remember
       this.test = "remember";
+      this.isRemember = true;
     }
-    this.isCheck  = !this.isCheck;
+    this.isCheck = !this.isCheck;
   }
 
-  test:string="";
+  test: string = "";
 
 }
