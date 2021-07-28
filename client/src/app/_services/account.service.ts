@@ -80,11 +80,11 @@ export class AccountService {
   }
 
   changePassword(username: string, passInfo: LibPass) {
-    return this.http.post(this.baseUrl + 'account/change-password/'+username+'?oldPass='+passInfo.oldpass+'&newPass=' + passInfo.newpass,username);
+    return this.http.post(this.baseUrl + 'account/change-password/' + username + '?oldPass=' + passInfo.oldpass + '&newPass=' + passInfo.newpass, username);
   }
 
-  resetPassword(username: string, passInfo: LibPass) {
-    return this.http.post(this.baseUrl + 'account/change-password/'+username+'?oldPass='+passInfo.oldpass+'&newPass=' + passInfo.newpass,username);
+  resetPassword(email: string, phone: string, newpass: string) {
+    return this.http.post(this.baseUrl + 'account/reset-pass?email=' + email + '&phone=' + phone + '&newPass=' + newpass, 1);
   }
 
 }

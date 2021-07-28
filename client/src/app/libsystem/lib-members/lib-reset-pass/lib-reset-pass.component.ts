@@ -17,12 +17,12 @@ export class LibResetPassComponent implements OnInit {
   registerForm: FormGroup;
   maxDate: Date;
   validationErrors: string[] = [];
-  user:User;
+  user: User;
 
   constructor(private accountService: AccountService, private toastr: ToastrService,
     private fb: FormBuilder, private router: Router) {
-      this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
-     }
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
+  }
 
   ngOnInit(): void {
     this.intitializeForm();
@@ -32,7 +32,7 @@ export class LibResetPassComponent implements OnInit {
     this.registerForm = this.fb.group({
       email: ['', Validators.required],
       phone: ['', Validators.required],
-      newpass: ['', [Validators.required,Validators.minLength(8), Validators.maxLength(16)]],
+      newpass: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
       confirmpass: ['', [Validators.required, this.matchValues('newpass')]]
     })
   }
@@ -45,15 +45,18 @@ export class LibResetPassComponent implements OnInit {
   }
 
   changePassword() {
-    this.accountService.changePassword(this.user.username,this.registerForm.value).subscribe(response => {
-      this.toastr.success("Change password is OK.");
-      //this.toastr.info(response.toString());
-      //this.router.navigateByUrl('/members');
-      this.router.navigateByUrl('/members/'+this.user.username);
-    }, error => {
-      this.toastr.error(error.toString());
-      //this.validationErrors = error;
-    })
+    this.accountService.resetPassword(
+      this.registerForm.controls["email"].value,
+      this.registerForm.controls["phone"].value,
+      this.registerForm.controls["newpass"].value).subscribe(response => {
+        this.toastr.success("Reset "+response+"'s password is OK.");
+        //this.toastr.info(response.toString());
+        //this.router.navigateByUrl('/members');
+        this.router.navigateByUrl('/login');
+      }, error => {
+        this.toastr.error(error.toString());
+        //this.validationErrors = error;
+      })
   }
 
   cancel() {

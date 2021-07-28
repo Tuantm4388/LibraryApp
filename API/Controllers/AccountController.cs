@@ -117,22 +117,27 @@ namespace API.Controllers
             return Accepted();
         }
 
-        [HttpPost("reset-password/{username}")]
-        public async Task<ActionResult> ResetPassword(string username, string newPass)
+        [HttpPost("reset-pass")]
+        public async Task<ActionResult> ResetPassword(string email, string phone, string newPass)
         {
-            Console.WriteLine(">>>> run ResetPassword " + username + ".");
+            Console.WriteLine(">>>> run ResetPassword1 " + email + ".");
+            //Console.WriteLine(">>>> run ResetPassword2 " + phone + ".");
+            //Console.WriteLine(">>>> run ResetPassword3 " + newPass + ".");
             var user = await _userManager.Users
                 .Include(p => p.Photos)
-                .SingleOrDefaultAsync(x => x.UserName == username);
+                .SingleOrDefaultAsync(x => x.Emailuser == email && x.Phone == phone);
 
-            if (user == null) return BadRequest("Invalid username");
-
+            if (user == null) return BadRequest("Incorrect recovery information entered.");
+            Console.WriteLine(">>>> run ResetPassword 4" + user.UserName + ".");
             if (_userManager.PasswordHasher != null)
             {
+                Console.WriteLine(">>>> run ResetPassword 5" + user.UserName + ".");
                 await _userManager.RemovePasswordAsync(user);
             }
-            await _userManager.AddPasswordAsync(user, newPass);
+            //Console.WriteLine(">>>> run ResetPassword 6" + user.UserName + ".");
 
+            await _userManager.AddPasswordAsync(user, newPass);
+            //Console.WriteLine(">>>> run ResetPassword 7" + user.UserName + ".");
             return Accepted();
         }
 
