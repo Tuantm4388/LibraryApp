@@ -28,8 +28,10 @@
             <h5>Summary</h5>
             <label class="row">{{bookInfo.summary}}</label>
             <div class="row">
+                <div class="col">
                 <button *ngIf="(accountService.currentUser$ | async)" type="button" class="btn btn-success"
                     (click)="goToRequestBorrow(bookInfo)">Borrow</button>
+                </div>
             </div>
             <hr>
         </form>

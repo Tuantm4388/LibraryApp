@@ -2,3 +2,9 @@
     overflow: hidden;
     position: relative;
 }
+
+.body-search {
+    margin-bottom: 15px;
+    margin-right: 5px;
+    margin-left: 5px;
+ }

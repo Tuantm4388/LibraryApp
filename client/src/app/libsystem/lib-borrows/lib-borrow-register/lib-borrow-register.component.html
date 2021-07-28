@@ -1,7 +1,7 @@
-<div class="card" style="background-color:whitesmoke;">
+<div class="container">
     <h1>Borrow book</h1>
     <form class="form" autocomplete="off">
-        <div class="row">
+        <div class="row body-space">
             <div class="col-2">
                 <div>
                     <label class="label">isbn</label>
@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row body-space">
             <div class="col-2">
                 <div>
                     <label class="label">Author</label>
@@ -31,14 +31,14 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row body-space">
             <div class="col-2">
                 <div>
                     <label class="control-label reg-label" style="margin-right: 10px;">
                         <label>Borrow date</label>
                         <label class="text-danger">*</label>
                     </label>
-                    <input type="text" class="input" placeholder="date" bsDatepicker
+                    <input type="text" class="input input-b2-info" placeholder="date" bsDatepicker
                         value="{{ borrowDate| date:'MM/dd/yyyy' }}" [(ngModel)]="borrowDate" name="borrowdate"
                         [minDate]='minDate' (bsValueChange)="resetLimitReturnDate()" />
                 </div>
@@ -49,7 +49,7 @@
                         <label>Return date</label>
                         <label class="text-danger">*</label>
                     </label>
-                    <input type="text" class="input" placeholder="date" bsDatepicker
+                    <input type="text" class="input input-b2-info" placeholder="date" bsDatepicker
                         value="{{ returnDate| date:'MM/dd/yyyy' }}" [(ngModel)]="returnDate" name="returndate"
                         [minDate]='minReDate' [maxDate]='maxDate' />
                 </div>
@@ -61,12 +61,3 @@
         </div>
     </form>
 </div>
-<!--
-<div>
-    <label>Test borrow :  {{borrowDate|date:'yyyy-MM-dd' }}</label>
-    <label>Test return: {{returnDate|date:'yyyy-MM-dd' }}</label>
-    <label>user : {{user.id}}</label>
-<label>user : {{user.username}}</label>
-<label>user : {{bookInfo.id}}</label>
-</div>
--->

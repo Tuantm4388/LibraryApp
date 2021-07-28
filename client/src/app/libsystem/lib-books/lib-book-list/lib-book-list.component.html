@@ -48,7 +48,7 @@
         </div>
     </div>
     <div class="col">
-        <div class="row">
+        <div class="row body-search">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search book" name="search-info"
                     [(ngModel)]="keyWord">
@@ -76,6 +76,7 @@
         </div>
     </div>
     <div *ngIf="isShowInfo" class="col-3 body-info">
-        <app-lib-book-info [bookInfo]="bookInfo" [bookStore]="bookStore" (reloadList)="reloadListFunc($event)"></app-lib-book-info>
+        <app-lib-book-info [bookInfo]="bookInfo" [bookStore]="bookStore" (reloadList)="reloadListFunc($event)">
+        </app-lib-book-info>
     </div>
 </div>
