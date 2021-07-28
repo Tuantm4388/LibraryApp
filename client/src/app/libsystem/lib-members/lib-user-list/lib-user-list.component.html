@@ -1,8 +1,9 @@
 <h1>User List</h1>
 <div class="row">
-        <input name="searchuser" [(ngModel)]="keyWord" class="form-control mr-sm-2" style="width: 300px;" type="text" placeholder="Search user name ...">
-        <button class="btn btn-primary my-2 my-sm-0" type="submit" (click)="searchFunction()">Search</button>
-        <button class="btn btn-primary " style="margin-left: auto;" routerLink="/member/register">Add new User</button>
+    <input name="searchuser" [(ngModel)]="keyWord" class="form-control mr-sm-2" style="width: 300px;" type="text"
+        placeholder="Search user name ...">
+    <button class="btn btn-primary my-2 my-sm-0" type="submit" (click)="searchFunction()">Search</button>
+    <button class="btn btn-primary " style="margin-left: auto;" routerLink="/member/register">Add new User</button>
 </div>
 <div>
     <p></p>
@@ -18,12 +19,12 @@
             </th>
             <th style="width: 15%;">Email</th>
             <th style="width: 8%;">Identity No</th>
-            <th style="width: 10%;">Address</th>
+            <th style="width: 15%;">Address</th>
             <th style="width: 5%;">Phone</th>
             <th style="width: 5%;">
                 <a class="nav-link disabled" routerLink='/lib-users' (click)="sort_Type()">Type</a>
             </th>
-            <th style="width: 5%;">Charge Fine</th>
+            <!-- <th style="width: 5%;">Charge Fine</th> -->
             <th style="width: 40%;">Actions</th>
         </tr>
         <tr *ngFor="let user of users| paginate: { itemsPerPage: count, currentPage: p }">
@@ -34,11 +35,11 @@
             <td>{{user.address}}</td>
             <td>{{user.phone}}</td>
             <td>{{user.roles}}</td>
-            <td>{{user.chargefile}}</td>
+            <!--    <td>{{user.chargefile}}</td> -->
             <td>
-                <button  class="btn btn-primary mr-2" routerLink='/members/{{user.username}}'>View</button>
-                <button  class="btn btn-warning" (click)="routToEditPage(user)">Edit</button>
-                <button  class="btn btn-danger ml-2" (click)="openDeleteModal(user)">Delete</button>
+                <button class="btn btn-primary mr-2" routerLink='/members/{{user.username}}'>View</button>
+                <button class="btn btn-warning" (click)="routToEditPage(user)">Edit</button>
+                <button class="btn btn-danger ml-2" (click)="openDeleteModal(user)">Delete</button>
             </td>
         </tr>
     </table>
@@ -47,4 +48,3 @@
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
 </div>
-
