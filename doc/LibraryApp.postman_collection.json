@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "026b7db0-01ff-4d27-9eff-16fde1aacd18",
-		"name": "DatingApp",
+		"name": "LibraryApp",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -411,6 +411,54 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"username\": \"lisa\",\n\t\"password\": \"Pa$$w0rd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/account/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"account",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login as admin and save token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const user = pm.response.json();",
+									"",
+									"pm.test(\"Has properties\", function () {",
+									"    pm.expect(user).to.have.property('username');",
+									"    pm.expect(user).to.have.property('token');",
+									"});",
+									"",
+									"if (pm.test(\"Has properties\")) {",
+									"    pm.globals.set('token', user.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"Pa$$w0rd\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1302,7 +1350,103 @@
 			"name": "Test API have login token",
 			"item": [
 				{
-					"name": "Login as lisa and save token to env",
+					"name": "Login username and save token to eve",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const user = pm.response.json();",
+									"",
+									"pm.test(\"Has properties\", function () {",
+									"    pm.expect(user).to.have.property('username');",
+									"    pm.expect(user).to.have.property('token');",
+									"});",
+									"",
+									"if (pm.test(\"Has properties\")) {",
+									"    pm.globals.set('token', user.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"lisa\",\n\t\"password\": \"Pa$$w1rd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/account/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"account",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login admin and save token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const user = pm.response.json();",
+									"",
+									"pm.test(\"Has properties\", function () {",
+									"    pm.expect(user).to.have.property('username');",
+									"    pm.expect(user).to.have.property('token');",
+									"});",
+									"",
+									"if (pm.test(\"Has properties\")) {",
+									"    pm.globals.set('token', user.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"Pa$$w0rd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/account/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"account",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login as Lisa and save token to env",
 					"event": [
 						{
 							"listen": "test",
@@ -1350,13 +1494,22 @@
 					"response": []
 				},
 				{
-					"name": "Add like for todd from lola",
+					"name": "Login as Lisa test after change pass",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"const user = pm.response.json();",
+									"",
+									"pm.test(\"Has properties\", function () {",
+									"    pm.expect(user).to.have.property('username');",
+									"    pm.expect(user).to.have.property('token');",
+									"});",
+									"",
+									"if (pm.test(\"Has properties\")) {",
+									"    pm.globals.set('token', user.token);",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -1364,16 +1517,10 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"type": "text",
-								"value": "Bearer {{token}}"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{}",
+							"raw": "{\n\t\"username\": \"lisa\",\n\t\"password\": \"Pa$$w4rd\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1381,14 +1528,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/likes/todd",
+							"raw": "{{url}}/api/account/login",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"likes",
-								"todd"
+								"account",
+								"login"
 							]
 						}
 					},
@@ -1415,6 +1562,121 @@
 								"account",
 								"delete",
 								"davis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test api change password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/account/change-password/lisa?oldPass=Pa$$w1rd&newPass=Pa$$w0rd",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"account",
+								"change-password",
+								"lisa"
+							],
+							"query": [
+								{
+									"key": "oldPass",
+									"value": "Pa$$w1rd"
+								},
+								{
+									"key": "newPass",
+									"value": "Pa$$w0rd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test api reset password_new",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/account/reset-pass?email=lisa@gmail.com&phone=12-34-56&newPass=Pa$$w4rd",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"account",
+								"reset-pass"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "lisa@gmail.com"
+								},
+								{
+									"key": "phone",
+									"value": "12-34-56"
+								},
+								{
+									"key": "newPass",
+									"value": "Pa$$w4rd"
+								}
 							]
 						}
 					},
@@ -1724,7 +1986,7 @@
 			]
 		},
 		{
-			"name": "Section 16",
+			"name": "Section 16_GetUserList",
 			"item": [
 				{
 					"name": "Login as lisa and save token to env",
@@ -1972,6 +2234,31 @@
 				},
 				{
 					"name": "Get Roles as admin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/admin/users-with-roles",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"users-with-roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users List",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -2596,10 +2883,10 @@
 			]
 		},
 		{
-			"name": "TestInfoController",
+			"name": "Test book Info",
 			"item": [
 				{
-					"name": "Get Book list",
+					"name": "Get isbn info list",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -2619,12 +2906,12 @@
 					"response": []
 				},
 				{
-					"name": "Test update user info",
+					"name": "Get info by isbn",
 					"request": {
-						"method": "PUT",
+						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:5001/api/users",
+							"raw": "https://localhost:5001/api/info/getbyisbn/123-321-1-00001-23",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -2632,7 +2919,139 @@
 							"port": "5001",
 							"path": [
 								"api",
-								"users"
+								"info",
+								"getbyisbn",
+								"123-321-1-00001-23"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new isbn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/info/add-info?isbn=000-321-1-00001-0001&title=Java&author=no&origin=USA&language=English&catalogue=Edu&summary=about java&adddate=2021-07-22&publishdate=2021-07-22&photourl=http",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"info",
+								"add-info"
+							],
+							"query": [
+								{
+									"key": "isbn",
+									"value": "000-321-1-00001-0001"
+								},
+								{
+									"key": "title",
+									"value": "Java"
+								},
+								{
+									"key": "author",
+									"value": "no"
+								},
+								{
+									"key": "origin",
+									"value": "USA"
+								},
+								{
+									"key": "language",
+									"value": "English"
+								},
+								{
+									"key": "catalogue",
+									"value": "Edu"
+								},
+								{
+									"key": "summary",
+									"value": "about java"
+								},
+								{
+									"key": "adddate",
+									"value": "2021-07-22"
+								},
+								{
+									"key": "publishdate",
+									"value": "2021-07-22"
+								},
+								{
+									"key": "photourl",
+									"value": "http"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update ISBN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/info/update-info?id=1&isbn=000-321-1-00001-0001&title=Java&author=no&origin=USA&language=English&catalogue=Edu&summary=about java&adddate=2021-07-22&publishdate=2021-07-22&photourl=http",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"info",
+								"update-info"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								},
+								{
+									"key": "isbn",
+									"value": "000-321-1-00001-0001"
+								},
+								{
+									"key": "title",
+									"value": "Java"
+								},
+								{
+									"key": "author",
+									"value": "no"
+								},
+								{
+									"key": "origin",
+									"value": "USA"
+								},
+								{
+									"key": "language",
+									"value": "English"
+								},
+								{
+									"key": "catalogue",
+									"value": "Edu"
+								},
+								{
+									"key": "summary",
+									"value": "about java"
+								},
+								{
+									"key": "adddate",
+									"value": "2021-07-22"
+								},
+								{
+									"key": "publishdate",
+									"value": "2021-07-22"
+								},
+								{
+									"key": "photourl",
+									"value": "http"
+								}
 							]
 						}
 					},
@@ -2660,7 +3079,95 @@
 					"response": []
 				},
 				{
-					"name": "Test delete account by name",
+					"name": "Test delete info by id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/info/delete/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"info",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test book store",
+			"item": [
+				{
+					"name": "Get Book list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/book",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book list No DTo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/book/no-dto",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"book",
+								"no-dto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book list Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/info",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get book by id",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -2675,6 +3182,289 @@
 								"api",
 								"book",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Delete book by id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/book/delete/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"book",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/book/add-book?isbn=123-321-1-00001-5&condition=New",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"book",
+								"add-book"
+							],
+							"query": [
+								{
+									"key": "isbn",
+									"value": "123-321-1-00001-5"
+								},
+								{
+									"key": "condition",
+									"value": "New"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add update book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/book/update-book?id=3&isbn=123-321-1-00001-7&condition=Broken&adddate=2021-07-25",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"book",
+								"update-book"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								},
+								{
+									"key": "isbn",
+									"value": "123-321-1-00001-7"
+								},
+								{
+									"key": "condition",
+									"value": "Broken"
+								},
+								{
+									"key": "adddate",
+									"value": "2021-07-25"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Borrow Controller",
+			"item": [
+				{
+					"name": "Get borrow card list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/borrow",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"borrow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get borrow card list by user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/borrow/iduser?iduser=10",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"borrow",
+								"iduser"
+							],
+							"query": [
+								{
+									"key": "iduser",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get borrow card list no-dto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/borrow/no-dto",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"borrow",
+								"no-dto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/borrow/add-card?idbook=3&idISNB=1&iduser=1&borrowtime=2021-07-21&returntime=2021-07-21",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"borrow",
+								"add-card"
+							],
+							"query": [
+								{
+									"key": "idbook",
+									"value": "3"
+								},
+								{
+									"key": "idISNB",
+									"value": "1"
+								},
+								{
+									"key": "iduser",
+									"value": "1"
+								},
+								{
+									"key": "borrowtime",
+									"value": "2021-07-21"
+								},
+								{
+									"key": "returntime",
+									"value": "2021-07-21"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/borrow/delete-card",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"borrow",
+								"delete-card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "approve card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/borrow/approve?id=4",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"borrow",
+								"approve"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancel card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/borrow/cancel?id=-1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"borrow",
+								"cancel"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "-1"
+								}
 							]
 						}
 					},
