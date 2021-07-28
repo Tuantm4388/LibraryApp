@@ -1,0 +1,54 @@
+<div>
+    <form *ngIf="(accountService.currentUser$ | async) === null" #loginForm="ngForm" class="form-inline mt-2 mt-md-0"
+        (ngSubmit)="login()" autocomplete="off">
+        <div class="col">
+            <h2>Login</h2>
+            <div class="col">
+                <div class="row">
+                    <label>User Name</label>
+                </div>
+                <div class="row">
+                    <input name="username" [(ngModel)]="model.username" class="form-control mr-sm-2" type="text"
+                        placeholder="Username">
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <label>Password</label>
+                </div>
+                <div class="row">
+                    <input name="password" [(ngModel)]="model.password" class="form-control mr-sm-2" type="password"
+                        placeholder="Password">
+                </div>
+            </div>
+           <!-- <div class="col">
+                <div class="row">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" [checked]="isCheck" (change)="rememberUser() ">
+                        <label>Remember Me!</label>
+                    </div>
+                </div>
+            </div>-->
+            <div class="col">
+                <div class="comtainer mr-sm-2">
+                    <div class="row">
+                        <div class="col-2">
+                            <button class="btn btn-primary my-2 my-sm-0" type="submit">Login</button>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-secondary my-2 my-sm-0" type="button"
+                                (click)="cancelLogin()">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <button class="btn btn-warning my-2 my-sm-0" type="button" (click)="forgotPassword()">Forgot
+                                password</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <p>{{test}}</p>
+</div>

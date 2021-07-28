@@ -58,6 +58,7 @@ import { LibStoreListComponent } from './libsystem/lib-stores/lib-store-list/lib
 import { LibStoreEditComponent } from './libsystem/lib-dialog/lib-store-edit/lib-store-edit.component';
 import { LibBorrowListComponent } from './libsystem/lib-borrows/lib-borrow-list/lib-borrow-list.component';
 import { LibBorrowHistoryComponent } from './libsystem/lib-borrows/lib-borrow-history/lib-borrow-history.component';
+import { LibUserLoginComponent } from './libsystem/lib-members/lib-user-login/lib-user-login.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import { LibBorrowHistoryComponent } from './libsystem/lib-borrows/lib-borrow-hi
     LibStoreListComponent,
     LibStoreEditComponent,
     LibBorrowListComponent,
-    LibBorrowHistoryComponent
+    LibBorrowHistoryComponent,
+    LibUserLoginComponent
   ],
   imports: [
     BrowserModule,

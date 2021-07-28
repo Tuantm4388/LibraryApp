@@ -18,12 +18,11 @@ export class LibNavComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.router.navigateByUrl('');
   }
 
   login() {
-    this.accountService.login(this.model).subscribe(response => {
-      this.router.navigateByUrl('/');
-    })
+    this.router.navigateByUrl('/login');
   }
 
   logout() {

@@ -30,6 +30,7 @@ import { BookInfoResolver } from './_resolvers/book-info.resolver';
 import { LibStoreListComponent } from './libsystem/lib-stores/lib-store-list/lib-store-list.component';
 import { LibBorrowListComponent } from './libsystem/lib-borrows/lib-borrow-list/lib-borrow-list.component';
 import { LibBorrowHistoryComponent } from './libsystem/lib-borrows/lib-borrow-history/lib-borrow-history.component';
+import { LibUserLoginComponent } from './libsystem/lib-members/lib-user-login/lib-user-login.component';
 
 const routes: Routes = [
   {path: '', component: LibHomeComponent},
@@ -56,6 +57,7 @@ const routes: Routes = [
       {path: 'lib-store', component: LibStoreListComponent, canActivate: [AdminGuard]},
     ]
   },
+  {path: 'login', component: LibUserLoginComponent},
   {path: 'book-list', component: LibBookListComponent},
   {path: 'member/register', component: LibUserRegisterComponent},
   {path: 'member/edituser', component: LibUserEditComponent},
