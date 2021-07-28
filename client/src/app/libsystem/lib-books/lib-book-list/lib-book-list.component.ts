@@ -22,7 +22,7 @@ export class LibBookListComponent implements OnInit {
   bookInfo: LibBookInfo;
 
   pageCur: Number = 1;
-  countPage: Number = 6;
+  countPage: Number = 8;
 
   isShowInfo: boolean = false;
 
@@ -88,6 +88,9 @@ export class LibBookListComponent implements OnInit {
               this.bookInfoList.push(item);
             }
           }
+        }
+        if (this.bookInfoList.length < 1) {
+          this.toastr.info("No content match the search info.");
         }
       }
       this.pageCur = 1;
