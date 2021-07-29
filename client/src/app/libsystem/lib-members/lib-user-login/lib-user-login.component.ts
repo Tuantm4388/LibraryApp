@@ -23,6 +23,13 @@ export class LibUserLoginComponent implements OnInit {
 
   login() {
     console.log("login : isRemember = "+this.isRemember);
+    let _userName:string = this.model.username;
+    let _pass:string = this.model.password;
+    if(_userName ==="" || _pass ==="")
+    {
+      this.toastr.info("Please enter login information");
+      return;
+    }
     if (this.isRemember) {
       console.log("case : isRemember = true");
       this.loginRemember();
@@ -36,12 +43,17 @@ export class LibUserLoginComponent implements OnInit {
   loginRemember() {
     this.accountService.login(this.model).subscribe(response => {
       this.router.navigateByUrl('/');
-    })
+    }, err=>{
+      this.toastr.error("User Name or password is incorrect");
+    });
   }
+
   loginNoRemember() {
     this.accountService.loginNoRemember(this.model).subscribe(response => {
       this.router.navigateByUrl('/');
-    })
+    }, err=>{
+      this.toastr.error("User Name or password is incorrect");
+    });
   }
 
   cancelLogin() {
