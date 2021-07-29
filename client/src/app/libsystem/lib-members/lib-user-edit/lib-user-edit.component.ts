@@ -95,17 +95,16 @@ export class LibUserEditComponent implements OnInit {
     this.memberService.updateMemberInfo(this.registerForm.value, this.usernameBackup).subscribe(() => {
       this.toastr.success('Profile updated successfully');
       //this.editForm.reset(this.member);
+      if (this.isAdmin) {
+        this.toastr.info('Change user type');
+        //this.editForm.reset(this.member);
+        this.adminService.updateUserRoles(this.userInfo.username, this.rolesChange).subscribe(() => {
+          this.userInfo.roles = this.rolesChange;
+        });
+      }
     }, error => {
       this.validationErrors = error;
     });
-
-    if (this.isAdmin) {
-      this.toastr.info('Change user type');
-      //this.editForm.reset(this.member);
-      this.adminService.updateUserRoles(this.userInfo.username, this.rolesChange).subscribe(() => {
-        this.userInfo.roles = this.rolesChange;
-      });
-    }
   }
 
   openRolesModal() {
