@@ -56,7 +56,7 @@ namespace API.Data.Migrations
                     Idcard = table.Column<string>(type: "TEXT", nullable: true),
                     Phone = table.Column<string>(type: "TEXT", nullable: true),
                     Address = table.Column<string>(type: "TEXT", nullable: true),
-                    Chargefine = table.Column<string>(type: "TEXT", nullable: true)
+                    Chargefine = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

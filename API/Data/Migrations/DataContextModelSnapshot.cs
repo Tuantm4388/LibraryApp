@@ -111,8 +111,8 @@ namespace API.Data.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Chargefine")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Chargefine")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("City")
                         .HasColumnType("TEXT");

@@ -1,0 +1,1347 @@
+link code mẫu : https://github.com/TryCatchLearn/DatingApp
+-> code lấy về trong <client> không có thư mục <node_modules> -> trong <client> run : npm install
+
+<I> Setup môi trường
+- cài net core 5.0 hoặc 3.1.
+- Cài NodeJs : vào trang NodeJs, tải bản LTS về cài
+- Cài Visual Studio Code:
+. cài extension: C#
+. cài extension: C# Extensions
+. cài extension: Material Icon Theme
+. cài extension: Nuget Gallery
+. cài extension: Sqlite
+. cài extension: Angular Language Service
+. cài extension: Bracket Pair Colorizer 2 
+. Vào File -> Auto Save
+. vào Setting -> Files Exclude : add thêm trong Add Pattern : **/bin, **/obj 
+. vào Setting -> Private Member prifix -> thêm "_"
+. vào Setting -> Use this for Ctor Assignment -> bỏ check
+. vào Setting -> Explorer: Compact Folders -> bỏ check
+. shift+command+P : path -> Shell Command: Install "code" in PATH
+- Cài Postman 
+Mở Postman -> import -> file -> select DatingApp.postman_collection.json file 
+
+<II> Cấu trúc folder
+	0.<MyTeam> -> root folder of project MyTeam
+		1.<API> -> dotnet folder
+		1.<client> -> Angular folder
+		1.MyTeam.sln file
+
+<III>. Install trong NugetGallery
+- install Microsoft.EntityFrameworkCore.Design vao API.csproj
+- install Microsoft.EntityFrameworkCore.Sqlite  vào API.csproj
+- install AutoMapper.Extensions.Microsoft.DependencyInjection vào API.csproj
+- install System.IdentityModel.Tokens.Jwt vào API.csproj
+- install Microsoft.AspNetCore.Authentication.JwtBearer vào API.csproj
+
+
+
+<IV> Command line
+1. Dotnet command : 
+- dotnet new sln -> make solution file
+- dotnet new webapi -o API -> make API folder
+- dotnet sln add API
+- dotnet build -> run in <API>, build project dotnet
+- dotnet run -> in API folder, run project dotnet
+- dotnet watch run -> in API folder, run project dotnet, có thể edit code khi khi run
+- dotnet dev-certs https --trust
+- dotnet tool install --global dotnet-ef --version 6.0.0-preview.5.21301.9 -> <root>, vào trang nuget.org search dotnet-ef, lấy cmd để cài dotnet-ef trong thư mục gốc 
+- dotnet ef migrations add InitialCreate -o Data/Migrations -> <API>, create Migrations folder and InitialCreate.cs
+- dotnet ef migrations add UserCreate-> <API>, create UserCreate.cs in Migrations folder
+- dotnet ef migrations remove -> run in <API>, remove files in cmd migrations add 
+- dotnet ef database update  -> <API>, execute code in Migrations folder to make table
+- dotnet ef database drop -> run in <API>, remove data in table
+- dotnet new gitignore -> run <root>
+
+2. Angular command
+. node --version
+. npm install -g @angular/cli ->  install only , sudo if error install
+. npm --version 
+. npm install --save-dev @angular-devkit/build-angular -> install only, build library
+. npm install font-awesome -> install font only
+. npm install ngx-toastr -> <client>, install toastr only, in client/angular.json, styles of prefix app add  "./node_modules/ngx-toastr/toastr.css",
+. npm install bootswatch -> <client>,install bootswatch only; in client/angular.json, https://bootswatch.com/,styles of prefix app add  "./node_modules/bootswatch/dist/united/bootstrap.css",
+. npm install @kolkov/ngx-gallery -> <client>, install gallery of @kolkov hoặc 'npm install ngx-gallery --save' : only install
+. npm install ngx-spinner --save -> <client>, install spinner only
+. npm install ng2-file-upload -> install diary upload file
+. npm install tslib -> có thể cài, ko biết cài ở bước nào
+. npm install ngx-timeago --save
+. npm install ngx-pagination --save -> install pagination, or : npm install ngx-pagination
+
+- ng new client -> create "client" folder -> select Css
+- ng add ngx-bootstrap -> install Bootstrap in client folder
+npm uninstall @schematics/angular
+npm install @schematics/angular@9.1.0 
+-> fix error : An unhandled exception occurred: Cannot find module '@schematics/angular/utility/config...... -> then install again bootstrap
+- ng serve -> run agular
+- ng g -h -> list of things that we can do 
+cd src/app
+- ng g c nav --skip-tests -> tạo thư mục nav và những file cần thiết cho cần component trong thư mục nav
+- ng g s account --skip-tests -> tạo file account.service.ts loại service
+- ng g interceptor jwt --skip-tests
+- ng add ngx-spinner -> <client> , install spinner
+
+- ng g resolver -> add resolver
+
+- ng config -g cli.warnings.versionMismatch false -> tắt warning version angular
+
+############################################### <V> Make Demo project
+##################### <2> dotnet
+6. Tạo project bằng cmd:
+- Tạo thư mục <MyTeam> ->mkdir MyTeam
+- cd MyTeam
+- dotnet --info -> xem thông tin dotnet
+- dotnet new sln -> thực hiện trong thư mục <root>, tạo file solution. Có thể xem thông số lệnh bằng <dotnet new -h> hoặc <dotnet -h>
+- dotnet new webapi -o API -> <root>, tạo thư mục API và các file cần thiết cho project ASP.NET web API trong thư mục API
+- dotnet sln add API -> <root>, add thư mục API vào file solution
+8.
+- cd API
+- dotnet run -> build and run dotnet project trong API (dotnet build -> build only)
+- dotnet dev-certs https --trust -> trust only, nếu như run lần đầu không chạy
+- run lại lần nữa. mở link https://localhost:5001/
+Nếu trống trơn thì thêm /weatherforecast sau link local : https://localhost:5001/weatherforecast . Lý do là do trong thư mục Controller có file weatherforecastController.cs 
+
+9. Trong thư mục API 
+- Taọ thư mục Entities, tạo class AppUser.cs với 2 biến Id và UserName
+namespace API.Entities
+{
+    public class AppUser
+    {
+        public int Id { get; set; }
+        public string UserName { get; set; }
+    }
+}
+
+11. Add Frame entity 
+- Shift+Command+p -> chọn Nuget: Open Nuget Gallary
+- Trong Nuget Gallery (check Prerelease):
+.chọn Microsoft.EntityFrameworkCore.Sqlite -> check API.csproj, install bản 5.0.7
+. vào file API.csproj kiểm tra ItemGroup xem đả cài thành công chưa
+12. tạo DbContext
+- trong API, tạo thư mục Data, tạo class DataContext.cs kế thừa từ DbContext
+- code trong DataContext.cs
+
+using API.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace API.Data
+{
+    public class DataContext : DbContext
+    {
+        public DataContext(DbContextOptions options) : base(options)
+        {
+        }
+
+        public DbSet<AppUser> Users { get; set; }
+    }
+}
+
+13. Create connection
+- Trong Startup.cs,  chỉnh code:
+
+private readonly IConfiguration _config;
+public Startup(IConfiguration config)
+{
+    _config = config;
+    //Configuration = configuration;
+}
+//public IConfiguration Configuration { get; }
+
+
+và hàm ConfigureServices, thêm code
+ services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
+            });
+
+-Trong file AppSettingS.Development.json thêm biến môi trường 
+ "ConnectionStrings" : {
+    "DefaultConnection": "Data source=myteam.db"
+  },
+  
+ Run dotnet build , nếu báo lôĩ error CS1061: 'DbContextOptionsBuilder' does not contain a definition for 'UseSqlite' thì thêm using Microsoft.EntityFrameworkCore; vào Startup.cs 
+  
+- vào trang nuget.org search dotnet-ef, lấy cmd để cài dotnet-ef trong thư mục gốc MyTeam : dotnet tool install --global dotnet-ef --version 6.0.0-preview.5.21301.9, đây là thư viện tạo Migrations
+
+- Vào thư mục API :
+run : dotnet ef migrations add InitialCreate -o Data/Migrations -> để tạo Migrations trong Data và file InitialCreate trong thư mục Migrations dùng để tạo data. Nếu lỗi, vào Nuget Gallary cài Microsoft.EntityFrameworkCore.Design vào API.csproj (chú ý cài cùng version Sqlite). sau đó run lại 
+14. trong API
+- run : dotnet ef database update -> update dữ liệu, tạo file db cho lần chạy đầu tiên
+- shift+command+p : Sqlite : Open Database -> select myteam.db : sinh ra các file ảnh db và hiện menu SQLLITE EXPLORER
+- vào SQLLITE EXPLORER -> user table -> nhấp phải -> new query (insert) -> VALUES (1,"Long"); -> add du lieu
+15. add new Controller
+- add file UsersController.cs trong thư mục controller. 
+như vậy khi run , link local sẽ là https://localhost:5001/api/users
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using API.Data;
+using API.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UsersController : ControllerBase
+    {
+        private readonly DataContext _context;
+        public UsersController(DataContext context)
+        {
+            _context = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<AppUser>> GetUser(int id)
+        {
+            return await _context.Users.FindAsync(id);
+        }
+    }
+}
+
+- dotnet watch run : khi sửa code dotnet sẽ tự build và run lại
+
+############################## <3> create angular
+. run :  node --version -> <root>, check version nodejs
+. run : npm --version -><root>, check version angular trong máy
+. run : npm install -g @angular/cli -> <root>, cài cli vào project, cài 1 lần xài cả đời, nếu fail thì thêm "sudo" trước cmd
+
+- Trong thư mục gốc <root>:
+. run : ng new client -> <root>, create "client" folder -> select "y" -> select Css . Nếu angualar 11 yêu cầu dùng  "strict mode" thì select "no", néu không thấy hỏi thì sau khi cài đặt vaò file tsconfig.json (và angular.json) để config lại, như vậy sẽ tránh phiền toái báo lỗi "Property has no initializer and is not definitely assigned in the constructor" không cần thiết khi build
+"strict": false,
+"strictInjectionParameters": false,
+"strictInputAccessModifiers": false,
+"strictTemplates": false
+
+21. cd /client -> run : ng serve : run app agular
+
+- trong app.component.html -> xoá nội dung cũ, thêm code của mình, 
+EX: <h1>{{title}}</h1> -> biến title này lấy trong app.component.ts
+
+23. request http
+- trong app.module.ts : import HttpClientModule
+import { HttpClientModule } from '@angular/common/http';
+imports: [
+    HttpClientModule
+  ],
+
+- trong app.component.ts, edit code :
+export class AppComponent implements OnInit{
+  title = 'My Team';
+  users: any;
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit():void {
+    this.getUsers();
+  }
+
+  getUsers(){
+    this.http.get('https://localhost:5001/api/users').subscribe(response => {
+      this.users= response;
+    }, error => {
+        console.log(error);
+    })
+  }
+}
+
+- vào link angular trong Chrome, inspect -> console: nếu lỗi ko tìm thấy link thì phải run app dottnet thì app angular mới có thể get link https từ dottnet. Reload lần nữa nếu thấy lỗi CORS thì edit code trong Startup.cs
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200")); -> Configure : Hãy chắc chắn rằng bạn đặt mã UseCors giữa app.UseRouting (); và app.UseAuthentication ();
+services.AddCors(); -> ConfigureService
+Nếu lỗi ERR_CONNECTION_REFUSED thì phải run link dotnet
+- reload link angular -> inspect -> network -> user
+
+25. 
+- trong file app.component.html add code 
+   <ul>
+        <li *ngFor='let user of users'>{{user.id}} - {{user.usename}}</li>
+    </ul>
+- nếu link agular chỉ hiện id nhưng không hiện username thì phải kiểm tra lại username trong {{user.usename}} có trùng (in hoa in thường) với trong  inspect -> network -> user chưa : {{user.usename} -> {{user.userName}
+
+26. cài Bootstrap vào project
+- trong thư mục client, run cmd : ng add ngx-bootstrap
+Nếu có lỗi: An unhandled exception occurred: Cannot find module '@schematics/angular/utility/config...... -> thì trong thu mục <client> run 2 cmd
+npm uninstall @schematics/angular
+npm install @schematics/angular@9.1.0
+
+-> then install again bootstrap, cài thành công tức là có bootstrap và ngx-bootstrap (kiểm tra trong package.json)
+
+- run : npm install font-awesome -> install font, có warning yêu cầu fix thì có phốt lờ nó, kiểm tra trong package.json có biến font-awesome chưa, để kiểm tra có cài thành công không
+sau khi cài thành công thì trong angular.json add "./node_modules/font-awesome/css/font-awesome.css", vào "styles":  của app. Thư viện này cần để hiện icon
+
+27. để chuyển http -> https trong angular thì trong <client> tạo thu mục <ssl> chứan 2 file .crt và .key để tạo certificate key
+- trong angular.json -> add 
+"sslCert": "./ssl/server.crt",
+            "sslKey": "./ssl/server.key",
+            "ssl": true,
+
+vào "options":  của 	"serve": 
+
+
+############################## <4>
+
+
+- Edit code trong file AppUser.cs, thêm 2 biến PasswordHash và PasswordSalt
+public byte[] PasswordHash { get; set; }
+public byte[] PasswordSalt { get; set; }
+
+- <> run : dotnet ef migrations add UserPasswordAdded -> tạo file UserPasswordAdded.cs trong Migrations, file này chứa code tạo thuộc tính trong table từ DataContext.cs và AppUser. Sau đó chúng ta dùng lệnh cmd thực thi code trong Migrations : dotnet ef database update -> dùng để tạo/ cập nhật thuộc tính table trong file db
+
+- Dùng postman app để xem dữ liệu truyền
+
+- trong <Controllers> -> tạo class BaseApiController.cs
+using Microsoft.AspNetCore.Mvc;
+
+namespace API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class BaseApiController : ControllerBase
+    {
+        
+    }
+}
+-> UsersController kế thừa BaseApiController , có thể bỏ code thừa
+namespace API.Controllers
+{
+    public class UsersController : BaseApiController
+    {
+ 
+
+37. Tạo DTO
+- trong thư mục API, tạo thư mục DTOs -> tạo file RegisterDto.cs với 2 biến Username, Password
+
+using System.ComponentModel.DataAnnotations;
+
+namespace API.DTOs
+{
+    public class RegisterDto
+    {
+        [Required]
+        public string Username { get; set; }
+
+        [Required]
+        [StringLength(8, MinimumLength = 4)]
+        public string Password { get; set; }
+    }
+}
+
+[Required] -> dùng để check tự động, ví dụ nấu người dùng nhập username là khoảng trắng thì sẽ tự trả về link báo thuộc tính được yêu cầu
+
+39. tạo code Login
+ - trong <DTOs> -> create class : LoginDto.cs 
+ namespace API.DTOs
+{
+    public class LoginDto
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
+}
+
+- trong <DTOs> -> create class : UserDto.cs
+namespace API.DTOs
+{
+    public class UserDto
+    {
+        public string Username { get; set; }
+        public string Token { get; set; }
+    }
+}
+
+
+40. Taken 
++ Token-based authentication là phương thức xác thực bằng chuỗi má hóa. Một hệ thống sử dụng Token-based authentication cho phép người dùng nhập user/password để nhận về 1 chuỗi token. Chuỗi Token này được sử dụng để “xác minh” quyền truy cập vào tài nguyên mà không cần phải cung cấp lại username/password nữa.
++ JSON Web Token là một chuỗi mã hóa mà nguồn gốc ban đầu là một chuỗi JSON. Chuỗi thông tin dạng JSON bằng phương pháp mã hóa nào đó, nó trở thành 1 chuỗi ký tự lộn xộn nhìn vào sẽ rất khó hiểu.
+
+- Trong <API> tạo thư mục Interfaces -> tạo file ITokenService.cs
+using API.Entities;
+
+namespace API.Interfaces
+{
+    public interface ITokenService
+    {
+        string CreateToken(AppUser user);
+    }
+}
+
+- trong Nuget Gallary -> caì System.IdentityModel.Tokens.Jwt vào API.csproj (6.7.1)
+- Trong <API> tạo thư mục Services -> tạo file TokenService.cs, lấy code [code12]
+
+
+- trong appSetting.Development.json : "TokenKey": "super secret unguessable key",
+
+- vào trang jwt.io, encoded
+
+
+44. add authentication
+
+- Trong <Controller>, tạo file AccountController.cs , lấy code [code11] trong Code_demo.cpp
+
+- trong UserController.cs thêm [AllowAnonymous] dưới [HttpGet] và [Authorize] trên [HttpGet("{id}")]
+[AllowAnonymous] -> có thể lấy dữ liệu mà không cần Jwt
+[Authorize] -> cần có Jwt thì mới có thể lấy dữ 
+
+-  trong NugetGallery install Microsoft.AspNetCore.Authentication.JwtBearer vào API.csproj
+
+
+- edit code Startup.cs
+. thêm app.UseAuthentication(); vào Configure (phải thêm trước app.UseAuthorization() điều này quan trọng vì phải xác thực xong thì mới có thể uỷ )
+. thêm 
+services.AddApplicationServices(_config);
+services.AddIdentityServices(_config);
+ vào ConfigureServices function, 2 hàm này được định nghĩa bằng cách trong <API> tạo thư mục <Extensions> có 2 class ApplicationServiceExtensions.cs và IdentityServiceExtensions.cs . Nếu không chúng ta có thể viết trưc tiếp trong  ConfigureServices như sau:
+ public void ConfigureServices(IServiceCollection services)
+        {
+            //services.AddApplicationServices(_config);
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
+            });
+            services.AddControllers();
+            services.AddCors();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => 
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["TokenKey"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                    };
+                });
+            //services.AddIdentityServices(_config);
+        }
+
+- bỏ code swagger trong Startup.cs
+-> dùng postman test
+#################### <5>
+48. Tạo nar bar
+- cd client/src/app
+ run : ng g -h -> show help 
+- run cmd : ng g c nav --skip-tests -> tạo nar folder
+- vào file nav.component.html để chỉnh code hiển thị navbar trên trang web
+Vào https://getbootstrap.com/docs/5.0/examples/carousel/# -> inspect trang đó để copy thẻ nav rồi past vào file component, chỉnh giá trị hiển thị trong nav-bar cho phù hợp app.
+
+VD: 
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">My Team</a>
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Members</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+- trong file app.component.html, bỏ thẻ <h1>, thay bằng <app-nav></app-nav>. Dùng thẻ <app-nav> là do trong file nav-component.ts, biến selector giá trị là app-nav
+
+70. add new theme -> đổi màu nav-bar
+
+ trong "client" folder -> run cmd : npm install bootswatch -> install bootswatch, https://bootswatch.com/united/
+
+ thêm thủ trong client/angular.json, styles của prefix app
+              "./node_modules/bootswatch/dist/united/bootstrap.css",
+
+102.
+- trong environment.ts, add apiUrl, update code  baseUrl cho AccountService
+export const environment = {
+  production: false,
+  apiUrl: 'https://localhost:5001/api/'
+};
+
+- trong environment.prod.ts 
+export const environment = {
+  production: true,
+  apiUrl: 'api/'
+};
+
+50. Add service angular
+- trong <app>, tạo thư mục _models -> tạo file user.ts
+export interface User {
+    username: string;
+    token: string;
+}
+
+- tạo thư mục _services trong app
+- vào _services, run cmd: ng g s account --skip-tests -> create service file
+- edit code trong file account.service.ts
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
+import { User } from '../_models/user';
+import {map} from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+
+export class AccountService {
+  baseUrl = environment.apiUrl;
+  private currentUserSource = new ReplaySubject<User>(1);
+  currentUser$ = this.currentUserSource.asObservable();
+
+  constructor(private http: HttpClient) { }
+
+  login(model: any) {
+    return this.http.post(this.baseUrl + 'account/login', model).pipe(
+      map((response: User) => {
+        const user = response;
+        if (user) {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.currentUserSource.next(user);
+        }
+      })
+    )
+  }
+
+  setCurrentUser(user: User) {
+    this.currentUserSource.next(user);
+  }
+
+- vào nav.component.ts edit code 
+export class NavComponent implements OnInit {
+  model: any = {}
+  constructor(public accountService: AccountService) { }
+
+  ngOnInit(): void {
+  }
+
+  login() {
+    this.accountService.login(this.model).subscribe(response => {
+      console.log(response);
+    }, error => {
+      console.log(error);
+    });
+  }
+}
+
+49. trong app.module.ts, import FormModule
+import { FormsModule } from '@angular/forms';
+add FormsModule vào imports:{}
+- trong nav.component.html, add sau thẻ ul
+ <form *ngIf="(accountService.currentUser$ | async) === null" #loginForm="ngForm" class="form-inline mt-2 mt-md-0" (ngSubmit)="login()" 
+    autocomplete="off">
+    <input 
+        name="username"
+        [(ngModel)]="model.username"
+        class="form-control mr-sm-2" 
+        type="text" 
+        placeholder="Username">
+    <input 
+        name="password"
+        [(ngModel)]="model.password"
+        class="form-control mr-sm-2" 
+        type="password" 
+        placeholder="Password">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+</form>
+
+Chrome -> inspect > Console -> login thử, nếu báo lỗi Arthor... thì trong file Startup.cs thêm line code  app.UseAuthentication(); trong hàm Configure
+
+53. vao https://valor-software.com/ngx-bootstrap/dropdowns để cài dropdown 
+- trong app.module.ts import BsDropdownModule
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown'; 
+BsDropdownModule.forRoot()
+
+- trong nav.component.html , thêm code sau thẻ ul
+ <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
+    <a class="dropdown-toggle text-light" dropdownToggle>Welcome user</a>
+    <div class="dropdown-menu mt-3" *dropdownMenu>
+        <a class="dropdown-item">Edit Profile</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" (click)="logout()" >Logout</a>
+    </div>
+</div>
+
+- trong account.service.ts add code
+ logout() {
+    localStorage.removeItem('user');
+    this.currentUserSource.next(null);
+  }
+
+ - trong nav.component.ts add
+ logout() {
+    this.accountService.logout();
+  }
+
+
+
+57. tạo trang Home
+- trong client/src/app, run cmd : ng g c home --skip-tests -> tạo thư mục home và những file cần cho component chưa trong thư mục home
+- edit như code mẫu
+- trong app.component.html, add vào sau <app-nav></app-nav> đoạn 
+<div class="container" style="margin-top: 100px">
+    <app-home></app-home>
+</div>
+
+############################## <6> routing angular
+64. tạo member, thao tác trong client
+- trong thư muc app : mkdir members -> cd members
+- trong members :
+. ng g c member-list --skip-tests
+. ng g c member-detail --skip-tests
+- trong thu muc app
+ng g c lists --skip-tests
+ng g c messages --skip-tests
+
+- trong app-routing.module.ts, edit code biến routers để tạo routing
+import { HomeComponent } from './home/home.component';
+import { MemberListComponent } from './members/member-list/member-list.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { ListsComponent } from './lists/lists.component';
+import { MessagesComponent } from './messages/messages.component';
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'members', component: MemberListComponent },
+  { path: 'members/:id', component: MemberDetailComponent },
+  { path: 'lists', component: ListsComponent },
+  { path: 'messages', component: MessagesComponent },
+];
+- trong app.components.html -> add : <router-outlet></router-outlet>
+- test thử link http://localhost:4200/lists -> nếu go đến trang lists là ok
+
+66. routing to page
+- trong nav.component.html, edit 
+<li class="nav-item">
+    <a class="nav-link" routerLink='/lists' routerLinkActive='active'>List</a>
+</li>
+Như vậy khi nhấn vào button trên nav-bar sẽ move đến page list
+
+- trong nav.component.ts cũng edit code
+constructor(private accountService : AccountService,
+              private router:Router) { }
+add line : this.router.navigateByUrl('/members'); ->  trong hàm login
+this.router.navigateByUrl('/'); -> trong logout
+-> như vậy move to page khi login
+
+67. show notifications
+- trong "client" folder -> run cmd : npm install ngx-toastr -> install toastr
+
+ thêm thủ trong client/angular.json, styles của prefix app
+              "./node_modules/ngx-toastr/toastr.css",
+- trong app.module.ts, import ToastrModule
+import {ToastrModule} from 'ngx-toastr';
+ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right'
+    })
+- trong nav.component.ts add code 
+constructor(private accountService : AccountService,
+              private router:Router,
+              private toastr: ToastrService) { }
+
+add line code : this.toastr.info("Login Ok"); -> function login
+
+68. guard angular
+- mkdir _guards : in app folder -> cd _guards
+- ng g guard auth --skip-tests -> select CanActive -> enter
+- edit code in auth.guard.ts
+ 
+ import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AccountService } from '../_services/account.service';
+import { ToastrService } from 'ngx-toastr';
+import { map } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard implements CanActivate {
+  constructor(private accountService: AccountService, private toastr: ToastrService) {}
+
+  canActivate(): Observable<boolean> {
+    return this.accountService.currentUser$.pipe(
+      map(user => {
+        if (user) return true;
+        this.toastr.error('You shall not pass!');
+        return false;
+      })
+    )
+  }
+  
+}
+
+
+- add canActive trong app-routing.module.ts
+{ path: 'members', component: MemberListComponent, canActivate: [AuthGuard] },
+
+- edit code trong nav.component.html
+ <a class="navbar-brand" routerLink='/' routerLinkActive='active'>My Team</a>
+<ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" routerLink='/members' routerLinkActive='active'>Members</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink='/messages' routerLinkActive='active'>Message</a>
+            </li>
+            <!--<li class="nav-item">
+                <a class="nav-link" routerLink='/lists' routerLinkActive='active'>List</a>
+            </li>     -->
+        </ul>
+-> sau khi logout, không thể truy cập trang Message và hiện báo lổi 
+
+############################# <8> extend API
+85. trong thư mục API/Entities
+- tạo class Photo.cs 
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace API.Entities
+{
+    [Table("Photos")]
+    public class Photo
+    {
+        public int Id { get; set; }
+        public string Url { get; set; }
+        public bool IsMain { get; set; }
+        public string PublicId { get; set; }
+        public AppUser AppUser { get; set; }
+        public int AppUserId { get; set; }
+    }
+}
+
+- add thêm cho  code AppUser.cs
+		public DateTime DateOfBirth { get; set; }
+        public string KnownAs { get; set; }
+        public DateTime Created { get; set; } = DateTime.Now;
+        public DateTime LastActive { get; set; } = DateTime.Now;
+        public string Gender { get; set; }
+        public string Introduction { get; set; }
+        public string LookingFor { get; set; }
+        public string Interests { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public ICollection<Photo> Photos { get; set; }
+
+
+86. trong thu muc API
+- tao thư muc Extensions ->  tạo class DateTimeExtensions.cs
+using System;
+
+namespace API.Extensions
+{
+    public static class DateTimeExtensions
+    {
+        public static int CalculateAge(this DateTime dob)
+        {
+            var today = DateTime.Today;
+            var age = today.Year - dob.Year;
+            if (dob.Date > today.AddYears(-age)) age--;
+            return age;
+        }
+    }
+}
+
+- trong API -> run : dotnet ef migrations add ExtendedUserEntity
+
+- // dotnet ef migrations remove
+
+- dotnet ef database update
+
+88. 
+- https://www.json-generator.com/ -> generate json file 
+- tốt nhất là lấy file mẫu : UserSeedData.json
+- trong thư muc API/Data -> create file UserSeedData.json
+- trong thư muc API/Data -> create Seed.cs, 
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+using API.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace API.Data
+{
+    public class Seed
+    {
+        public static async Task SeedUsers(DataContext context)
+        {
+            if (await context.Users.AnyAsync()) return;
+
+            var userData = await System.IO.File.ReadAllTextAsync("Data/UserSeedData.json");
+            var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
+            if (users == null) return;
+            foreach (var user in users)
+            {
+                using var hmac = new HMACSHA512();
+
+                user.UserName = user.UserName.ToLower();
+                user.PasswordSalt = hmac.Key;
+                user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
+
+                await context.Users.AddAsync(user);
+            }
+
+            await context.SaveChangesAsync();
+        }
+    }
+}
+
+- trong Program.cs edit code hàm Main
+public static async Task Main(string[] args)
+        {
+            var host = CreateHostBuilder(args).Build();
+            using var scope = host.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            try 
+            {
+                var context = services.GetRequiredService<DataContext>();
+                await context.Database.MigrateAsync();
+                await Seed.SeedUsers(context);
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred during migration");
+            }
+
+            await host.RunAsync();
+        }
+
+- trong <API> -> dotnet ef database drop -> để xoá dữ liệu cũ đi, 
+- dotnet watch run -> để table sinh ra dữ liệu mới từ file json
+* nếu việc update table các thuộc tính mới như không ý muốn, thì hãy xoá file .db và thư mục Migrations, sau đó tạo lại Migrations
+
+-> như vậy class Seed dùng để generate data mẫu từ file json khi trong lần run app đầu tiên table trong db ko có dữ liệu.
+- dung postman de test -> sesion 8
+
+
+93. trong <DTOs>
+- add class MemberDto.cs 
+using System;
+using System.Collections.Generic;
+
+namespace API.DTOs
+{
+    public class MemberDto
+    {
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string PhotoUrl { get; set; }
+        public int Age { get; set; }
+        public string KnownAs { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime LastActive { get; set; }
+        public string Gender { get; set; }
+        public string Introduction { get; set; }
+        public string LookingFor { get; set; }
+        public string Interests { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public ICollection<PhotoDto> Photos { get; set; }
+    }
+}
+
+- add class PhotoDto.cs 
+namespace API.DTOs
+{
+    public class PhotoDto
+    {
+        public int Id { get; set; }
+        public string Url { get; set; }
+        public bool IsMain { get; set; }
+    }
+}
+
+- add class MemberUpdateDto.cs 
+namespace API.DTOs
+{
+    public class MemberUpdateDto
+    {
+        public string Introduction { get; set; }
+        public string LookingFor { get; set; }
+        public string Interests { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+    }
+}
+
+90. repository
+- trong thư mục API/Interfaces -> create class IUserRepository.cs 
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using API.DTOs;
+using API.Entities;
+
+namespace API.Interfaces
+{
+    public interface IUserRepository
+    {
+        void Update(AppUser user);
+        Task<bool> SaveAllAsync();
+        Task<IEnumerable<AppUser>> GetUsersAsync();
+        Task<AppUser> GetUserByIdAsync(int id);
+        Task<AppUser> GetUserByUsernameAsync(string username);
+        Task<IEnumerable<MemberDto>> GetMembersAsync();
+        Task<MemberDto> GetMemberAsync(string username);
+    }
+}
+
+- trong Nuget Gallery -> install AutoMapper.Extensions.Microsoft.DependencyInjection vào API.csproj
+
+- trong thư mục API/Data -> create class UserRepository.cs -> lấy code mẫu [code1] trong Code_demo.cpp
+- edit UsersController.cs -> lấy code mẫu [code2] trong Code_demo.cpp
+
+
+
+94. Auto mapper
+- trong thư muc API -> create <Helpers> folder
+- trong <Helpers> -> create class AutoMapperProfiles.cs 
+
+using System.Linq;
+using API.DTOs;
+using API.Entities;
+using API.Extensions;
+using AutoMapper;
+
+namespace API.Helpers
+{
+    public class AutoMapperProfiles : Profile
+    {
+        public AutoMapperProfiles()
+        {
+            CreateMap<AppUser, MemberDto>()
+                .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => 
+                    src.Photos.FirstOrDefault(x => x.IsMain).Url))
+                .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
+            CreateMap<Photo, PhotoDto>();
+            CreateMap<MemberUpdateDto, AppUser>();
+        }
+    }
+}
+
+- trong Startup.cs, thêm 2 line code vào hàm ConfigureServices
+services.AddScoped<IUserRepository, UserRepository>();
+services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+
+
+- dung postman de test -> sesion 8 -> khi lấy đủ thông tin ko có cái nào null là ok 
+
+
+############################# <9> build the user interface
+101.
+- trong _models -> tạo member.ts  (có thể vào trang jsontots.com để convert từ kết quả test trên postman ra file ts)
+import { Photo } from '../_models/photo';
+
+export interface Member {
+    id: number;
+    username: string;
+    photoUrl: string;
+    age: number;
+    knownAs: string;
+    created: Date;
+    lastActive: Date;
+    gender: string;
+    introduction: string;
+    lookingFor: string;
+    interests: string;
+    city: string;
+    country: string;
+    photos: Photo[];
+  }
+
+- trong _models ->  photo.ts
+export interface Photo {
+    id: number;
+    url: string;
+    isMain: boolean;
+}
+
+
+- trong thư mục <_services> -> ng g s members --skip-tests
+- trong file members.service.ts
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Member } from '../_models/member';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MembersService {
+  baseUrl = environment.apiUrl;
+  members: Member[] = [];
+
+  constructor(private http: HttpClient) { }
+
+  getMembers() {
+    if (this.members.length > 0) return of(this.members);
+    return this.http.get<Member[]>(this.baseUrl + 'users').pipe(
+      map(members => {
+        this.members = members;
+        return members;
+      })
+    )
+  }
+
+  getMember(username: string) {
+    const member = this.members.find(x => x.username === username);
+    if (member !== undefined) return of(member);
+    return this.http.get<Member>(this.baseUrl + 'users/' + username);
+  }
+
+  updateMember(member: Member) {
+    return this.http.put(this.baseUrl + 'users', member).pipe(
+      map(() => {
+        const index = this.members.indexOf(member);
+        this.members[index] = member;
+      })
+    )
+  }
+}
+
+
+104. Creating member cards
+- trong <members> -> ng g c member-card --skip-tests
+member-card.component.css -> lay [code3]
+member-card.component.html -> lay [code4]
+member-card.component.ts - > lay [code5]
+
+- edit code in member-list.component.html 
+<div class="row">
+    <div *ngFor="let member of members$ | async" class="col-2">
+        <app-member-card [member]="member"></app-member-card>
+    </div>
+</div>
+
+- edit code in member-list.component.ts
+export class MemberListComponent implements OnInit {
+  members$: Observable<Member[]>;
+
+  constructor(private memberService: MembersService) { }
+
+  ngOnInit(): void {
+    this.members$ = this.memberService.getMembers();
+  }
+
+}
+
+
+107. 
+- trong <app> -> create <_interceptors> -> cd _interceptors ->  ng g interceptor jwt --skip-tests
+- edit code trong  jwt.interceptor.ts
+
+import { Injectable } from '@angular/core';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AccountService } from '../_services/account.service';
+import { User } from '../_models/user';
+import { take } from 'rxjs/operators';
+
+@Injectable()
+export class JwtInterceptor implements HttpInterceptor {
+
+  constructor(private accountService: AccountService) {}
+
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    let currentUser: User;
+
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => currentUser = user);
+    if (currentUser) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${currentUser.token}`
+        }
+      })
+    }
+
+    return next.handle(request);
+  }
+}
+
+- trong app.module.ts thêm code :
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+  ],
+
+-> có thể  chạy ng serve để test xem sau khi đăng nhập có hiện list trong trang Member ko
+
+108. routing to detail page
+
+- edit code trong app-routing.module.ts : 'members/:id' -> 'members/:username'
+{ path: 'members/:username', component: MemberDetailComponent },
+
+111. 
+- vào trang https://www.npmjs.com/package/ngx-spinner lấy cmd dùng để add photo gallery
+- google search "ngx gallery"
+- trong thư mục <client> -> npm install @kolkov/ngx-gallery
+khi đó cần import  NgxGalleryModule vào app.module.ts
+import {NgxGalleryModule} from '@kolkov/ngx-gallery';
+imports: [
+NgxGalleryModule
+]
+
+- trong thư muc asset, add 1 file user.jpg
+
+- trong member-detail.component.css
+.img-thumbnail {
+    margin: 25px;
+    width: 85%;
+    height: 85%;
+}
+
+.card-body {
+    padding: 0 25px;
+}
+
+.card-footer {
+    padding: 10px 15px;
+    background-color: #fff;
+    border-top: none;
+}
+
+- trong member-detail.component.html, get [code6]
+- trong member-detail.component.ts, get [code7]
+
+- trong app.module.ts -> import TabsModule
+import { TabsModule } from 'ngx-bootstrap/tabs';
+imports: [
+TabsModule.forRoot(),
+]
+
+- trong styles.css , get [code8] -> dùng để định dạng  hiển thị các thông tin detail
+
+-> run test
+
+120. add loading
+
+- <client> -> ng add ngx-spinner -> bị lỗi, <client> : npm install @angular/cdk -> cài spinner lần nữa
+Nếu vẫn không được thì dùng npm install ngx-spinner --save , khi đó cần import  NgxSpinnerModule vào app.module.ts
+import { NgxSpinnerModule } from 'ngx-spinner';
+imports: [
+NgxSpinnerModule
+]
+
+- <_services> : ng g s busy --skip-tests
+
+import { Injectable } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class BusyService {
+  busyRequestCount = 0;
+
+  constructor(private spinnerService: NgxSpinnerService) { }
+
+  busy() {
+    this.busyRequestCount++;
+    this.spinnerService.show(undefined, {
+      type: 'line-scale-party',
+      bdColor: 'rgba(255,255,255,0)',
+      color: '#333333'
+    });
+  }
+
+  idle() {
+    this.busyRequestCount--;
+    if (this.busyRequestCount <= 0) {
+      this.busyRequestCount = 0;
+      this.spinnerService.hide();
+    }
+  }
+}
+
+
+- <_interceptors> : ng g interceptor loading --skip-tests
+
+import { Injectable } from '@angular/core';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { BusyService } from '../_services/busy.service';
+import { delay, finalize } from 'rxjs/operators';
+
+@Injectable()
+export class LoadingInterceptor implements HttpInterceptor {
+
+  constructor(private busyService: BusyService) {}
+
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    this.busyService.busy();
+    return next.handle(request).pipe(
+      delay(1000),
+      finalize(() => {
+        this.busyService.idle();
+      })
+    )
+  }
+}
+
+- trong app.module.ts -> import LoadingInterceptor
+import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+ providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
+  ],
+
+- trong file app.component.html add code truoc the <app-nav>
+<ngx-spinner>
+    <h3>Loading...</h3>
+</ngx-spinner>
+
+-> run test
+
+####################<10> store info
+114.
+
+- trong <members> -> ng g c member-edit --skip-tests
+- trong app-routing.module.ts thêm code
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+{ path: 'member/edit', component: MemberEditComponent },
+
+- trong file nav.component.html, edit code dropdown
+
+ <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
+            <a class="dropdown-toggle text-light" dropdownToggle>Welcome {{user.username | titlecase}}</a>
+            <div class="dropdown-menu mt-3" *dropdownMenu>
+                <a routerLink='/member/edit' class="dropdown-item">Edit Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" (click)="logout()" >Logout</a>
+            </div>
+        </div>
+
+- member-card.edit.css -> add code
+.img-thumbnail {
+    margin: 25px;
+    width: 85%;
+    height: 85%;
+}
+
+.card-body {
+    padding: 0 25px;
+}
+
+.card-footer {
+    padding: 10px 15px;
+    background-color: #fff;
+    border-top: none;
+}
+
+- member-card.edit.html -> lấy trong [code9] của file Code_demo
+- member-card.edit.ts - > lay [code10]
+
+-> run test
+
+- edit GUI
+
+########################################## ##############
+########################################## <11> 
+124. đăng ký account
+- trong thư mục API : phải có file appsettings.json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "CloudinarySettings":{
+    "CloudName":"dfwjv4kyr",
+    "ApiKey":"816592383882826",
+    "ApiSecret":"nCxrqI6tsrYW0WgYcZxNYHoNqDA"
+  },
+  "AllowedHosts": "*"
+}
+
+
+131. uploader
+- https://valor-software.com/ng2-file-upload/
+- trong <client> : npm install ng2-file-upload --save
+- trong app.module.ts :
+import {FileUploadModule} from 'ng2-file-upload';
+imports: [
+    FileUploadModule,
+  ],
+
+
+- npm install tslib -> có thể cài, ko biết cài ở bước nào
+- npm install ngx-timeago --save -> có thể cài, ko biết cài ở bước nào
+
+
+#### ví dụ về pagination
+https://www.javacodegeeks.com/2019/04/angular-pagination-example.html#projectDownload
+
+https://www.npmjs.com/package/ngx-pagination
+
+#### sort array
+sortToLow_Id() {
+    this.employeedata = this.employees.sort((a, b) => a.id - b.id);
+  }
+
+  sortToUp_Id() {
+    this.employeedata = this.employees.sort((a, b) => b.id - a.id);
+  }
+
+  sortToUp_Name() {
+    this.employeedata = this.employees.sort(function (a, b) {
+      var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+  sortToLow_Name() {
+    this.employeedata = this.employees.sort(function (a, b) {
+      var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+      // must be equal
+      return 0;
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

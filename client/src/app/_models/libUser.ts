@@ -10,6 +10,6 @@ export interface LibUser {
     idcard: string;
     phone: string;
     address: string;
-    chargefile: string;
+    chargefile: number;
     roles: string[];
 }

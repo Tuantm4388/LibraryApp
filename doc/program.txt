@@ -1,0 +1,29 @@
+|titlecase
+
+|date:'dd/MM/yyyy'
+
+justify-content-center
+
+private router: Router
+this.router.navigateByUrl('/edituser/'+user.username);
+
+isSearchCompare(_strParent: string, _strChild: string) {
+    let strParent: string = _strParent.toLowerCase();
+    let strChild: string = _strChild.toLowerCase();
+
+    let a = strParent.indexOf(strChild);
+
+    if (a == -1) {
+      //this.parent = strParent;
+      //this.child = strChild;
+    } else {
+      this.resuft = a;
+      this.parent = strParent;
+      this.child = strChild;
+    }
+    if (a > -1) return true;
+    return false;
+  }
+
+
+  let resulf = this.employees.filter(a => this.isSearchCompare(a.name, this.keySearch));
