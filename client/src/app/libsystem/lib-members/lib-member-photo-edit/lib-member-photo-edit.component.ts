@@ -73,6 +73,7 @@ export class LibMemberPhotoEditComponent implements OnInit {
       if (response) {
         const photo: Photo = JSON.parse(response);
         this.member.photos.push(photo);
+        this.isDisable =false;
         if (photo.isMain) {
           this.user.photoUrl = photo.url;
           this.member.photoUrl = photo.url;
@@ -93,6 +94,13 @@ export class LibMemberPhotoEditComponent implements OnInit {
       this.toastr.success('Profile updated successfully');
       //this.editForm.reset(this.member);
     })
+  }
+
+  isDisable:boolean=false;
+
+  beginUpload(){
+    this.isDisable = true;
+    this.uploader.uploadAll();
   }
 
 }

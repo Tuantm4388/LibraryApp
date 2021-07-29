@@ -67,7 +67,7 @@
                 </div>
             </div>
             <button type="button" class="btn btn-success btn-s"
-                    (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+            (click)="beginUpload()" [disabled]="!uploader.getNotUploadedItems().length">
                 <span class="fa fa-upload"></span> Upload all
             </button>
             <button type="button" class="btn btn-warning btn-s"
@@ -79,7 +79,9 @@
                 <span class="fa fa-trash"></span> Remove all
             </button>
         </div>
-
+        <div *ngIf="isDisable">
+            <h1 style="color: red;">Please wait!</h1>
+        </div>
     </div>
 
 </div>
